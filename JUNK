@@ -1,0 +1,220 @@
+SPAG - Version 2.25
+Copyright (C) Polyhedron Software (1987,1988) - All rights reserved
+
+This demonstration version of SPAG limits sub-programs
+to 80 statements (excluding comments and continuation lines)
+
+-----------------------------------------------------------------------
+Reading
+*** Warning 32 Severity 2 - Unexpected end of file                            
+***            detected at line    2 of DBCHAN.INC
+
+     COMMON /dbchan/ icmast , icwork , icdcfa , icdcdt , idesfa(12) , 
+    &                idesdt(12)
+Errors - no restructuring attempted
+Writing AA0001
+-----------------------------------------------------------------------
+Reading
+*** Warning 32 Severity 2 - Unexpected end of file                            
+***            detected at line    2 of DNAMES.INC
+
+     COMMON /dnames/ mast(25) , iwork(25) , idirc(8) , jnames(3,12) , 
+    &                lendir
+Errors - no restructuring attempted
+Writing AA0002
+-----------------------------------------------------------------------
+Reading
+*** Warning 32 Severity 2 - Unexpected end of file                            
+***            detected at line  127 of GLOBAL.INC
+
+     INTEGER idummy
+Errors - no restructuring attempted
+Writing AA0003
+-----------------------------------------------------------------------
+Reading
+*** Warning 32 Severity 2 - Unexpected end of file                            
+***            detected at line    1 of GWIND.INC
+
+     COMMON /gwindo/ band(3,50)
+Errors - no restructuring attempted
+Writing AA0004
+-----------------------------------------------------------------------
+Reading
+*** Warning 32 Severity 2 - Unexpected end of file                            
+***            detected at line    1 of IO.INC
+
+     COMMON /io    / nprnt , ioin
+Errors - no restructuring attempted
+Writing AA0005
+-----------------------------------------------------------------------
+Reading
+*** Warning 32 Severity 2 - Unexpected end of file                            
+***            detected at line    2 of MAPNAME.INC
+
+     COMMON /mapname/ name(25)
+Errors - no restructuring attempted
+Writing AA0006
+-----------------------------------------------------------------------
+Reading
+*** Warning 32 Severity 2 - Unexpected end of file                            
+***            detected at line    1 of MFAST.INC
+
+     COMMON /mfast / ifbuff(256) , incore , iwtrn , ifchan
+Errors - no restructuring attempted
+Writing AA0007
+-----------------------------------------------------------------------
+Reading
+*** Warning 32 Severity 2 - Unexpected end of file                            
+***            detected at line    1 of MYST.INC
+
+     COMMON /myst  / nest , c0 , c(5) , avalu(5) , angle(5) , afh(5) , 
+    &                sill , itype(5) , slope(5) , aisi(5) , bisi(5) , 
+    &                cisi(5) , nt , ex(10) , ey(10) , coef(10) , 
+    &                yn(5000) , xe(5000) , gd(5000) , ipt , iout , 
+    &                ipr , nhol , maxh , ivib(2,99) , ilist
+Errors - no restructuring attempted
+Writing AA0008
+-----------------------------------------------------------------------
+Reading
+*** Warning 32 Severity 2 - Unexpected end of file                            
+***            detected at line    1 of PARAMS.INC
+
+     PARAMETER (namelen=10)
+Errors - no restructuring attempted
+Writing AA0009
+-----------------------------------------------------------------------
+Reading
+*** Warning 32 Severity 2 - Unexpected end of file                            
+***            detected at line    1 of PQPNTS.INC
+
+     COMMON /pqpnts/ p(5000) , q(5000)
+Errors - no restructuring attempted
+Writing AA0010
+-----------------------------------------------------------------------
+Reading
+*** Warning 32 Severity 2 - Unexpected end of file                            
+***            detected at line    1 of RESTRT.INC
+
+     COMMON /restrt/ irestl
+Errors - no restructuring attempted
+Writing AA0011
+-----------------------------------------------------------------------
+Reading
+*** Warning 32 Severity 2 - Unexpected end of file                            
+***            detected at line    1 of RSPNTS.INC
+
+     COMMON /rspnts/ r(5000) , s(5000)
+Errors - no restructuring attempted
+Writing AA0012
+-----------------------------------------------------------------------
+Reading
+     
+*** Error    5 Severity 4 - Illegal characters in columns 1-5                 
+***            detected at line   13 of SPAWN.INC
+*** Error    5 Severity 4 - Illegal characters in columns 1-5                 
+***            detected at line   13 of SPAWN.INC
+*** Error    5 Severity 4 - Illegal characters in columns 1-5                 
+***            detected at line   13 of SPAWN.INC
+*** Error    5 Severity 4 - Illegal characters in columns 1-5                 
+***            detected at line   13 of SPAWN.INC
+*** Error    5 Severity 4 - Illegal characters in columns 1-5                 
+***            detected at line   13 of SPAWN.INC
+*** Error    7 Severity 4 - Initial line is a continuation                    
+***            detected at line   13 of SPAWN.INC
+*** Error    6 Severity 4 - Non-blank label on continuation line              
+***            detected at line   13 of SPAWN.INC
+*** Error    6 Severity 4 - Non-blank label on continuation line              
+***            detected at line   13 of SPAWN.INC
+
+*** Warning 32 Severity 2 - Unexpected end of file                            
+***            detected at line   13 of SPAWN.INC
+
+     
+Serious errors - no output for this sub-program
+-----------------------------------------------------------------------
+Reading
+     SUBROUTINE spoints(w,array,value,sube,mode)
+Re-structuring
+Writing SPOINTS
+-----------------------------------------------------------------------
+Reading
+*** Warning 32 Severity 2 - Unexpected end of file                            
+***            detected at line    1 of STRNG.INC
+
+     COMMON /strng / icard(80) , icardp , lenicd
+Errors - no restructuring attempted
+Writing AA0013
+-----------------------------------------------------------------------
+Reading
+*** Warning 32 Severity 2 - Unexpected end of file                            
+***            detected at line    1 of TYPE.INC
+
+     COMMON /type  / idatyp(40) , nacts
+Errors - no restructuring attempted
+Writing AA0014
+-----------------------------------------------------------------------
+Reading
+*** Warning 32 Severity 2 - Unexpected end of file                            
+***            detected at line    1 of VWND.INC
+
+     COMMON /vwnd  / xorgin , yorgin , xalen , yalen , xstart , 
+    &                ystart , xlen , ylen , ibw
+Errors - no restructuring attempted
+Writing AA0015
+-----------------------------------------------------------------------
+Reading
+*** Warning 32 Severity 2 - Unexpected end of file                            
+***            detected at line    2 of WHMAP.INC
+
+     COMMON /whmap / istrct(300) , nstrct
+Errors - no restructuring attempted
+Writing AA0016
+-----------------------------------------------------------------------
+Reading
+*** Warning 32 Severity 2 - Unexpected end of file                            
+***            detected at line    2 of WORK.INC
+
+     COMMON /work  / ibuff(128) , map(25) , icom(10) , jcom(10)
+Errors - no restructuring attempted
+Writing AA0017
+-----------------------------------------------------------------------
+Reading
+*** Warning 32 Severity 2 - Unexpected end of file                            
+***            detected at line    1 of XRXR.INC
+
+     COMMON /xrxr  / xr(5000)
+Errors - no restructuring attempted
+Writing AA0018
+-----------------------------------------------------------------------
+Reading
+*** Warning 32 Severity 2 - Unexpected end of file                            
+***            detected at line    1 of XYPNTS.INC
+
+     COMMON /xypnts/ x(5000) , y(5000)
+Errors - no restructuring attempted
+Writing AA0019
+-----------------------------------------------------------------------
+Reading
+*** Warning 32 Severity 2 - Unexpected end of file                            
+***            detected at line    1 of XYXY.INC
+
+     COMMON /xyxy  / xy1(5000) , xy2(5000)
+Errors - no restructuring attempted
+Writing AA0020
+-----------------------------------------------------------------------
+Reading
+*** Warning 32 Severity 2 - Unexpected end of file                            
+***            detected at line    1 of YRYR.INC
+
+     COMMON /yryr  / yr(5000)
+Errors - no restructuring attempted
+Writing AA0021
+
+End of input after          22 sub-programs
+
+          1 were re-structured
+         22 were re-labelled
+         22 were pretty-printed
+
+Stop - Program terminated.
+
