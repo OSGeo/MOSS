@@ -1,0 +1,142 @@
+      SUBROUTINE SELFEA (KCHAN,IBUFF,NHITS,IDESC,ICARD,ICARDP,LINES,IER)
+C
+C * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+C
+C
+C           S U B R O U T I N E    S E L F E A
+C
+C  FUNCTION:  THIS ROUTINE ALLOWS THE USER TO SPECIFY
+C             THE NAME OF A FILE CONTAINING VECTOR MAP FEATURE NUMBERS TO
+C             SELECT.  THE FILE IS AN ASCII FILE THAT DOES NOT HAVE TO BE
+C             IN SORTED ORDER.  THE LAST WORD IN THE FILE MUST BE 'STOP'.
+C
+C  INPUT PARAMETERS:
+C
+C             KCHAN  = CHANNEL TO THE VECTOR MAP
+C             IBUFF  =  128 WORD WORK ARRAY
+C             NHITS  =  RETURNED TOTAL NUMBER OF HITS
+C             ICARD  =  80 CHARACTER  WORK SPACE
+C             ICARDP =  CHARACTER POINTER INTO ICARD
+C             LINES  =  CURSOR COUNTER
+C             IER    =  ERROR RETURN (1=NORMAL)
+C
+C * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+      COMMON /PNTFET/ NPOINT
+      COMMON /TYPE/   IDATYP(40),NACTS
+      COMMON /IO/     NPRNT,IOIN
+C      COMMON /RBX/    IRBGX,ICHX
+$Include:'xypnts.inc'
+      LOGICAL MCOMP
+      DIMENSION ICOM(25),IBUFF(128),ICARD(80)
+      DIMENSION MAPNAM(25),IDESC(30)
+C
+       NHITS = 0
+       KOUNT = 0
+       ICHAN7 = 31
+       LINES = 0
+       MAXFEA = IBUFF(63)
+       IF (MAXFEA .LT. 1) GO TO 999
+C
+C  FIRST, LETS SEE IF USER ENTER FEATURE NAMES  FILE
+C
+      CALL DECIP(ICARD,ICOM,ICARDP)
+      IF(ICOM(1).NE.0) GO TO 10
+C
+C  NOP.  PROMPT FOR ACTION
+C
+      WRITE(NPRNT,1000)
+ 1000 FORMAT(' ENTER NAME OF FILE CONTAINING FEATURE NUMBERS '\)
+      CALL READIN(ICARD,80,ICARDP,istop)
+      CALL DECIP(ICARD,ICOM,ICARDP)
+      LINES=LINES+2
+C
+C  USER INPUT COMPLETE.  LETS TRY TO OPEN FILE
+C
+  10  CONTINUE
+      CALL CLEAR(MAPNAM,25)
+      CALL PACKC(ICOM,MAPNAM,25)
+      CALL OPENF(ICHAN7,MAPNAM,1,2,0,IER)
+      IF(IER.NE.0) GO TO 900
+      call packc(icom,idesc,25)
+C
+C  INPUT FILES ARE OPEN.  LETS ENTER MAIN LOOP
+C
+      IOIN = ICHAN7
+ 100  CONTINUE
+      CALL READIN(ICARD,80,ICARDP,istop)
+      IF(MCOMP(ICARD,'STOP',4,IER)) GO TO 150
+C
+C  RETRIEVE FEATURE NUMBER & CHECK IF ITS'S IN RANGE
+C
+      CALL INUM(ICARD,ITEM,ICARDP)
+      IF (ITEM .LT. 1  .OR.  ITEM .GT. MAXFEA) GO TO 100
+      KOUNT = KOUNT + 1
+       call spoints('X ',x,(float(item)),kount,2)
+C                x(kount)=float(item)
+      GO TO 100
+C
+C  FEATURE NUMBERS ALL RETRIEVED
+C
+ 150  CONTINUE
+      IOIN = 5
+      CLOSE(ICHAN7,iostat=IER)
+      IF (KOUNT .LT. 1) GO TO 999
+C
+C  ELIMINATE DUPLICATES & SORT THE FEATURE NUMBERS WITH A SIMPLE BUBBLE SORT
+C
+        XSKIP = 9999999.0
+ 200    IFLAG=0
+        DO 240 K=2,KOUNT
+          call spoints('X ',x,xk,k,1)
+          call spoints('X ',x,xk1,k-1,1)
+         if(xk .eq. xk1) then
+          call spoints('X ',x,xskip,k,2)
+C                x(k)=xskip
+         endif
+        IF(XK.GE.XK1) GO TO 240
+          XX=XK
+          call spoints('X ',x,xk1,k,2)
+C                    x(k)=x(k-1)
+          call spoints('X ',x,xx,k-1,2)
+C                    x(k-1)=xx
+          IFLAG=1
+ 240    CONTINUE
+        IF(IFLAG.NE.0) GO TO 200
+C
+C  NOW GET ACTUAL RECORD NUMBERS
+C
+        INDEX=IBUFF(64)+IBUFF(65)+2
+        NN=1
+        DO 340 I=1,MAXFEA
+          CALL RDBLK(KCHAN,INDEX,IBUFF,1,IER)
+          call spoints('X ',x,xnn,nn,1)
+          IF (XNN .NE. IBUFF(5)) GO TO 320
+            CALL LINKUP(KCHAN,INDEX,1,IBUFF,1)
+            NN=NN+1
+            IF(NN.GT.KOUNT) GO TO 360
+ 320      INDEX=IBUFF(1)
+ 340    CONTINUE
+ 360    CONTINUE
+        NHITS = NN - 1
+C
+C  SEARCH COMPLETE.  CLOSE INPUT FILES AND RETURN
+C
+ 999  CONTINUE
+      RETURN
+C
+C  ERROR RETURNS
+C
+ 900  WRITE(NPRNT,3000)
+ 3000 FORMAT(' *SELFEA* COULD NOT OPEN FEATURE FILE')
+      IER=1
+      LINES=LINES+2
+      GO TO 999
+C
+ 930  WRITE(NPRNT,3030)
+ 3030 FORMAT(' *SELFEA* CANNOT DO THIS ON RASTER DATA')
+      IER=1
+      LINES=LINES+2
+      GO TO 999
+C
+      END
+
