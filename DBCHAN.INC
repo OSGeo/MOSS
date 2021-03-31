@@ -1,0 +1,3 @@
+C   Static channel numbers for "FAST FILES", set in MOSSBLK
+      COMMON /DBCHAN/ ICMAST,ICWORK,ICDCFA,ICDCDT,IDESFA(12),IDESDT(12)
+
