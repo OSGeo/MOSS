@@ -1,2 +1,0 @@
-       COMMON /GWINDO/ BAND(3,50)
-

@@ -1,3 +1,0 @@
-
-      COMMON /MAPNAME/ NAME(25)
-

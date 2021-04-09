@@ -1,2 +1,0 @@
-       PARAMETER ( NAMELEN = 10 )
-
