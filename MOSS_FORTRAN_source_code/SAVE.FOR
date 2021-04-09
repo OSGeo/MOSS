@@ -1,0 +1,364 @@
+C ******************************************************************
+C
+C             P R O G R A M    S A V E
+C FUNCTION:
+C             THIS ROUTINE IS THE LOGICAL DRIVER FOR THE SAVE
+C             COMMAND. ITS FUNCTION IS TO ALLOW A USER TO SAVE
+C             AN ACTIVE DATA SET AS PART OF THEIR WORKFILE.
+C             THIS COMMAND DOES NOT APPLY TO CELL FILES.
+C
+C CALLS:      INCM,DECIP,APGET,GETNDX,POSTF,OPENF,DAGET,WHTCAL,GTMAP,
+C             GETSUB,RESET,PUTSUB,OUTCM,PACKC,RDBLK,TUPDIR,READIN,
+C             WRBLK,CPLAC,CLEAR,GETATT,ATTOPN
+C
+C ******************************************************************
+$Include:'DBCHAN.inc'
+$Include:'dnames.inc'
+$Include:'IO.inc'
+$Include:'STRNG.inc'
+$Include:'TYPE.inc'
+$Include:'WHMAP.inc'
+$Include:'WORK.inc'
+        COMMON /FLS/  IUNIT,IFILE(5)
+        COMMON /TEMPSORT/ TEMPBUF(128),IPTR,IWRITE,LASTREC
+        INTEGER IHEAD(256),ITARR(4000)
+        INTEGER IARR(20),NEWMAP(10)
+        INTEGER IBUFF1(128),BUFCNT,NATT,ITYP,LOCATE1
+        INTEGER LOCATE2,MWORDS,mapname(25)
+        INTEGER TEMPBUF
+        INTEGER TEMP(10),TEMPS(10),SUBJECT(15),POLYDT(10)
+        EQUIVALENCE (IHEAD(68),BXMIN), (IHEAD(70),BXMAX),
+     +              (IHEAD(72),BYMIN), (IHEAD(74),BYMAX),
+     +              (IBUFF(15),XMIN),  (IBUFF(17),XMAX),
+     +              (IBUFF(19),YMIN),  (IBUFF(21),YMAX)
+C
+       DATA TEMP / 2HTE,2HMP,8*2H  /
+       DATA TEMPS / 2HTE,2HMP,2HS ,7*2H  /
+       DATA POLYDT / 2HPO,2HLY,2HGO,2HN.,2HDT,5*2H  /
+C
+C  Initialize pointers for GETFSUB
+       IPTR = 0
+       IWRITE = 0
+       LASTREC = 0
+C
+C  GET COMMON
+        CALL INITL(IER)
+        IF ( IER .NE. 0 ) GO TO 9999
+C
+C  INITIALIZE CHANNELS
+C
+       ICINMP = 25
+       ICNEW = 26
+       ICPOLY = 2
+       ICHAN26 = 26
+       ICHAN27 = 27
+       ICTEMP = 20
+       ICTEMPS = 22
+C
+C Set prompt switch
+      IPROMT=0
+      LINES=0
+C
+C  If no active I.D.'s, send message, close shop, and exit.
+      IF (nstrct .LT. 7) THEN
+         write(nprnt,1111)
+ 1111    format(' *SAVE* No active I.D. You must SELECT some map data.')
+         lines = lines + 2
+         call fillc(icard, 80, 32 )
+         go to 9999
+       ENDIF
+C
+C  GET ACTIVE DATA SET TO SAVE
+C
+      CALL DAGET(ICARD,ICARDP,IARR,20,MACTS)
+      IF( MACTS .EQ. 0 ) THEN
+C
+C  Prompt for active data set to save
+         IPROMT=1
+  5      CONTINUE
+         WRITE(NPRNT,1112)
+ 1112    FORMAT(' ENTER ACTIVE DATA SET I.D. TO SAVE'\)
+         CALL READIN(ICARD,LENICD,ICARDP,IEND)
+         CALL DAGET(ICARD,ICARDP,IARR,20,MACTS)
+         LINES=LINES+3
+         IF( MACTS .EQ. 0 ) GO TO 5
+      ELSE
+C
+C  Get name of new workfile map name
+         CALL DECIP(ICARD,NEWMAP,ICARDP)
+      ENDIF
+C
+C Prompt for map name
+      IF ( NEWMAP(1) .EQ. 0 ) THEN
+         CALL WHTCAL(NEWMAP,IER)
+         IF ( IER .NE. 0 ) GO TO 9999
+      ENDIF
+C
+C  NOW CHECK ALL PARAMETERS FOR VALIDITY.
+C
+C  Is this a cell file?
+      INDEX=IARR(1)
+      IF( IDATYP( (INDEX/7)+1) .EQ. 6 ) THEN
+         WRITE(NPRNT,1113)
+1113     FORMAT(' *SAVE* FILE CONTAINS CELL DATA, UNABLE TO PROCESS')
+         GO TO 9999
+      ENDIF
+C
+C  Put new map name in JCOM and open
+      CALL PACKC(NEWMAP,JCOM,10)
+      CALL OPENF(ICNEW,JCOM,2,256,2,IER)
+      IF( IER .NE. 0 ) GO TO 8100
+C
+C  ALL PARAMETERS ARE O.K..  NOW GET POINTER SET FOR
+C  THIS ACTIVE DATA SET.
+C
+      CALL APGET(INDEX,ISTART,ISTOP,NTOTAL)
+      IF( NTOTAL .LE. 0 ) THEN
+         WRITE(NPRNT,1114)
+ 1114    FORMAT(' BAD APGET CALL')
+         LINES=LINES+2
+         GO TO 9999
+      ENDIF
+C
+C  Create subject table and return new data in temp file
+      CALL OPENF(ICTEMP,TEMP,3,256,2,IER)
+      IF (IER .NE. 0) GO TO 8300
+      CALL BLDSUB(NNSUB,IARR,MACTS,ICTEMP,IER)
+      IF ( IER .NE. 0 ) GO TO 9999
+C
+C  Sort subject file TEMP
+      CALL OPENF(ICTEMPS,TEMPS,3,256,2,IER)
+      CALL SRTTMP(ICTEMP,ICTEMPS,NNSUB,NUMSUB,IER)
+C
+C  Get map name for the input data
+      CALL GTMAP(ICOM,INDEX)
+C
+C  TELL USER NUMBER OF ITEMS TO BE SAVED
+C
+      WRITE(NPRNT,1116) NTOTAL
+ 1116 FORMAT(' NUMBER OF DATA ITEMS TO BE SAVED',I5)
+      LINES=LINES+2
+C
+C Open channel to input map
+      call adddir(icom,mapname)
+      CALL OPENF(ICINMP,mapname,1,256,2,IER)
+      IF( IER .NE. 0) GO TO 8200
+C
+C  Get header from first map of active table list
+C      CALL GTMPHD( INDEX,IHEAD,IER)
+      call rdblk(icinmp,1,ihead,1,ier)
+      call rdblk(icinmp,2,ihead(129),2,ier)
+C
+C  Put number of subjects into header and write out
+      IHEAD(1) = 0
+      IHEAD(50) = 0
+      CALL CLEAR(IHEAD(58),4)
+      CALL CLEAR(IHEAD(78),50)
+      IHEAD(64) = 1
+      IHEAD(65) = NUMSUB
+      IHEAD(66) = 0
+      IHEAD(67) = NUMSUB
+      CALL WRBLK(ICNEW,1,IHEAD,1,IER)
+C
+C  Calculate address of location at which to write first item
+      NREC=IHEAD(64)+IHEAD(65)+2
+C
+C  DO A DUMMY WRITE TO NEW FILE TO PREVENT EOF ON READ TO
+C  BUILD SUBJECT TABLE
+C
+       CALL WRBLK(ICNEW,NREC,IHEAD,1,IER)
+C
+C  SET ITEM COUNTER AND MAP MBR THEN SAVE DATA
+C
+       ITEMN=0
+       BXMIN=9999999.
+       BXMAX=-(BXMIN)
+       BYMIN=BXMIN
+       BYMAX=BXMAX
+C
+C  IHEAD CONTAINS THE HEADER, IBUFF THE NEW RECORD, IBUFF1
+C  IS USED FOR WORK SPACE 
+C
+C  Open 'DESCRIBE.FA' for GETFAST
+       CALL OPENF(ICDCFA,IDESFA,2,512,2,IER)
+       IF ( IER .NE. 0 ) GO TO 8500
+C
+       DO 30 I=ISTART,ISTOP
+C
+C Get pointer to map, if not found, skip to next ID
+         CALL GETFAST(I,IDUMMY1,IREC,ISUBP,IDUMMY3,IDUMMY4,IER)
+         IF( IER .NE. 0) GO TO 30
+C
+C Get map record
+         CALL RDBLK(ICINMP,IREC,IBUFF,1,IER)
+C
+C Get subject for this item
+         CALL GETSUB(ICINMP,ISUBP,IBUFF1,SUBJECT,ITS)
+C
+C Put subject in new map's subject table
+         CALL PUTSUB(IBUFF,NREC,SUBJECT,NUMSUB,ICNEW,ICTEMPS,IER)
+C
+C Get number of coordinate records
+         NRS=IBUFF(2)
+C
+C Calculate link to next record
+         IBUFF(1)=NREC+NRS
+C
+C  Write out item header
+         ITEMN=ITEMN+1
+         IF ( ITEMN .GT. 4000) THEN
+            WRITE(NPRNT,1115) 
+1115        FORMAT( ' *SAVE* NUMBER OF ATTRIBUTES EXCEEDS 4000 LIMIT')
+            GO TO 9999
+         ENDIF
+         ITARR(ITEMN)=IBUFF(5)
+         IBUFF(5)=ITEMN
+         CALL WRBLK(ICNEW,NREC,IBUFF,1,IER)
+C
+C Calculate new maps mbr
+         BXMIN=AMIN1(BXMIN,XMIN)
+         BXMAX=AMAX1(BXMAX,XMAX)
+         BYMIN=AMIN1(BYMIN,YMIN)
+         BYMAX=AMAX1(BYMAX,YMAX)
+C 
+C  Increment NREC
+         NREC=NREC+1
+C
+C  TRANSFER COORDINATE DATA
+C
+         NRS=NRS-1
+         DO 22 IC=1,NRS
+            IREC = IREC + 1
+            CALL RDBLK(ICINMP,IREC,IBUFF,1,IER)
+            IF ( IER .NE. 0 ) GO TO 8600
+            CALL WRBLK(ICNEW,NREC,IBUFF,1,IER)
+            NREC=NREC+1
+  22     CONTINUE
+  30  CONTINUE
+C
+C  UPDATE HEADER WITH TRUE ITEM COUNT, MBR AND WRITE OUT
+C
+      IHEAD(1) = NREC -1
+      IHEAD(63) = NTOTAL
+      CALL WRBLK(ICNEW,1,IHEAD,1,IER)
+      CALL WRBLK(ICNEW,2,IHEAD(129),1,IER)
+C
+C  SAVE MULTIPLE ATTRIBUTES, IF ORIGINAL MAP HAS ANY
+C
+      IF( IHEAD(76) .EQ. 1 ) THEN
+C
+         IER=0
+         CALL ATTOPN(ICHAN26,ICHAN27,ICOM,JCOM,NTOTAL,NATT,IER)
+         IF (IER .NE. 0) GO TO 9999
+C
+         WRITE(NPRNT,1003) NATT
+ 1003    FORMAT(' NUMBER OF ATTRIBUTES/ITEM TO BE SAVED',I5)
+C
+C     COPY ATTRIBUTE DATA FOR EACH ATTRIBUTE TYPE
+C
+         DO 34 K=1,NATT
+            CALL CLEAR(IBUFF,128)
+            BUFCNT=0
+            CALL RDBLK(ICHAN26,K+1,IBUFF1,1,IER)
+            IF (IER .NE. 0) GO TO 904
+            ITYP=IBUFF1(84)
+            MWORDS=IBUFF1(85)
+            LOCATE1=IBUFF1(86)
+            CALL RDBLK(ICHAN27,K+1,IBUFF1,1,IER)
+            IF (IER .NE. 0) GO TO 904
+            LOCATE2=IBUFF1(86)
+C
+C    FOR EACH ITEM, COPY ATTRIBUTE DATA TO NEW FILE
+C
+            DO 35 I=1,ITEMN
+               ITEM=ITARR(I)
+               CALL GETATT(ICHAN26,MWORDS,LOCATE1,ITEM,IBUFF1,IER)
+2800           BUFCNT=BUFCNT+MWORDS
+C
+               IF( BUFCNT .LE. 128) THEN
+                  DO 2900 J=1,MWORDS
+                     IBUFF(BUFCNT-MWORDS+J)=IBUFF1(J)
+2900              CONTINUE
+                  GO TO 35
+               ENDIF
+C
+C    BUFFER IS NOW FULL - DUMP IT TO NEW ATTRIBUTE FILE
+C
+               CALL WRBLK(ICHAN27,LOCATE2,IBUFF,1,IER)
+               IF (IER .NE. 0) GO TO 905
+               LOCATE2=LOCATE2+1
+               BUFCNT=0
+               CALL CLEAR (IBUFF,128)
+               GO TO 2800
+35          CONTINUE
+C
+C    THIS IS THE LAST RECORD OF ATTRIBUTE DATA FOR THIS TYPE,
+C    SEE IF BUFFER FLUSH IS NECESSARY
+C
+            IF( BUFCNT .EQ. 0   .OR.   BUFCNT .EQ. 128 ) GO TO 34
+            CALL WRBLK(ICHAN27,LOCATE2,IBUFF,1,IER)
+            IF (IER .NE. 0) GO TO 905
+34       CONTINUE
+C
+C   CLOSE ATTRIBUTE FILES
+C
+         CLOSE(ICHAN26)
+         CLOSE(ICHAN27)
+C
+      ENDIF
+      CLOSE(ICTEMP)
+      CLOSE(ICTEMPS)
+C
+C Update directory, open polygon.dt file for tupdir
+      CALL OPENF(ICPOLY,iwork,1,512,2,IER)
+      IF ( IER .NE. 0 ) GO TO 8400
+C
+      CALL TUPDIR(ITP1,ITP2,ITP3,jcom,IHEAD,iwork,ICPOLY,IER)
+      CLOSE(ICNEW)
+      CLOSE(ICPOLY)
+      GO TO 9999
+C
+C
+C  ERROR PROCESSING
+C
+ 8100   WRITE(NPRNT,98100)JCOM,IER
+98100   FORMAT(' *SAVE*  ERROR OPENNING NEW FILE ',A10,' ERROR',I5)
+        GO TO 9999
+C
+ 8200   WRITE(NPRNT,98200)ICOM,IER
+98200   FORMAT( '*SAVE*  ERROR OPENNING INPUT MAP',A10,' ERROR',I5)
+        GO TO 9999
+C
+ 8300   WRITE(NPRNT,98300)IER
+98300   FORMAT(' *SAVE* ERROR OPENING TEMP FILE  ERROR ',I5)
+        GO TO 9999
+C
+ 8400   WRITE(NPRNT,98400)IER
+98400   FORMAT(' *SAVE* ERROR OPENING POLYGON.DT  ERROR ',I5)
+        GO TO 9999
+C
+ 8500   WRITE(NPRNT,98500)IER
+98500   FORMAT(' *SAVE* ERROR OPENNIG DESCRIBE.FA  ERROR ',I5)
+        GO TO 9999
+ 8600   WRITE(NPRNT,98600) IER
+98600   FORMAT(' *SAVE" ERROR FROM RDBLK  ERROR ',I5)
+C
+904     WRITE(NPRNT,98504) IER
+98504   FORMAT(' *SAVE*  ERROR READING ATTRIBUTE FILE  ERROR',I5)
+        GO TO 907
+C
+905     WRITE(NPRNT,98505) IER
+98505   FORMAT(' *SAVE*  ERROR WRITING ATTRIBUTE FILE  ERROR',I5)
+        GO TO 907
+C
+ 907    CLOSE(ICHAN26)
+        CLOSE(ICHAN27)
+        GO TO 9999
+C
+C  ALL DONE
+C
+ 9999   CONTINUE
+        CALL OUTCM
+C
+        END
+

@@ -1,0 +1,3 @@
+      COMMON /IO/  NPRNT,IOIN
+C
+

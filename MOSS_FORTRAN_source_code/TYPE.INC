@@ -1,0 +1,2 @@
+      COMMON /TYPE/  IDATYP(40),NACTS
+
