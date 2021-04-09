@@ -1,0 +1,79 @@
+TESTGRID                                                   TESTGRID
+
+
+
+     The TESTGRID command is summarized as follows:
+
+         TESTGRID is a data display command which superimposes a
+         cell grid over any map displayed on the graphic display
+         terminal.  When used wtih the RASTERIZE or POLYCELL
+         commands, it helps determine appropriate cell size for
+         converting a polygon map to a cell map.  When used with the
+         GRID command, it helps determine appropriate cell size for
+         gridding the point data.  Cell size can be specified in
+         acres and height-to-width ratio, or in meters in width and
+         height.
+
+
+     The TESTGRID command is specified as follows:
+
+          TESTGRID ([A]cres or [M]eters) (cell width) (cell height)
+                   (cell ratio) (cell size) (export)
+
+     The individual parameters of the TESTGRID command are described
+     below:
+
+          ([A]cres or [M]eters) are units on a cell side.  If [M]eters
+          are chosen, the user is then asked for cell width and cell
+          height in meters.  If [A]cres are chosen, the user is asked
+          for the cell ratio (Y/X) and cell size in acres.
+
+          (cell width) is the width of the cell in meters.
+
+          (cell height) is the height of the cell in meters.
+
+          (cell ratio) is the ratio of the number of meters in Y to the
+          number of meters in X on an individual cell.
+
+          (cell size) is the cell size in acres.
+
+          (export) is an option for the user to save the grid in export
+          format in a file called "EXPORT" .
+
+
+     The following are examples of use of the TESTGRID command:
+
+           ENTER COMMAND
+          ? TESTGRID
+           ENTER [A]cres or [M]eters on a side ? M
+           Please enter cell width in meters ? 1000
+           Please enter cell height in meters ? 1000
+           SAVE THE GRID AS A MOSS EXPORT FILE (Y/N) [CR = N]? <CR>
+
+
+           ENTER COMMAND
+          ? TESTGRID
+           ENTER [A]cres or [M]eters on a side ? A
+           ENTER CELL SIZE RATIO (Y/X I.E. 1.25;  CR = 1.) ? 1
+           ENTER CELL SIZE IN ACRES ? 1
+           SAVE THE GRID AS A MOSS EXPORT FILE (Y/N) [CR = N]? Y
+
+
+     The limitations of the TESTGRID command are as follows:
+
+          -- Window must be set.
+
+          -- If the (export) option is used, any existing "Export" file
+             is deleted.
+
+          -- If a testgrid saved as an "Export" file is to be used as
+             a new map in subsequent MOSS analyses, it must be added
+             to the data base with the command IMPORT as a line (type 2)
+             map.  See IMPORT for further information.
+
+          -- TESTGRID may change the window size slightly (either
+             larger or smaller) for the display in order to show
+             complete cells.  It resets the window when the display is
+             complete.  This means the location of the grid on the
+             screen will not exactly coincide with maps plotted before
+             or after TESTGRID is used.

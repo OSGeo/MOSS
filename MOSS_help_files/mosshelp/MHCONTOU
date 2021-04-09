@@ -1,0 +1,80 @@
+CONTOUR                                                               CONTOUR
+
+
+
+     The CONTOUR command is summarized as follows:
+
+          CONTOUR is a data display command which generates a contour map from
+          a continuous cell map.  The result may be saved as a line map in
+          the workfile and/or displayed on the CRT.  Note that as the number
+          of cells per map increases, processing time increases.
+
+
+     The CONTOUR command is specified as follows:
+     (* denotes parameters which can only be entered in a prompted mode)
+
+          CONTOUR (active ID) (contour specification) (display) (save)
+          (new map name) (minimum contour) (contour interval) (contour values)*
+
+
+     The individual parameters of the CONTOUR command are described below:
+
+          (active ID) is the ID number of a continuous cell map (type 8)
+          referenced in the active map table.
+
+          (contour specification) is an option to calulate equally spaced
+          contours or specify each individual countour's value.  The user must
+          enter [U]ser defined to specify each contour's value or [C]alculated
+          for contours to be calcuated automatically.
+
+          (minimum contour) is the starting  contour value.  The default is
+          the minimum value in the cell map.  This may be negitive. This
+          parameter applies only if the CALCULATE contour option was selected.
+
+          (contour interval) is the increment between contours. This must
+          positive and greater than or equal to one. This parameter only
+          applies if the users has selected the CALCULATE contours option.
+
+          (display) is an option for the user to display the contours on the
+          CRT.  The user must respond YES or NO (Y/N).  If this option is
+          selected, the contour lines will be labeled.
+
+          (save) is an option for the user to save the resultant line map in
+          the user's work area.  The user must enter YES or NO (Y/N).
+
+          (new map name) is the name for the line map resulting from CONTOUR.
+          This parameter applies only if the new map is to be saved in the
+          user's work area.
+
+          (contour values) is where the user specifies the values each contour
+          if the USER DEFINED contours option has been selected.
+
+
+     The following is an example of use of the CONTOUR command:
+
+           ENTER COMMAND
+          ? CONTOUR
+           ENTER ACTIVE MAP ID TO CONTOUR
+          ? 1
+           User defined or Calculated  intervals (U/C)   C
+           Do you want contours displayed ? (Y/N) [N]    Y
+           Save the result of this task ? (Y/N)  [N]   Y
+           What do you wish to call the new map ?
+            __________
+            CONTOURMAP
+           Minimum contour value desired (   -53 to     286) [   -53]  -50
+           Contour increment value desired  50
+                           7 INTERVALS BEING USED ARE
+
+           -50    0     50     100   150    200    250
+
+
+     The limitations of the CONTOUR command are as follows:
+
+          -- Only active continuous cell maps may be used.
+
+          -- A maximum of 128 contour values may be specified.
+
+          -- The labeling algorithm may write labels over labels.
+
+          -- Contour interval must be an integer value.

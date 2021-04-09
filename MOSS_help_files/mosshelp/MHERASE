@@ -1,0 +1,30 @@
+ERASE                                                                     ERASE
+
+
+
+     The ERASE command is summarized as follows:
+
+          ERASE is a data display command that clears the display screen and
+          sets the cursor in the upper left-hand corner of the screen.  This
+          command should be used liberally if the user wishes to keep the dis-
+          play screen readable.
+
+
+     The ERASE command is specified as follows:
+
+          ERASE
+
+
+     There are no individual parameters associated with the ERASE command.
+
+
+     The following is an example of use of the ERASE command:
+
+           ENTER COMMAND
+          ? ERASE
+
+
+     The limitations of the ERASE command are as follows:
+
+          -- If a baud rate other than 300 is being used, execution of this
+             command will be slow.

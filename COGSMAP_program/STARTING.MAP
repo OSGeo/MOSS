@@ -1,0 +1,331 @@
+                             M E M O R A N D U M
+
+
+              TO:   Academic and Professional Colleagues
+
+            FROM:   Dana Tomlin
+
+         SUBJECT:   An IBM Personal Computer Version
+                    of the Map Analysis Package
+
+            DATE:   Spring 1986
+
+                                                                             _____________________________________________________________________________
+
+
+
+We  are  pleased  to  announce  that the Map Analysis Package (MAP), a digital
+cartographic  modeling  system  originally  designed  for  academic  use  on a
+mainframe  computer,  is  now  available  in a form that can be run on certain
+International  Business  Machines Corporation (IBM) personal computers. MAP is
+a  computer program that provides for the input, output, and transformation of
+raster-formatted  cartographic  data.  This  is  done  by  way of algebra-like
+operations controlled through English-like commands.
+
+Initially  developed  as a student project at Harvard University (Tomlin 1975)
+and  later  expanded as part of a doctoral dissertation at Yale (Tomlin 1983),
+MAP  has  never  been  formally  distributed. Developmental versions have been
+made  available to a number public and private organizations, however, and are
+in  use at hundreds of locations around the world. This has resulted in a wide
+variety   of  application  projects  and  an  interesting  array  of  software
+enhancements  developed by independent users. It is our hope that this kind of
+work  will  be  further  encouraged  by  the  ability to run MAP on a personal
+computer.
+
+The  Map Analysis Package can now be run on an IBM-PC (or equivalent) computer
+equipped  with a monochrome or color display, a 360 kilobyte diskette drive, a
+fixed  disk  or  second diskette drive, 256 kilobytes of random access memory,
+an  8087  math  coprocessor,  and  version 2.1 (or greater) of the IBM-PC Disk
+Operating  System.  The program is offered in both source and executable form.
+Its  FORTRAN  source  code  is  essentially  the same as that of the mainframe
+program  and,  with  the IBM-PC Professional FORTRAN Compiler, can be tailored
+to  individual needs. The executable module cannot be modified but, on systems
+with  at  least  360  kilobytes of random access memory, can be run as is with
+maps  of  up to 32,640 points. With IBM Virtual Device Interface software, the
+program can also be used to generate output on a variety of graphic devices.
+
+                                                                             _________________________
+
+
+Tomlin, C. Dana. 1975. The    Tomlin    Subsystem   of   IMGRID.   Unpublished
+                       manuscript.   Department   of  Landscape  Architecture.
+                       Harvard Graduate School of Design.
+
+               . 1983. Digital    Cartographic    Modeling    Techniques    in_______________
+                       Environmental    Planning.    Doctoral    dissertation.
+                       Division of Forestry and Environmental Studies.
+                       Yale Graduate School.
+
+
+
+
+
+
+
+
+
+The  Map  Analysis Package is being made available at no charge other than for
+reproduction,  postage,  and handling. Requests for copies of the program, its
+its   user   documentation,   and   a   test   data  set  on  two  dual-sided,
+double-density,  DOS-formatted  diskettes  should be accompanied by a check in
+the amount of $18 made payable to Harvard University and addressed to:
+
+         The Laboratory for Computer Graphics and Spatial Analysis
+         Harvard Graduate School of Design
+         48 Quincy Street
+         Cambridge, Massachusetts  02138
+
+Initial development of the Map Analysis Package for the IBM Personal Computer
+was supported by a grant from IBM Academic Information Systems.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                             M E M O R A N D U M
+
+
+                 TO:   Prospective Map Analysis Package Users
+
+               FROM:   Dana Tomlin
+
+            SUBJECT:   Map Analysis Package Installation
+
+               DATE:   Spring 1986
+
+                                                                             _____________________________________________________________________________
+
+
+
+Before  installing  the Map Analysis Package, please note that this program is
+subject  to  the  following  terms  established by the Laboratory for Computer
+Graphics and Spatial Analysis of the Harvard Graduate School of Design.
+
+
+
+    License    _______
+
+    The   software,  the  manual,  and  supporting  materials  comprising  the
+    computer  program  or  programs  were  developed  at  the  Laboratory  for
+    Computer  Graphics  and Spatial Analysis of the Harvard Graduate School of
+    Design  and  are  copyrighted  by  the  President  and  Fellows of Harvard
+    College.    The  computer  program  or  programs  are licensed to you on a
+    non-exclusive  basis.  Neither  the  software,  nor  the  manual,  nor the
+    supporting  materials  may  be  copied  for any reason except that you may
+    make  backup  copies  of  the software for your use provided any copyright
+    notices  are not removed. You may not distribute the software, the manual,
+    nor  the  supporting  materials  without  prior  written  consent  of  the
+    Laboratory.
+
+
+    Warranty    ________
+
+    There  are  no  warranties, express or implied, provided with the computer
+    program  or  programs  covered  by  the  foregoing  license, including any
+    warranty  of  merchantability  or fitness for any specific purpose or use.
+    In  no  event shall Harvard University, Thr  Graduate School of Design, or
+    The  Laboratory  for  Computer Graphics and Spatial Analysis be liable for
+    any  consequential  or  incidential  damages arising out of or relating to
+    the  use  of the software or the output thereof. You as licenseeassume the
+    entire risk of the selection and use of the software and output thereof.
+
+    Support    _______
+
+    The  computer program or programs covered by the foregoing license are not
+    officially  supported  by The Laboratory for Computer Graphics and Spatial
+    Analysis.  Specifically,  The  Laboratory does not provide assurances that
+    either  telephoned or written requests for assistance in using the program
+    or  programs  will  be  provided.  Neither  does The Laboratory promise to
+    provide  you  with corrections or improvements to the program or programs.
+    The  Laboratory  will  attempt  to  assist users and provide notice of new
+    versions.
+
+
+
+
+
+
+
+
+
+Please  note  too that any public presentation of work associated with the Map
+Analysis Package should cite the program as follows:
+
+    Tomlin,  C.D.  1986. The IBM Personal Computer Version of the Map Analysis
+    Package.  Laboratory  for  Computer Graphics and Spatial Analysis. Harvard
+    Graduate School of Design.
+
+The  Map  Analysis  Package is distributed as a set of DOS files on diskettes.
+These files contain programs, sample data, and documentation as follows.
+
+    STARTING.MAP      is  a  text  file  of general information that should be
+                      read before installing the system.
+
+    MAP-----.EXE      is  an  executable run file of the Map Analysis Package.
+                      It  has  been  configured to handle maps of up to 32,640
+                      points  and  will  run  successfully  on  any  IBM-PC or
+                      equivalent  computer equipped with a monochrome or color
+                      display,  a 360 kilobyte diskette drive, a fixed disk or
+                      second  diskette drive, at least 360 kilobytes of random
+                      access  memory, an 8087 math coprocessor, version 2.1 or
+                      greater  of  the  IBM-PC Disk Operating System, and (for
+                      certain  optional  graphic capabilities) the IBM Virtual
+                      Device Interface software.
+
+    MAP.BAT           is a DOS batch file that invokes MAP-----.EXE.
+
+    M1.FOR,           are text files containing the FORTRAN source code from
+    M2.FOR, ...       which  MAP-----.EXE  was  compiled.  These  files can be
+                      modified   and  recompiled  with  the  IBM  Professional
+                      FORTRAN  Compiler,  which  must  be acquired separately.
+                      (Note  that  compiled object modules should be linked to
+                      the PROFVDI library with stack size set to 5000.)
+
+    ALTITUDE.-BP,     are binary files of sample data for what is termed the
+    WATER.-BP, ...    Brown's Pond (BP) study area.
+
+    BP.IN             is  a  text  file  of  Map Analysis Package instructions
+                      that will be executed each time the BP map is opened.
+
+    DEMO.IN           is  a  text  file  of  Map Analysis Package instructions
+                      that  can  be  invoked  (by  way of a READ operation) to
+                      provide   an   introductory   demonstration   of  system
+                      capabilities  using  the  BP  sample  data. It should be
+                      used  only  on  systems  equipped  with  a color display
+                      driven  the  IBM  Virtual  Device  Interface  system.  A
+                      second, monochrome display is also recommended.
+
+    BASICS.EX         is  a text file containing the first sections of the Map
+                      Analysis   Package  users'  manual.  This  file  can  be
+                      accessed  from  within the package (by way of an EXPLAIN
+                      operation) and/or printed out for general reference.
+
+    ADD.EX,           are text files containing the final sections of the Map
+    ASSIGN.EX, ...    Analysis   Package   users'  manual.  Each  describes  a
+                      different  operation.  These  files can be accessed from
+                      within  the  package  (by  way  of an EXPLAIN operation)
+                      and/or printed out for general reference.
+
+To  install these files, copy them to hard disk or a second pair of diskettes.
+The package can then be executed by issuing the DOS batch command MAP.
+
+
+
+
+
+
+                             M E M O R A N D U M
+
+
+                 TO:   Map Analysis Package Users
+
+               FROM:   Dana Tomlin
+
+            SUBJECT:   Map Analysis Package Data Structure
+
+               DATE:   Spring 1986
+
+                                                                            ____________________________________________________________________________
+
+
+
+The  Map Analysis Package stores data in DOS files corresponding to individual
+map  overlays. Each has a DOS filename made up of an overlay title followed by
+a  dot,  a  dash,  and a map name as in ALTITUDE.-BP. These files are coded in
+binary form and organized as follows.
+
+    Bytes 0001 through 1600    contain   100   sixteen-character   labels  for
+                               regions 0 through 99, respectively.
+
+    Byte  1601                 contains   a  one-character  protection  status
+                               indicator   set   to  "P"  (protected)  or  "E"
+                               (exposed).
+
+    Bytes 1602 through 1664    are unused.
+
+    Bytes 1665 through 1666    contain  a  two-byte integer indicating overlay
+                               scale. Note that 1665 = (128 * 13) + 1.
+
+    Bytes 1667 through 1792    are unused.
+
+    Bytes 1793 through 1796    contain  a  four-byte  integer  indicating  the
+                               number  of  rows  on  the  map  containing this
+                               overlay.  Note  that  1793  = (128 * 14) + 1 or
+                               (449 * 4) + 1.
+
+    Bytes 1797 through 1800    contain  a  four-byte  integer  indicating  the
+                               number  of  columns  on the map containing this
+                               overlay. Note that 1797 = (450 * 4) + 1.
+
+    Bytes 1801 through 1804    contain  a  four-byte  integer  indicating  the
+                               standard  scale  of  the  map  containing  this
+                               overlay. Note that 1801 = (451 * 4) + 1.
+
+    Bytes 1805 through 1920    are unused.
+
+    Bytes 1921 through N       (where  N  is  1920  plus  twice  the number of
+                               points   on   the   overlay)  contain  two-byte
+                               integer   values   for   overlay  points  in  a
+                               sequence  moving  from left to right across the
+                               top  row,  then the row below, and so on toward
+                               the  lower  right corner. Note that 1921 = (128
+                               * 15) + 1.
+
+    Bytes N+1  through M        (where  M  is  the next even multiple of 1920)
+                                are unused.
+
+
+
+
+
+
+
+

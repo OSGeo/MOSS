@@ -1,0 +1,435 @@
+Quiet
+RECODE WATER ASSIGNING 1 TO 0 AND 2 TO 1 AND 3 TO 2 AND 0 TO 3
+PRINT
+.
+.
+.
+Welcome to the Map Analysis Package (MAP).
+.
+.
+MAP is a set of programs that provide for the input, transformation, and output
+of cartographic data.  Data are stored in the form of single-factor maps called
+"overlays."   These are then treated as variables in an algebra of cartographic
+operations.  Each operation is controlled by way of a English-like instruction.
+.
+The names that appeared when map "BP" was accessed were the titles of overlays
+currently stored.  On the monitor now is an image that should give you an idea
+of what they look like.  This is a bird's-eye view of streams, ponds, and wet-
+lands on a topographic surface.  The surface is defined by an overlay entitled
+ALTITUDE, while colors are defined by an overlay called WATER.
+
+SHOW X ON ALTITUDE
+C003
+O030
+I035
+S230
+E270
+M
+
+Q
+PRINT
+Each map overlay is stored as a two-dimensional array of numbers.  The position
+of each number corresponds to a cartographic point location, while the value of
+each number represents a geographic characteristic.  On the ALTITUDE overlay,
+for example, each point's value indicates its height in feet above sea level,
+whereas WATER values simply distinguish among the different water body types.
+.
+.
+In a moment you will see a listing of the point-by-point values on the WATER
+overlay, which is now being redrawn on the color monitor.  Note that this is
+an overlay of 60 rows by 60 columns or 3600 points.  MAP works best on over-
+lays of about ten times this size.
+
+SHOW X
+C002
+M
+
+Q
+PRINT AT 1
+ WATER
+
+DISPLAY WATER SPECIALLY
+00 -
+01 1
+02 2
+03 3
+-1
+PRINT
+.
+.
+.
+.
+.
+.
+To illustrate how this type of information might be used, consider a typical
+(if contrived) siting problem.	A new highway corridor must be located that:
+	    1) avoids land near water bodies;
+	    2) avoids steep topographic slopes;
+	    3) extends from the center of the study area to
+	       the centers of its upper and lower boundaries.
+First, distance to water is measured by applying an operation called SPREAD
+to the WATER overlay still shown on your color screen.	The instruction for
+this operation, which is now being executed, is:
+		     SPREAD WATER TO 3 FOR DISTANCE
+
+SPREAD WATER TO 3
+PRINT
+.
+.
+.
+.
+.
+The results of the SPREAD operation are now being drawn on the color screen.
+This is a new overlay, entitled DISTANCE, on which of distance zones around
+all streams, ponds, and wetlands (in black) have been delineated.
+.
+.
+.
+
+SHOW X
+C000
+S200
+M
+
+Q
+PRINT
+Next, an instruction given as:
+.     RECODE DISTANCE FOR WATER$ ASSIGNING 2 THROUGH 1 AND 1 THROUGH 3
+.
+calls for the tranformation of DISTANCE into an overlay entitled WATER$.  On
+WATER$, a value of 2 is assigned to all points within one distance unit of a
+water body, while 1 is assigned to points further away.  These indicate that
+areas near water (shown in blue) will be more costly for highway development.
+
+RECODE X FOR X ASSIGNING 2 THROUGH 1 AND 3 THROUGH 3
+SHOW X ON ALTITUDE
+C000
+O030
+I040
+E300
+S200
+M
+
+Q
+RECO X FOR WATER$ ASSIGNING 1 TO 3
+PRINT
+A similar overlay of road-building costs due to steep slopes will now
+be created.  This is being done in response to instructions given as:
+		  DIFFERENTIATE ALTITUDE FOR STEEPNESS
+    RECODE STEEPNESS FOR SLOPE$ ASSIGNING 0 THROUGH 10 AND 1 THROUGH 99
+.
+These operations will transform the ALTITUDE overlay, now being drawn on
+the color screen, into an overlay entitled SLOPE$.  A road-building cost
+value of 0 will be assigned to slopes of up to 10%, while steeper slopes
+are set to 1.
+
+SLICE ALTITUDE
+SHOW X
+C001
+S300
+M
+
+Q
+PRINT
+.
+.
+.
+.
+.
+.
+The steepest slopes are where the topographic contour zones
+you see are narrowest.	These slopes are now being measured.
+.
+.
+.
+
+DIFFERENTIATE ALTITUDE
+RECODE X ASSIGNING 3 THROUGH 10 AND 0 THROUGH 60
+PRINT
+.
+.
+.
+.
+.
+SLOPE$ is now shown on the color screen, where it has been projected
+onto the surface of the ALTITUDE overlay from which it was computed.
+The steeper slopes are in black.
+.
+.
+.
+
+SHOW X ON ALTITUDE
+C002
+O070
+I045
+S220
+E270
+M
+
+Q
+RECODE X FOR SLOPE$ AS 0 TO 3 AND 1 TO 0
+ASSIGN 0 FOR ROADCOST
+PRINT
+.
+.
+WATER$ and SLOPE$ can now be combined by adding their point-by-point values.
+This has just been done in response to an instruction issued as:
+.		      ADD WATER$ TO SLOPE$ FOR ROADCOST
+.
+to yield an overlay entitled ROADCOST with values as follows:
+.
+.		      1 (red)	= DRY AND FLAT
+.		      2 (blue)	= WET AND FLAT or DRY AND STEEP
+.		      3 (white) = WET AND STEEP
+
+ADD WATER$ TO SLOPE$ FOR ROADCOST
+LABEL ROADCOST
+01   (RED) COST = 1
+02  (BLUE) COST = 2
+03 (WHITE) COST = 3
+-1
+SHOW ROADCOST
+C000
+S200
+M
+
+Q
+PRINT
+And to now to trace the highway that best avoids the blue and white regions.
+The highway must connect the center of the study area to the centers of its
+upper and lower edges.	Trace your own route while MAP does the same.  This
+may take several minutes.
+.
+.
+In selecting your own route, remember that each blue point is twice as costly
+to develop as each red point, while each white point is three times as costly.
+The object is to cross the study area while minimizing the sum of these costs.
+
+POINT
+(3i2)
+303001
+-1
+SPREAD X TO 49 THROUGH ROADCOST FOR SLOPE$
+SLICE SLOPE$
+PRINT
+.
+.
+.
+.
+.
+.
+.
+MAP's path-finding procedure begins with another SPREAD operation measuring
+distance from the center of the study area.  Here, however, distance is not
+expressed in feet or meters but in units of accumulated road-building costs.
+Note how concentric distance zones tend to bend around areas of higher cost.
+
+SHOW X
+S200
+M
+
+Q
+PRINT
+.
+.
+.
+.
+Minimum-cost routes can now be generated as "steepest downhill" paths over
+this accumulated-cost surface.	In this case, paths will begin at the mid-
+points of the upper and lower edges of the study area then "drain" toward
+its center.
+.
+.
+.
+
+POINT
+(3i2)
+013001
+603001
+-1
+DRAIN X OVER SLOPE$
+RECODE X FOR NEWROAD AS 0 TO 1 THRU 99 AND 1 TO 0
+LABEL NEWROAD
+00 NEW HIGHWAY
+01 NON-HIGHWAY
+-1
+MULTIPLY ROADCOST BY NEWROAD
+PRINT
+.
+.
+.
+.
+.
+.
+.
+.
+Note that the new highway (in black) has favored the points of lowest cost
+(in red) except where shortcuts over more costly areas (in blue and white)
+were worth the additional expense.
+
+SHOW X
+C000
+S200
+M
+
+Q
+CROSS NEWROAD WITH WATER AS 3 TO 0 1 THRU 3 AND 1 TO 0 0 AND 2 TO 1 1 THRU 3
+RECODE X A 0 T 3 A 3 T 0
+PRINT
+.
+.
+.
+.
+.
+.
+To get a more precise indication of how well the proposed route "scores,"
+the following table is generated in response to an instruction given as:
+		     SCORE NEWROAD BY ROADCOST
+.
+.
+
+SCORE NEWROAD BY ROADCOST
+SHOW X ON ALTITUDE
+C001
+O-30
+I020
+S220
+E270
+M
+
+Q
+Quiet
+PRINT
+.
+.
+.
+.
+.
+At this point, one can begin to ask additional questions.  For example,
+what areas are visible from bridges (see color monitor) that will have
+to be built for this new highway?  Here, the RADIATE operation is used.
+.
+.
+.
+
+RECODE X ASSIGNING 1 TO 0 AND 0 THROUGH 3
+RADIATE X TO 15 OVER ALTITUDE
+RECODE X A 3 TO 1 A 1 TO 0
+MULTIPLY X BY NEWROAD
+PRINT
+.
+.
+.
+.
+.
+.
+.
+The areas in white are those which lie within the new-bridge viewshed.
+.
+.
+.
+
+SHOW X ON ALTITUDE
+C002
+O030
+I020
+S220
+E270
+M
+
+Q
+Quiet
+PRINT
+.
+.
+.
+.
+.
+.
+.
+Or what are the areas that might be affected by the drainage of highway runoff?
+.
+.
+.
+
+Recode NEWROAD assigning 1 to 0 and 0 to 1
+Drain X over ALTITUDE
+Recode X assigning 3 to 0 and 0 through 99
+Multiply X by NEWROAD
+PRINT
+.
+.
+.
+.
+.
+.
+.
+The areas in black are those over which the highway runoff will drain.
+.
+.
+.
+
+SHOW X ON ALTITUDE
+C001
+O120
+I035
+S220
+E270
+M
+
+Q
+ZAP NEWROAD
+PRINT
+.
+.
+Or how might these considerations have been incorporated from the start?
+.
+.
+.
+.
+.
+.
+.
+.
+
+ZAP ROADCOST
+ZAP SLOPE$
+PRINT
+.
+.
+But enough for now ...
+.
+.
+.
+.
+.
+.
+.
+.
+
+ZAP WATER$
+PRINT
+.
+.
+Thank you for your attention.
+.
+.
+.
+.
+.
+.
+.
+.
+
+SHOW WATER ON ALTITUDE
+C001
+O-90
+I030
+V025
+E120
+S220
+M
+
+Q
+STOP
+

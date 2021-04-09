@@ -1,0 +1,1195 @@
+
+                                                                        PAGE 1
+
+            DATA FILE DOCUMENTATION FOR 16 BIT MOSS/MAPS
+
+PERMANENT FILES
+   MAP NAMES LIST (.DT)................................................2
+   HEADER RECORDS  (.HD TYPE 1,2,3,5,6,7,8,11,12,13)...................3
+   SUBJECT RECORDS FOR VECTOR MAPS (TYPE 1,2,3,5,11,12,13).............4
+   FEATURE RECORDS AND COORDINATE RECORDS FOR VECTOR MAPS..............5
+   MULTIPLE ATTRIBUTE (.AT) FILES OF VECTOR MAPS.....................6-7
+   TEXT FILE (TYPE 10).................................................8
+   CELL MAPS (.CB TYPE 6, .CD .CV .AD TYPE 7, .CC TYPE 8)..............9
+   READ WRITE DISPLAY FILES (.RD .WR .DP  TYPE 16,, 17 18)............10
+   MOSS USER (USER.DT) AND COMMAND (COMMAND.DT) FILES.................11
+   MAPS COMMAND (MAPS.PP MAPS.PC) FILES...............................12
+   SYMBOLOGY FILES (.TT .TL .TP .TA) FILES............................13
+   LEGEND FILE........................................................13
+   POLYCELL RECODE TRANSLATION FILE...................................14
+
+
+
+
+RUNTIME FILES
+   DESCRIBE.DT........................................................15
+   DESCRIBE.FA........................................................15
+   INTERPRO...........................................................15
+   DISK ARRAYS (X Y P Q R S XR YR XY AO) .............................16
+   TEMP...............................................................16
+   TEMPSUB & TEMPS....................................................16
+   LINE.PRINTER.......................................................17
+   PROJ_ERROR.........................................................17
+   IMPORT/EXPORT FORMAT...............................................18
+   MAPS COMMUNE.......................................................19
+   PTHBLK.DT .........................................................20
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                                        PAGE 2
+
+FILE NAME:    MAP NAMES FILE.  THIS FILE IDENTIFIED BY ITS .DT SUFFIX.  IT
+              CONTAINS A SERIES OF MAP NAMES ASSOCIATED WITH MASTER OR WORK MAPS
+              WHICH CAN BE USED TO ORGANIZE THE MAPS WITHIN DIRECTORIES SO A
+              USER CAN LOCATE THEM EASIER.
+RECORD TYPE:  128 WORD RECORDS WITH THE FIRST RECORD CONTAINING 7 MAPS
+              AND ALL SUBSEQUENT RECORDS CONTAINING 8 MAPS *
+              MAP RECORDS ARE 2-N (N = # OF MAP RECORDS)
+
+WORD #     BYTE #     # BYTES   TYPE   DESCRIPTION
+
+1-8        1-16       16        CHAR   NAME - Blank filled RIGHT
+9          17         1         INTE   # of bits PER LOGICAL RECORD(type 6-8)
+9          18         1         INTE   STATUS - 1-exposed 2-protected
+                                       0-deleted  3-archived
+10         19-20      2         INTE   TYPE
+                                       1-point
+                                       2-line
+                                       3-polygon
+                                       4-
+                                       5-elevation point
+                                       6-dichotomous cell
+                                       7-discrete cell
+                                       8-continuous cell
+                                       9-
+                                       10-text
+                                       11-POINT 3-D
+                                       12-LINE 3-D
+                                       13-POLYGON 3-D
+                                       15-Component
+                                       14-Profile
+                                       16-write
+                                       17-READ
+                                       18-display output
+                                       19-display input
+11         21-22                       RESERVED
+12         23-24      2         INTE   # of ATTRIBUTES - TYPE 1-13
+13         25-26      2         INTE   # of ROWS - Type 6-9
+                                       # of ITEMS - Type 1-5, 11-13
+14         27-28      2         INTE   # of COLUMNS - Type 6-8
+                                       RESERVED ALL OTHER TYPES
+15         29-30      2         INTE   # of BYTES in attribute(TYPE 6-8)
+16         31-32                INTE   RESERVED
+
+  *This file is stored in alphabetic order of the first sixteen bytes.
+   THE FIRST RECORD IS ALL NULLS EXCEPT WORD 16 WHICH CONTAINS THE NUMBER
+   OF RECORDS IN THE FILE.  # OF MAPS IS WORD 16 MINUS ONE.
+
+
+
+
+
+
+
+
+
+
+
+
+                                                                        PAGE 3
+
+
+FILE NAME:   HEADER RECORDS FOR VECTOR AND RASTER MAPS.  THESE INCLUDE
+             TYPES 1, 2, 3, 4, 5, 6, 7, 8, 11, 12, AND 13 (POINT, LINE,
+             POLYGON, AND CELL MAPS).
+RECORD TYPE: CELL FILES WITH .HD SUFFIX AND FIRST TWO RECORDS OF VECTOR FILES
+
+WORD #     BYTE #     # BYTES   TYPE   DESCRIPTION
+
+1          1-2        2          I      NUMBER OF 128 WORD RECORDS IN FILE
+2-11       3-22       20         CHAR   NAME OF DIGITIZING SYSTEM
+12-15      23-30      8          CHAR   DATE OF ENTRY TO MOSS
+16-19      31-38      8          CHAR   STUDY AREA NAME
+20-49      39-98      60         CHAR   MAP DESCRIPTION
+50         99-100     2                 RESERVED
+51-52      101-104    4          CHAR   YEAR OF SOURCE MAP
+53-57      105-114    10         CHAR   COORDINATE PROJECTION DESCRIPTION
+58-59      115-118    4                 RESERVED
+60         119-120    2          INTE   # OF ROWS-CELL MAPS(UNUSED FOR VECTOR)
+61         121-122    2          INTE   # OF COLUMNS-CELL MAPS(UNUSED FOR VECTOR
+
+62         123-124    2          INTE   TYPE 1-POINT 2-LINE 3-AREA 5-ELEV PT
+                                        6-BIT 7-DISCRETE 8-CONTINUOUS 10-TEXT
+                                         11-3D POINT 12-3D LINE 13-3D POLYGON
+63         125-126    2          INTE   # OF FEATURES(UNUSED FOR CELL)
+64         127-128    2                 RESERVED(VALUE IS ONE)
+65         129-130    2          INTE   ESTIMATED # OF SUBJECTS(UNUSED FOR CELL)
+66         131-132    2                 RESERVED(VALUE IS ZERO)
+67         133-134    2          INTE   ACTUAL # OF SUBJECTS
+68-69      135-138    4          REAL   MINIMUM X OF MBR(WEST)
+70-71      139-142    4          REAL   MAXIMUM X OF MBR(EAST)
+72-73      143-146    4          REAL   MINIMUM Y OF MBR(SOUTH)
+74-75      147-150    4          REAL   MAXIMUM Y OF MBR(NORTH)
+76         151-152    2          INTE   MULTIPLE ATTRIBUTES FILE(.AT) PRESENCE
+                                        0-NO 1-YES.  FOR VECTOR FILES ONLY.
+77         153-154    2          CHAR   UNITS OF VECTOR MAP  F-FEET M-METERS
+                                        (ASSUMED FEET IF LOWER BYTE=0)
+78-79      155-158    4          REAL   ACRES PER CELL
+80-81      159-162    4          REAL   HEIGHT OF CELL IN METERS
+82-83      163-166    4          REAL   WIDTH OF CELL IN METERS
+84-85      167-170    4          REAL   NUMBER OF SET BITS TYPE 6(DICHOTOMOUS)
+86-87      171-174    4                 RESERVED
+88-89      175-178    4          REAL   MINIMUM CELL VALUE TYPE 8 (CONTINUOUS)
+90-91      179-182    4          REAL   MAXIMUM CELL VALUE TYPE 8 (CONTINUOUS)
+92-119     183-238    56                RESERVED
+120        239-240    2          INT    FONT # ZERO IF NOT FONT ASSIGNED
+                                        (UNUSED FOR CELL)
+121-168    241-336    96                RESERVED
+169-176    337-352    16         INTE   POINTER & LAST 7 COMMAND NUMBERS
+177-192    353-384    32                SAME AS 16 WORDS OF .DT RECORD FOR MAP
+193-256    385-512    128               PROJECTION INFORMATION (-1 IF NONE ASSIG
+                                        193-PROJECTION NUMBER (0-20)
+                                        194-ZONE
+                                        195-UNITS 0-RADIANS 1-FEET 2-METERS
+                                                  3-SECONDS  4-DEGREES
+                                        196-ELLIPSE TYPE (0-19)
+                                        197-256  15 DOUBLE PRECISION PARAMETERS
+
+
+                                                                        PAGE 4
+
+
+FILE NAME:   SUBJECT RECORDS FOR VECTOR MAPS.  THESE INCLUDE TYPES 1, 2, 3, 5,
+             11, 12, AND 13 (POINT, LINE, AND POLYGON MAPS).  ALL TYPES CONTAIN
+             128 WORD RECORDS.  THE LAYOUT FOR THESE FILES IS TWO HEADER
+             RECORDS, SUBJECT RECORDS (NUMBER ESTIMATED BY USER SO SOME MAY BE
+             EMPTY), AND A SEQUENCE OF FEATURE, ISLAND, AND COORDINATE RECORDS
+             FOR EVERY ITEM IN THE MAP.  THE HEADER RECORDS ARE IDENTICAL IN
+             FORMAT TO THE .HD RECORD FORMAT FOR CELL MAPS OUTLINED ABOVE.
+
+RECORD TYPE: SUBJECT RECORDS...RECORD LENGTH = 2 + ESTIMATED # OF SUBJECTS
+             BEGIN LOCATION = RECORD 3
+
+WORD #     BYTE #     # BYTES   TYPE   DESCRIPTION
+
+1-15       1-30       30        CHAR   ALPA-NUMERIC SUBJECT DESCRIPTOR
+16         31-32      2         INTE   POINTER TO FIRST FEATURE RECORD OF
+                                       LINKED LIST OF SUBJECTS OF THIS TYPE
+17         33-34      2         INTE   # OF FEATURES WITH THIS SUBJECT
+18-128     39-256     218              *RESERVED IF NOT FONT ASSIGNED BY SUBJECT
+                                       IF NOT FONT ASSIGNED WORD 120 OF
+                                       RECORD ONE IS ZERO
+19         37-38      2         INTE   NUMBER OF CROSS SHADINGS OF POLYGONS
+20         39-40      2         INTE   TABLE NUMBER FOR LINE & POLYGON
+                                       SYMBOL NUMBER FOR POINT(FONT IN 120
+                                       OF HEADER)
+21         41-42      2         INTE   STROKE WIDTH IN INCHES
+22-23      43-46      4         REAL   SPACING IN METERS BETWEEN LINES
+                                       FOR POLYGON
+                                       WIDTH OF SYMBOL FOR POINT ANDLINE
+24-25      47-50      4         REAL   ROTATION IN RADIANS OF SHADE LINES
+                                       FOR POLYGON
+                                       HEIGHT OF SYMBOL FOR POINT AND LINE
+26          51-52     2         INTE   COLOR INDEX NUMBER
+27-128      53-256    204              *RESERVED IF POINT OR LINE DATA
+                                        OR IF WORD 19 = 1 FOR POLYGON DATA
+27          53-54     2         INTE   TABLE NUMBER FOR POLYGON
+28          55-56     2         INTE   STROKE WIDTH IN INCHES
+29-30       57-60     4         REAL   SPACING IN METERS BETWEEN LINES FOR
+                                       POLYGON
+31-32       61-64     4         REAL   ROTATION IN RADIANS OF SHADE LINES
+                                       FOR POLYGON
+33          65-66     2         INTE   COLOR INDEX NUMBER
+34-128      67-256    204              RESERVED
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                                        PAGE 5
+
+FILE NAME:   FEATURE RECORDS FOR VECTOR MAPS. THESE INCLUDE TYPES 1, 2, 3, 5,
+             11, 12, AND 13 (POINT, LINE, AND POLYGON MAPS).
+RECORD TYPE: FEATURE RECORD
+             BEGIN LOCATION = 2 + ESTIMATED # OF SUBJECTS
+
+WORD #     BYTE #     # BYTES   TYPE   DESCRIPTION
+
+1          1-2        2         INTE   POINTER TO NEXT FEATURE RECORD
+2          3-4        2         INTE   # OF RECORDS FOR FEATURE.  INCLUDES THIS
+                                       RECORD, ISLAND RECORDS(FOR POLYGON), AND
+                                       COORDINATE RECORDS
+3          5-6        2         INTE   POINTER TO NEXT SUBJECT RECORD
+4          7-8        2                RESERVED
+5          9-10       2         INTE   FEATURE SEQUENCE NUMBER
+6          11-12      2         INTE   FEATURE TYPE 1,11-POINT 2,12-LINE 3,13-PO
+7-8        13-16      4         REAL   POINT-RESERVED LINE-LENGTH POLYGON-AREA
+9-10       17-20      4         REAL   POINT,LINE-RESERVED POLYGON-PERIMETER
+                                       TYPE 5-ELEVATION IN WORD 10
+11-12      21-24      4         REAL   POINT RESERVED POLYGON,LINE-X CENTROID
+13-14      25-28      4         REAL   POINT,LINE-RESERVED POLYGON-Y CENTROID
+15-16      29-32      4         REAL   MINIMUM X OF MBR (WEST)
+17-18      33-36      4         REAL   MAXIMUM X OF MBR (EAST)
+19-20      37-40      4         REAL   MINIMUM Y OF MBR (SOUTH)
+21-22      41-44      4         REAL   MAXIMUM Y OF MBR (NORTH)
+23         45-46      2                RESERVED
+24         47-48      2         INTE   RECORD # OF SUBJECT RECORD FOR FEATURE
+25         49-50      2         INTE   # OF COORDINATE PAIRS IN NEXT RECORDS
+26         51-52      2         INTE   POINT,LINE-RESERVED
+                                       POLYGON-# OF ISLAND FLAGS
+27-125     53-250     2         INTE   POINT,LINE-RESERVED
+                                       POLYGON-FIRST 99 ISLAND FLAGS
+                                       POINT,LINE IF FONT ASSIGNED BY FEATURE
+                                       27 - SYMBOL NUMBER
+                                       28 - STROKE WIDTH IN INCHES
+                                       29 - COLOR NUMBER
+                                       30-31-WIDTH OF SYMBOL  32-33-HEIGHT OF SY
+126        251-252    2                RESERVED
+127-128    253-256    4         REAL   SCALE FACTOR FOR COORDINATES
+                                       IF WORD 127 IS ZERO THEN WORD 128 IS
+                                       SCALE FACTOR OF 1 10 OR 100
+
+
+FILE NAME:   ISLAND FLAGS RECORD FOR VECTOR MAPS. THESE INCLUDE TYPES
+             3 AND 13 WHICH ARE POLYGON MAPS.
+RECORD TYPE: ISLAND FLAGS RECORD.  ONLY USED WHEN # OF ISLANDS IS GREATER
+             THAN 99.  THIS RECORD FOLLOWS POLYGON FEATURE RECORD
+WORD #     BYTE #     # BYTES   TYPE   DESCRIPTION
+
+1-128      1-256      256       INTE   POINTER TO COORDINATE PAIR NUMBER WHICH
+                                       BEGINS AN ISLAND
+
+
+
+
+
+
+
+
+                                                                        PAGE 6
+
+
+FILE NAME:   COORDINATE RECORDS FOR VECTOR MAPS.  THESE INCLUDE TYPES 1, 2, 3,
+             11, 12, AND 13 (POINT, LINE, AND POLYGON MAPS).
+RECORD TYPE: COORDINATE RECORDS...FOLLOWS FEATURE AND ISLAND FLAG RECORDS.
+
+WORD #     BYTE #     # BYTES   TYPE   DESCRIPTION
+
+1-128      1-256      256       INTE   X AND Y COORDINATE PAIRS
+                                       TO CONVERT TO A REAL VALUE MULTIPLE BY
+                                       SCALE FACTOR IN WORDS 127 & 128 THEN ADD
+                                       THE MIMIMUM X OR Y FROM WORDS 15-16 OR
+                                       19-20 FOR Y DIRECTION
+
+
+FILE NAME:   MULTIPLE ATTRIBUTE FILE ASSOCIATED WITH VECTOR MAPS.  THESE
+             TYPES INCLUDE 1, 2, 3, 5, 11, 12, AND 13 (POINT, LINE, AND
+             POLYGON MAPS). THESE FILES ARE NAMED THE SAME AS THE ASSOCIATED
+             VECTOR MAP EXCEPT A .AT SUFFIX IS ADDED TO THE NAME.  THIS FILE'S
+             PRESENCE IS INDICATED BY WORD 76 OF RECORD ONE IN THE MAP HEADER.
+             THE .AT HEADER RECORD IS FOLLOWED BY ATTRIBUTE RECORDS 2-202,
+             FOLLOWED BY RECORD 203 WHICH IS RESERVED, WHICH IS FOLLOWED BY
+             THE ATTRIBUTE DATA RECORDS.
+RECORD TYPE: ATTRIBUTE HEADER RECORD   RECORD ONE OF .AT
+
+WORD #     BYTE #     # BYTES   TYPE   DESCRIPTION
+
+1          1-2        2         INTE   # OF ATTRIBUTES  (1-200)
+2          3-4        2         INTE   # OF FEATURES IN MAP
+3-128      5-256      252              RESERVED
+
+
+
+FILE NAME:   MULTIPLE ATTRIBUTE FILE ASSOCIATED WITH VECTOR MAPS.  THESE
+             TYPES INCLUDE 1, 2, 3, 5, 11, 12, AND 13 (POINT, LINE, AND
+             POLYGON MAPS).
+RECORD TYPE: ATTRIBUTE RECORD   RECORD 2-202 OF .AT
+
+WORD #     BYTE #     # BYTES   TYPE   DESCRIPTION
+
+1          1-2        2         INTE   ATTRIBUTE ID...A SEQUENCE #
+2-11       3-22       20        CHAR   ATTRIBUTE KEY...10 CHARACTERS RIGHT
+                                       JUSTIFIED ONE CHARACTER PER WORD
+12-83      23-166     144       CHAR   ATTRIBUTE DESCRIPTION...72 CHARACTERS
+                                       RIGHT JUSTIFIED ONE CHARACTER PER WORD
+84         167-168    2         INTE   ATTRIBUTE TYPE...1-INTEGER
+                                       2-REAL  3-CHARACTER
+85         169-170    2         INTE   ATTRIBUTE LENGTH IN WORDS
+                                       INTERGER-1  REAL-2  CHARACTER<73
+86         171-172    2         INTE   FIRST RECORD IN FILE CONTAINING
+                                       ATTRIBUTE DATA FOR THIS ATTRIBUTE
+87         173-174    2         INTE   # OF RECORDS REQUIRED TO STORE
+                                       THE ATTRIBUTE DATA FOR THIS ATTRIBUTE
+                                       FORMULA USED IS:
+                                      (INT((RECORD1,WORD2)**-1)/(128/WORD85))+1
+88-128     175-256    82               RESERVED
+
+
+
+                                                                        PAGE 7
+
+
+FILE NAME:   TYPE 1,2,3,5,11,12,13 POINT LINE POLYGON VECTOR MAPS MULTIPLE
+             ATTRIBUTE FILE.
+RECORD TYPE: ATTRIBUTE RECORD   RECORD 203 OF .AT
+
+WORD #     BYTE #     # BYTES   TYPE   DESCRIPTION
+
+1-128      1-256      256              RESERVED
+
+
+
+FILE NAME:   TYPE 1,2,3,5,11,12,13 POINT LINE POLYGON VECTOR MAPS MULTIPLE
+             ATTRIBUTE FILE.  THE ATTRIBUTE DATA VALUES FOR EACH FEATURE
+             ARE STORED AND ACCESSED IN THE SAME SEQUENCE AS THE FEATURES.
+             I.E.  THE ATTRIBUTE DATA FOR THE FIFTH FEATURE IS IN THE
+             FIFTH ATTRIBUTE DATA SLOT.  ALL ATTRIBUTE DATA FOR ATTRIBUTE ONE
+             IS FOLLOWED BY ALL ATTRIBUTE DATA FOR ATTRIBUTE TWO ETC.
+             ONCE THE ATTRIBUTE FILE IS BUILT ADDITIONAL FEATURES
+             CAN NOT BE ADDED, HOWEVER MORE ATTRIBUTES CAN BE ADDED.
+
+
+RECORD TYPE: ATTRIBUTE DATA RECORDS   RECORD 204-N OF .AT
+
+WORD #     BYTE #     # BYTES   TYPE   DESCRIPTION
+
+IF WORD 84 OF ATTRIBUTE RECORD IS 1-INTEGER
+THE INTEGER ATTRIBUTE DATA IS STORED ONE VALUE PER WORD.  THE NUMBER OF VALUES
+PER RECORD IS 128.  THE NUMBER OF RECORDS TO STORE THE DATA IS THE NUMBER OF
+FEATURES/128.  THE REMAINDER OF THE LAST RECORD IS UNDEFINED.
+
+IF WORD 84 OF ATTRIBUTE RECORD IS 2-REAL
+THE REAL ATTRIBUTE DATA IS STORED ONE VALUE EVERY TWO WORDS.  THE NUMBER OF
+VALUES PER RECORD IS 64.  THE NUMBER OF RECORDS TO STORE THE DATA IS THE
+NUMBER OF FEATURES/64.  THE REMAINDER OF THE LAST RECORD IS UNDEFINED.
+
+IF WORD 84 OF ATTRIBUTE RECORD IS 3-CHARACTER
+THE CHARACTER ATTRIBUTE DATA IS STORED ONE CHARACTER RIGHT JUSTIFIED PER WORD.
+THE CHARACTER FIELD IS NULL FILLED.  THE CHARACTER FIELD DOES NOT CROSS
+RECORD BOUNDS AND AS A RESULT THE ENDS OF THE RECORDS ARE UNDEFINED AND THE
+END OF THE LAST RECORD IS UNDEFINED.  THE RECORD WOULD ACCOMADATE 12 TEN
+CHARACTER FIELDS, 6 TWENTY CHARACTER FIELDS, 1 EIGHTY CHARACTER FIELD, ETC.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                                        PAGE 8
+FILE NAME:   TYPE 10 TEXT FILE
+RECORD TYPE: HEADER RECORD 1 AND 2 OF TEXT FILE
+WORD #     BYTE #     # BYTES   TYPE   DESCRIPTION
+
+1          1-2        2          I      NUMBER OF 128 WORD RECORDS IN FILE
+2-11       3-22       20         CHAR   BLANKS
+12-15      23-30      8          CHAR   BLANKS
+16-19      31-38      8          CHAR   BLANKS
+20-49      39-98      60         CHAR   MAP DESCRIPTION
+50         99-100     2                 RESERVED
+51-52      101-104    4          CHAR   BLANKS
+53-57      105-114    10         CHAR   BLANKS
+58-59      115-118    4                 RESERVED
+60         119-120    2          INTE   RESERVED
+61         121-122    2          INTE   RESERVED
+62         123-124    2          INTE   TYPE (VALUE IS 10)
+63         125-126    2          INTE   # OF FEATURES
+64         127-128    2                 RESERVED(VALUE IS ONE)
+65         129-130    2          INTE   ESTIMATED # OF SUBJECTS (VALUE IS ONE)
+66         131-132    2                 RESERVED(VALUE IS ZERO)
+67         133-134    2          INTE   RESERVED (VALUE IS ZERO)
+68-69      135-138    4          REAL   MINIMUM X OF MBR(WEST)
+70-71      139-142    4          REAL   MAXIMUM X OF MBR(EAST)
+72-73      143-146    4          REAL   MINIMUM Y OF MBR(SOUTH)
+74-75      147-150    4          REAL   MAXIMUM Y OF MBR(NORTH)
+76-256     151-512    362        INTE   RESERVED
+
+FILE NAME:   TYPE 10 TEXT FILE
+RECORD TYPE: RECORD 3  (FAKE SUBJECT RECORD)
+WORD #     BYTE #     # BYTES   TYPE   DESCRIPTION
+1-128      1-256      256              RESERVED
+
+FILE NAME:   TYPE 10 TEXT FILE
+RECORD TYPE: FEATURE RECORDS 4-N (N=# OF FEATURES)
+WORD #     BYTE #     # BYTES   TYPE   DESCRIPTION
+
+1          1-2        2         INTE   POINTER TO NEXT FEATURE RECORD
+2          3-4        2         INTE   # OF RECORDS FOR FEATURE (SET TO ONE)
+3          5-6        2         INTE   POINTER TO NEXT SUBJECT RECORD
+4          7-8        2                RESERVED
+5          9-10       2         INTE   FEATURE SEQUENCE NUMBER
+6          11-12      2         INTE   FEATURE TYPE (SET TO 10)
+7-8        13-16      4         REAL   WIDTH/(10.14/MBR LENGTH)
+9-10       17-20      4         REAL   HEIGHT/(10.14/MBR LENGTH)
+11-12      21-24      4         REAL   ROTATION
+13-14      25-28      4                RESERVED
+15-16      29-32      4         REAL   MINIMUM X OF MBR (WEST)
+17-18      33-36      4         REAL   MINIMUM Y OF MBR (SOUTH)
+19-20      37-40      4         REAL   MAXIMUM X OF MBR (EAST)
+21-22      41-44      4         REAL   MAXIMUM Y OF MBR (NORTH)
+23-24      45-48      4                RESERVED
+25         49-50      2         INTE   # OF CHARACTERS IN TEXT
+26         51-52      2         INTE   FONT NUMBER
+27         53-54      2         INTE   NUMBER OF STROKES (NULL OR DEFAULT=1)
+28-29      55-58      4         REAL   PEN WIDTH IN INCHES (1 = .01 INCHES)
+30         59-60      2         INTE   COLOR INDEX NUMBER
+31-39      61-78      18               RESERVED
+40-80      79-160     80        CHAR   CHARACTER STRING
+81-128     161-256    96               RESERVED
+                                                                        PAGE 9
+
+FILE NAME:    TYPE 6 DICHOTOMOUS CELL MAPS.  TYPE 6 HAS .HD AND .CB FILES
+RECORD TYPE:  .CB
+
+WORD NUMBER  BYTE NUMBER  NO. OF BYTES   TYPE   DESCRIPTION
+
+   1-N          1-N            N         INTE   CELL VALUES  THE LENGTH OF THE
+                                                CELL IS 1 BIT.  THERE IS NO
+                                                .CV OR .AD FILES ONLY A .HD FILE
+                                                TO ACCOMPONY THIS .CB FILE.
+
+FILE NAME:    TYPE 7 DISCRETE CELL MAPS  TYPE 7 HAS .HD .CD .CV AND POSSIBLE .AD
+RECORD TYPE:  .CD
+
+WORD NUMBER  BYTE NUMBER  NO. OF BYTES   TYPE   DESCRIPTION
+
+   1-N          1-N            N         INTE   CELL VALUES  THE LENGTH OF THE
+                                                CELL IS 1,2,4,8,OR 16 BITS
+                                                DEPENDING ON THE # OF ATTRIBUTES
+                                                IN THE FILE.  THE # OF BITS IS
+                                                IS IN WORD 9 OF THE .DT  AND THE
+                                                # OF ATTRIBUTES IS IN WORD 12.
+
+FILE NAME:    TYPE 7 DISCRETE CELL MAPS VALUE/COUNT
+RECORD TYPE:  .CV
+
+WORD NUMBER  BYTE NUMBER  NO. OF BYTES   TYPE   DESCRIPTION
+
+   1-2          1-4            4         REAL   VALUE - the value of the at-
+                                                tribute for discrete cell maps.
+                                                Items with the same attribute
+                                                point at the same .CV record.
+   3-4          5-8            4         REAL   COUNT - the number of items
+                                                pointing at this .CV record.
+
+FILE NAME:    TYPE 7 DISCRETE CELL MAPS ATTRIBUTE DESCRIPTOR
+RECORD TYPE:  .AD  IF WORD 15 IS 0 THIS FILE DOES NOT EXIST
+
+WORD NUMBER  BYTE NUMBER  NO. OF BYTES   TYPE   DESCRIPTION
+
+   1-32          1-64          64        CHAR   ALPHNUMBERIC DESCRIPTOR OF
+                                                ATTRIBUTE.  THE LENGTH IS THE
+                                                VALUE IN WORD 15 OF THE .DT FILE
+                                                IF THIS VALUE IS 0 THEN THIS
+                                                FILE DOES NOT EXIST.  THIS VALUE
+                                                IS 0, 16, 32, OR 64 FOR AN
+                                                EXISTING FILE.
+
+FILE NAME:    TYPE 8 CONTINUOUS CELL MAPS.  TYPE 8 HAS .HD AND .CC FILES
+RECORD TYPE:  .CC
+
+WORD NUMBER  BYTE NUMBER  NO. OF BYTES   TYPE   DESCRIPTION
+
+   1-N          1-N            N         INTE   CELL VALUES  THE LENGTH OF THE
+                                                CELL IS 16 OR 32 BITS.  THERE IS
+                                                .CV OR .AD FILES ONLY A .HD FILE
+                                                TO ACCOMPANY THIS .CC FILE.
+
+
+
+                                                                        PAGE 10
+
+
+FILE TYPE:  TYPE 16 READ FILE  THIS FILE IS A LINE ORIENTED COMMAND INPUT FILE.
+RECORD TYPE:  .RD
+
+WORD NUMBER  BYTE NUMBER  NO. OF BYTES   TYPE   DESCRIPTION
+
+   1-N         N           N        CHAR   LINES OF COMMANDS THAT ARE SEQUENTIAL
+                                           READ.  EACH LINE IS FOLLOWED BY A
+                                           CARRIAGE RETURN,LINE FEED, OR FORM
+                                           FEED.  USERS CAN CREATE THE FILE
+                                           AT THE SYSTEM LEVEL USING A STANDARD
+                                           TEXT EDITOR.  THE LAST LINE MUST BE
+                                           BYE OR READ.
+
+
+
+FILE TYPE:  TYPE 17 WRITE FILE  THIS FILE IS A LINE ORIENTED OUTPUT FILE.
+RECORD TYPE:  .WR
+
+WORD NUMBER  BYTE NUMBER  NO. OF BYTES   TYPE   DESCRIPTION
+
+   1-N         N           N        CHAR   LINES OF OUTPUT THAT ARE SEQUENTIALLY
+                                           OUTPUT BY THE SOFTWARE.  EACH LINE
+                                           IS FOLLOWED BY A CARRIAGE RETURN.
+
+
+
+FILE TYPE:  TYPE 18 DISPLAY FILE  THIS FILE IS A SEQUENCE OF DEVICE DEPENDENT BY
+RECORD TYPE:  .DP
+
+WORD NUMBER  BYTE NUMBER  NO. OF BYTES   TYPE   DESCRIPTION
+
+   1-N         N           N        CHAR   A SEQUENCE OF BYTES THAT ARE DESTINED
+                                           FOR AN OUTPUT DEVICE SUCH AS THE
+                                           TEKTRONIX.
+
+
+
+FILE NAME:    USER.DT  LIST OF VALID MOSS USERS
+RECORD TYPE:  HEADER RECORD ONE
+
+WORD #     BYTE #     # BYTES   TYPE   DESCRIPTION
+
+1-15       1-30       30               RESERVED
+16         31-32      2         INTE   NUMBER OF RECORDS IN FILE.  NUMBER OF
+                                       USERS IS VALUE MINUS ONE.
+
+
+
+
+
+
+
+
+
+
+
+
+                                                                        PAGE 11
+
+FILE NAME:    USER.DT  LIST OF VALID MOSS USERS
+RECORD TYPE:  2 - N ENTRY RECORDS
+
+WORD #     BYTE #     # BYTES   TYPE   DESCRIPTION
+
+1-8        1-16       16        CHAR   NAME - BLANK FILLED RIGHT
+9          17-18      2                RESERVED
+10         19-20      2         INTE   CHARACTER COUNT IN NAME
+11         21-22      2         INTE   USE COUNT OF NAME
+12-16      23-32      20               RESERVED
+
+  *This file is stored in alphabetic order of the first sixteen bytes.
+   THE FIRST RECORD IS ALL NULLS EXCEPT WORD 16 WHICH CONTAINS THE NUMBER
+   OF RECORDS IN THE FILE.  # OF USERS IS WORD 16 MINUS ONE.
+
+
+
+
+
+FILE NAME:    COMMAND.DT  LIST OF VALID MAPS COMMANDS
+RECORD TYPE:  HEADER RECORD ONE
+
+WORD #     BYTE #     # BYTES   TYPE   DESCRIPTION
+
+1-15       1-30       30               RESERVED
+16         31-32      2         INTE   NUMBER OF RECORDS IN FILE.  NUMBER OF
+                                       COMMANDS IS VALUE MINUS ONE.
+
+
+FILE NAME:    COMMAND.DT  LIST OF VALID MOSS COMMANDS
+RECORD TYPE:  2 - N ENTRY RECORDS
+
+WORD #     BYTE #     # BYTES   TYPE   DESCRIPTION
+
+1-8        1-16       16        CHAR   COMMAND - BLANK FILLED RIGHT
+9          17-18      2                RESERVED
+10         19-20      2         INTE   CHARACTER COUNT IN COMMAND
+11         21-22      2         INTE   USE COUNT OF COMMAND
+12         23-24      2         INTE   TRANSFER NUMBER FOR COMMAND
+13-16      25-32      22               RESERVED
+
+  *This file is stored in alphabetic order of the first sixteen bytes.
+   THE FIRST RECORD IS ALL NULLS EXCEPT WORD 16 WHICH CONTAINS THE NUMBER
+   OF RECORDS IN THE FILE.  # OF COMMANDS IS WORD 16 MINUS ONE.
+
+
+FILE NAME:    MAPS.PC  LIST OF VALID MAPS COMMANDS
+RECORD TYPE:  HEADER RECORD ONE
+
+WORD #     BYTE #     # BYTES   TYPE   DESCRIPTION
+
+1-15       1-30       30               RESERVED
+16         31-32      2         INTE   NUMBER OF RECORDS IN FILE.  NUMBER OF
+                                       COMMANDS IS VALUE MINUS ONE.
+
+
+
+
+                                                                        PAGE 12
+
+FILE NAME:    MAPS.PC  LIST OF VALID MAPS COMMANDS
+RECORD TYPE:  2 - N ENTRY RECORDS
+
+WORD #     BYTE #     # BYTES   TYPE   DESCRIPTION
+
+1-8        1-16       16        CHAR   COMMAND - BLANK FILLED RIGHT
+9          17-18      2                RESERVED
+10         19-20      2         INTE   CHARACTER COUNT IN COMMAND
+11         21-22      2         INTE   USE COUNT OF COMMAND
+12         23-24      2         INTE   TRANSFER NUMBER FOR COMMAND
+                                       NEGATIVE VALUE INDICATES COMMAND HAS
+                                       PHRASES AND THE ABSOLUTE VALUE OF THE
+                                       THE NUMBER IS THE RECORD CONTAINING
+                                       THE PHRASES IN THE .PP FILE.
+13-16      25-32      22               RESERVED
+
+  *This file is stored in alphabetic order of the first sixteen bytes.
+   THE FIRST RECORD IS ALL NULLS EXCEPT WORD 16 WHICH CONTAINS THE NUMBER
+   OF RECORDS IN THE FILE.  # OF COMMANDS IS WORD 16 MINUS ONE.
+
+
+
+
+FILE NAME:    MAPS.PP  LIST OF VALID MAPS COMMAND PHRASES
+RECORD TYPE:  1 - N ENTRY RECORDS
+
+WORD #     BYTE #     # BYTES   TYPE   DESCRIPTION
+
+1-32       1-64       64        CHAR   COMMAND PHRASES BLANK FILLED.
+                                       PHRASES ARE SEPARATED BY AN !
+                                       THE CHARACTER FOLLOWING THE LAST
+                                       PHRASE ABREVIATION IS @ AND INDICATES
+                                       THE END OF THE PHRASES.
+
+
+
+FILE NAME:    SYMBOLOGY TABLES FOR TEXT LINE POINT AREA
+RECORD TYPE:  .TT .TL .TP .TA
+
+WORD NUMBER  BYTE NUMBER  NO. OF BYTES   TYPE   DESCRIPTION
+
+REC 1           1-5            5         CHAR   # of entries
+                6-10           5          \/    TABLE type - 1-Text 2-Line
+                                                3-Symbol, 4-Area
+                11-31                           Reserved
+                32                              Carriage return
+REC 2-N         1-3            3                Color
+                4-6            3                Reserved
+                7-9            3                Reserved
+                10-12          3                Line width
+                13-15          3                Type #
+                16-18          3                Entry #
+                19-22          4                + ANG
+                23-27          5                Y value height
+                28-31          4                X value width or dash
+                32                              Carriage return
+
+
+                                                                        PAGE 13
+
+
+FILE NAME:    LEGEND FILE FOR PLOT.LEGEND AND CALCOMP PROGRAMS
+RECORD TYPE:  HEADER RECORD ONE
+WORD #     BYTE #     # BYTES   TYPE   DESCRIPTION
+
+1          1-2        2         INTE   NUMBER OF LEGEND ENTRIES
+2          3-4        2         INTE   # OF RECORDS
+3-128      5-256      252              RESERVED
+
+
+
+FILE NAME:    LEGEND FILE
+RECORD TYPE:  ENTRY RECORDS RECORDS 2-N
+
+WORD #     BYTE #     # BYTES   TYPE   DESCRIPTION
+
+1          1-2        2         INTE   DELETE FLAG 0-DELETED 1-ACTIVE
+2          3-4        2         INTE   TYPE 1-POINT 2-LINE 3-POLYGON,CELL
+3          5-6        2         INTE   FONT NUMBER
+4          7-8        2         INTE   SYMBOL NUMBER IN FONT IF TYPE 1
+5          9-10       2         INTE   PEN/COLOR NUMBER
+6-9        11-18      8                RESERVED
+10         19-20      2         INTE   ANGLE FOR TYPE 3
+11         21-22      2         INTE   ANGLE FOR TYPE 3 CROSSHATCHED
+12         23-24      2         INTE   SPACING IN INCHES * 100 FOR TYPE 3
+13         25-26      2         INTE   SPACING IN INCHES * 100 FOR TYPE 3
+                                       CROSSHATCHED
+14-15      27-30      4         REAL   X POSITION OF LEGEND ENTRY
+16-17      31-34      4         REAL   Y POSITION OF LEGEND ENTRY
+18-59      35-118     84               RESERVED
+60         119-120    2         INTE   NUMBER OF CHARS IN DESCRIPTION
+61         121-122    2         INTE   FONT NUMBER FOR DESCRIPTION (SET TO 12)
+62-91      123-182    60        CHAR   DESCRIPTION
+92-128     183-256    74               RESERVED
+
+
+FILE TYPE:  POLYCELL RECODE TRANSLATION FILE
+RECORD TYPE:  HEADER RECORD
+
+WORD #     BYTE #     # BYTES   TYPE   DESCRIPTION
+
+1-66       1-132      132              RESERVED
+
+67         133-134    2         INTE   # OF RECORDS IN FILE
+68-128     135-256    122              RESERVED
+
+
+FILE TYPE:  POLYCELL RECODE TRANSLATION FILE
+RECORD TYPE:  ENTRY RECORDS
+
+WORD #     BYTE #     # BYTES   TYPE   DESCRIPTION
+
+1-15       1-30       30        CHAR   ALPHA NUMBERIC SUBJECT DESCRIPTION
+16-29      31-58      14               RESERVED
+30         59-60      2         INTE   VALUE TO ASSIGN TO SUBJECT
+
+31-128     61-256     196              RESERVED
+
+                                                                        PAGE 14
+
+FILE NAME:    DESCRIBE.FA RUNTIME FILE FOR SELECTED FEATURES
+RECORD TYPE:  ENTRY RECORDS
+WORD #     BYTE #     # BYTES   TYPE   DESCRIPTION
+
+1-2        1-4        4         REAL   MINIMUM X (WEST) OF FEATURE
+3-4        5-8        4         REAL   MAXIMUM X (EAST) OF FEATURE
+5-6        9-12       4         REAL   MINIMUM Y (SOUTH) OF FEATURE
+7-8        13-16      4         REAL   MAXIMUM Y (NORTH) OF FEATURE
+9          17-18      2         INTE   RECORD NUMBER OF FEATURE
+10         19-20      2         INTE   RECORD NUMBER OF SUBJECT OF FEATURE
+11-16      21-32      12               RESERVED
+
+
+
+FILE NAME:    DESCRIBE.DT RUNTIME FILE FOR SELECTION CRITERION
+RECORD TYPE:  ENTRY RECORDS
+WORD #     BYTE #     # BYTES   TYPE   DESCRIPTION
+
+1-16       1-32       32        CHAR   SELECTION CRITERION BLANK FILLED
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                                        PAGE 15
+
+FILE NAME:    INTERPRO RUNTIME FILE FOR INTER-PROGRAM COMMUNICATION
+RECORD TYPE:    ENTRY RECORDS
+WORD #     BYTE #     # BYTES   TYPE   DESCRIPTION
+
+1          1-2        2         INTE   COMMON /PNTFET/ NPOINT
+2-302      3-602      602       IN/CH  COMMON /WHMAP/
+2-301      3-600      600                ISTRCT(300)
+302        601-602    2                  NSTRCT
+303-383    603-764    162       IN/CH  COMMON /STRNG/
+303-382    603-762    160                ICARD(80)
+383        763-764    2                  K
+384        765-766    2         INTE   COMMON /PLACT/  MACTS
+385-386    767-770    4         INTE   COMMON /CLINES/
+385        767-768    2                  ICLINE
+386        769-770    2                  IBATCH
+387        771-772    2         INTE   COMMON /WHATTERM/ KTERM
+388-404    773-806    34        INTE   WNDBUF(17) EQUIVALENCED TO
+                                       COMMON /VWND/
+388-389    773-776    4         IN/RE    (XORGIN, WNDBUF(1))
+390-391    777-780    4         IN/RE    (YORGIN, WNDBUF(3))
+392-393    781-784    4         IN/RE    (XALEN, WNDBUF(5))
+394-395    785-788    4         IN/RE    (YALEN, WNDBUF(7))
+396-397    789-792    4         IN/RE    (XSTART, WNDBUF(9))
+398-399    793-796    4         IN/RE    (YSTART, WNDBUF(11))
+400-401    797-800    4         IN/RE    (XLEN, WNDBUF(13))
+402-403    801-804    4         IN/RE    (YLEN, WNDBUF(15))
+404        805-806    2         INTE     (IBW, WNDBUF(17))
+405-445    807-888    82        INTE   COMMON /TYPE/
+405        807-808    2         INTE     NACTS
+406-445    809-888    80        INTE     IDATYP(40)
+446-511    889-1020   132       INTE   COMMON /TKTRNX/ ITSTUF(66)
+512-517    1021-1032  12        INTE   COMMON /FLS/
+512        1021-1022  2         INTE     IUNIT
+513-517    1023-1032  10        INTE     IFILE(5)
+518-519    1033-1036  4         INTE   COMMON /PPLACC/
+518        1033-1034  2         INTE     IXP
+519        1035-1036  2         INTE     IYP
+520-543    1036-1083  48        INTE   COMMON /DNAMES/
+520-527    1036-1051  16        INTE     MAST(8) - MASTER DIRECTORY NAME
+528-535    1052-1067  16        INTE     IWORK(8) - WORK DIRECTORY NAME
+536-543    1068-1083  16        INTE     IPROJ(8) - PROJECT (.DT) NAME
+544-563    1084-1123  40        INTE   COMMON /USER/
+544-553    1084-1103  20        INTE     NAME(10) - USER PASSWORD
+554-563    1104-1123  20        INTE     IPASS(10)
+564-603    1124-1203  80        INTE   COMMON /TABLE/ ITABLE(40)
+604-689    1204-1375  172       INTE   COMMON /ATTFET/ KAT(86)
+
+
+FILE NAME:    DISK ARRAY FILES (X Y P Q R S XR YR XY AO)
+RECORD TYPE:  2 - N
+
+WORD #     BYTE #     # BYTES   TYPE   DESCRIPTION
+
+1-N        1-N        N         REAL   A REAL VALUE
+
+
+
+
+                                                                        PAGE 16
+
+FILE NAME:    TEMP RUNTIME FILE FOR SAVWRK SWAP FOR DERIVED MAPS
+              FILE IS SEQUENCE OF DIFFERENT LENGTH RECORDS
+RECORD TYPE:  1 - N
+
+WORD #     BYTE #     # BYTES   TYPE   DESCRIPTION
+
+1-5        1-10       10        CHAR   NAME FOR NEW MAP NULL FILLED RIGHT
+
+6-15       11-30      20        CHAR   NAMES OF TWO MAPS THIS FILE IS
+                                       DERIVED FROM  (2 TEN CHAR FIELDS)
+16-85      31-170     130       CHAR   TWO 60 CHARACTER FIELDS OF MAP
+                                       DESCRIPTION
+86         171-172    2         INTE   NEW MAP TYPE 1-POINT 2-LINE 3-POLYGON
+
+ THE REMAINDER OF THE FILE IS SEQUENCES OF THE FOLLOWING RECORDS
+
+1-22       1-44       44        CH/IN  30 CHARACTERS OF MAP DESCRIPTION,
+                                       10 BLANKS
+                                        2 BYTES FOR # OF COORDINATE PAIRS(NVERT)
+                                        2 BYTES FOR # OF ISLAND POINTERS(NSLNDS)
+23-NSLNDS             NSLNDS*2  INTE   THE ISLAND POINTERS IF NSLNDS IS NOT
+                                       ZERO AND MAP TYPE IS 3-POLYGON
+NSLNDS-NVERT          NVERT*2   REAL   THE COORDINATE PAIRS IN 8 BYTE RECORDS
+                                       THAT MAKE UP THE FEATURE
+
+FILE NAME:    TEMPSUB AND TEMPS RUNTIME FILE FOR SAVWRK SWAP FOR DERIVED MAPS
+RECORD TYPE:  ENTRY RECORDS 1-N
+WORD #     BYTE #     # BYTES   TYPE   DESCRIPTION
+
+1-15       1-30       30        CHAR   ALPHANUMERIC SUBJECT DESCRIPTION
+10         31-32      2                RESERVED
+
+
+FILE NAME:    TAPE4 RUNTIME FILE FOR OUTPUT OF CELL MAPS FROM SPSS PROGRAM
+RECORD TYPE:  ENTRY RECORDS
+WORD #     BYTE #     # BYTES   TYPE   DESCRIPTION
+
+THIS FILE IS AN ASCII FILE OF A MULTIVALUE CELL FILE.  IT IS A SEQUENCE
+OF RECORDS THAT PROVIDE A ROW VALUE, COLUMN VALUE, AND UPTO EIGHTEEN
+CELL VALUES FOR THE DIFFERENT SINGLE VALUE CELL MAPS.  THE RECORD LENGTH
+OF THE FILE WILL VARY ACCORDING TO HOW MANY SINGLE VALUE MAPS ARE OUTPUT.
+THE RECORD FORMAT IS UPTO 20 THREE CHARACTER VALUES.
+THE SEQUENCE IS ROW 1, COLUMN 1,CELL MAP 1,CELL MAP 2, CELL MAP N
+                ROW 1, COLUMN 2,CELL MAP 1,CELL MAP 2, CELL MAP N
+                ROW 1, COLUMN N,CELL MAP 1,CELL MAP 2, CELL MAP N
+                ROW 2, COLUMN 1,CELL MAP 1,CELL MAP 2, CELL MAP N
+                ROW N, COLUMN N,CELL MAP 1,CELL MAP 2, CELL MAP N
+
+
+
+FILE TYPE:  LINE.PRINTER RUNTIME FILE  THIS FILE IS A LINE ORIENTED OUTPUT FILE.
+RECORD TYPE:  1-N ENTRY RECORDS
+
+WORD NUMBER  BYTE NUMBER  NO. OF BYTES   TYPE   DESCRIPTION
+
+   1-N         N           N        CHAR   LINES OF OUTPUT THAT ARE SEQUENTIALLY
+                                           OUTPUT BY THE SOFTWARE.  EACH LINE
+                                           IS FOLLOWED BY A CARRIAGE RETURN.
+                                                                        PAGE 17
+
+
+
+FILE TYPE:  PROJ_ERROR RUNTIME FILE  THIS FILE IS A LINE ORIENTED OUTPUT FILE.
+            IT IS THE OUTPUT FILE FOR ERRORS GENERATED BY THE PROJECTION
+            PROCESSOR.
+RECORD TYPE:  1-N ENTRY RECORDS
+
+WORD NUMBER  BYTE NUMBER  NO. OF BYTES   TYPE   DESCRIPTION
+
+   1-N         N           N        CHAR   LINES OF OUTPUT THAT ARE SEQUENTIALLY
+                                           OUTPUT BY THE SOFTWARE.  EACH LINE
+                                           IS FOLLOWED BY A CARRIAGE RETURN.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                                        PAGE 17
+
+FILE TYPE:        STANDARD MOSS INPUT
+FILE LENGTH:      VARIABLE
+
+RECORD TYPE:      HEADER (REPEATING SERIES OF HEADER RECORDS PRE-
+                          CEEDING ASSOCIATED COORDINATE PAIR DATA)
+                         (READ IN I5,5X,15A2,5X,I5 FORMAT)
+RECORD LENGTH:    56 CHARACTERS
+RECORD POSITION:  (1) BEFORE START OF ASSOCIATED COORDINATE DATA
+
+*WORD       BYTE       FIELD       FIELD          FIELD
+NUMBER     NUMBER      LENGTH      TYPE        DESCRIPTION
+------     ------      ------      -----      -----------------------
+1-3        1-5           5         CHAR       Item Number(NEGATIVE IF
+                                              THE COORDINATES ARE LON/LAT)
+3-8        6-15          10        CHAR       Blanks
+8-23       16-45         30        CHAR       Attribute Name
+23-25      46-50         5         CHAR       Blanks
+26-28      51-55         5         CHAR       Number of coord. pairs
+28         56            1         CHAR       ASCII NEW LINE CHARACTER
+
+
+
+FILE TYPE:        STANDARD MOSS INPUT
+FILE LENGTH:      VARIABLE LENGTH
+
+RECORD TYPE:      COORDINATE PAIRS (SERIES OF X,Y COORDINATES FOLLOWING
+                  HEADER RECORD)
+RECORD LENGTH:    23 CHARACTERS
+RECORD POSITION:  AFTER HEADER RECORD (NUMBER OF COORDINATE RECORDS
+                  EQUALS THE VALUE INDICATED BY BYTES 51-55 IN THE
+                  HEADER RECORD)  (READ IN 2F11.2 FORMAT)
+
+*WORD       BYTE       FIELD       FIELD          FIELD
+NUMBER     NUMBER      LENGTH      TYPE        DESCRIPTION
+------     ------      ------      -----      -----------------------
+1-6        1-11          11        CHAR       X Coordinate
+6-11       12-22         11        CHAR       Y Coordinate
+12         23            1         CHAR       ASCII NEW LINE CHARACTER
+
+
+IF COORDINATES ARE LONGITUDE/LATITUDE (READ IN 2F10.5,I2 FORMAT)
+
+1-5        1-10          10        CHAR       LONGITUDE
+6-10       11-20         10        CHAR       LATITUDE
+11         21-22         2         CHAR       FLAG  0-NORMAL 1-INDICATES
+                                              FIRST POINT OF ISLAND POLYGON
+12         23            1         CHAR       ASCII NEW LINE CHARACTER
+
+
+
+
+*NOTE: Assumes 2 Alpha characters (2 bytes) to one word.
+
+
+
+
+
+
+                                                                        PAGE 18
+
+FILE TYPE:  MAPS COMMUNE FILE FOR INTER-PROGRAM COMMUNICATION
+RECORD TYPE:  ENTRY RECORDS WRITTEN BY MAIN PROGRAM
+              FOR SWAPPED PROGRAM TO READ
+
+WORD #     BYTE #     # BYTES   TYPE   DESCRIPTION
+
+1          1-2        2         INTE   IER -ERROR VALUE
+2          3-4        2         INTE   ICOUNT - BYTE COUNT VALUE OF LAST READ
+3-10       5-20       16        INTE   NMAPS(8) .DT,.DH CHANNELS AND COUNTS
+11         21-22      2         INTE   COMNO-COMMAND NUMBER
+12-51      23-102     80        INTE   COMMON /CHANL/ IO(40) - CHANNEL NUMBERS
+52-59      103-118    16        INTE   COMMON /SYSERR/ IERS(8) - SYSTEM ERROR
+                                       NUMBERS
+60-67      119-134    16        CHAR   IWORK(8) - CURRENT WORK PROJECT
+68-75      135-150    16        CHAR   IMAST(8) - CURRENT MASTER PROJECT
+76-83      151-166    16        CHAR   IREAD(8) - CURRENT READ FILE
+84-91      167-182    16        CHAR   IWRITE(8) - CURRENT WRITE FILE
+92-99      183-197    16        CHAR   IDEVIC(8) - CURRENT DISPLAY FILE
+100-179    198-358    160       CHAR   COMMON /SUFFIX/ ISUFF(2,40)
+                                       SUFFIX FOR FILES
+180-219    359-438    80        INTE   COMMON /FLENS/ IFLEN(40) FILE LENGTHS
+220-235    439-470    32        CHAR   COMMON /CHARS/ ICHARS(16) ODDS & ENDS
+                                       CHARACTERS USED IN SYSTEM
+236        471-472    2         INTE   IDRAW - DEFAULT OR DISPLAY FILE FLAG
+237        473-474    2         INTE   IZOOM - ZOOM FLAG
+238-245    475-490    16        REAL   RWND(4) - MBR OF WINDOW
+246-253    291-506    16        REAL   ZWND(4) - MBR OF ZOOMED WINDOW
+254-261    507-522    16        REAL   CWND(4) - CENTIMETER SIZE OF SCREEN
+262-265    523-530    8         REAL   SCALE(2) - X,Y SCALE TO FIT SCREEN
+266-281    531-562    32        INTE   MX(16) - SYSTEM MAXIMUMS
+282-283    563-566    4         REAL   RMAX - SYSTEM REAL MAXIMUM
+284-795    567-1590   1024      INTE   IBUFF(512) - SYSTEM WORK SPACE
+796-1081   1591-2162  512       INTE   JBUFF(256) - VALUES FOR SWAPPED PROGRAM
+1082-1337  2163-2674  512       INTE   KBUFF(256) - SYSTEM WORK SPACE
+1338-1345  2675-2690  16        CHAR   IOUTPT(8) - DEFAULT WRITE NAME
+1346-1353  2691-1406  16        CHAR   ICONSL(8) - DEFAULT DISPLAY NAME
+1354-1361  1407-2722  16        CHAR   ITMPNM(8) - TEMPORARY FILE NAME BASE
+1362-1369  2723-2738  16        CHAR   IDEFLT(8) - DEFAULT NEW MAP NAME
+
+
+
+
+FILE TYPE:  MAPS COMMUNE FILE FOR INTER-PROGRAM COMMUNICATION
+RECORD TYPE:  ENTRY RECORDS WRITTEN BY SWAPPED PROGRAM
+              FOR MAIN PROGRAM TO READ
+
+WORD #     BYTE #     # BYTES   TYPE   DESCRIPTION
+
+1          1-2        2         INTE   IER - ERROR VALUE
+
+
+
+
+
+
+
+
+
+                                                                      PAGE 20
+
+FILE TYPE: PTHBLK.DT - PATHNAME LISTING FOR ALL SUBSYSTEMS
+RECORD TYPE: ASCII
+
+PATHNAME     PATHNAME RESULTANT         SYSTEM    SYSTEM VARIABLE
+   INDEX                              VARIABLE    DESCRIPTION
+
+     0      JUST RETURN NAME            N/A     - ENTRYNAME ONLY
+     1      DBMOSS+NAME                 DBMOSS  - MOSS DATA BASE DIRECTORY
+     2      DBMOSS+PRMOSS+NAME         *PRMOSS  - CURRENT MOSS PROJECT
+     3      EXMOSS+NAME                 EXMOSS  - MOSS SYSTEM PROGRAM DIRECTORY
+     4      DTMOSS+NAME                 DTMOSS  - MOSS SYSTEM DATA DIRECTORY
+     5      RESERVED FOR MOSS           SPMOSS  - SPARE MOSS PATHNAME
+     6      EXMAPS+NAME                 EXMAPS  - MAPS EXECUTABLE IMAGE AREA
+     7      DTMAPS+NAMEC                DTMAPS  - MAPS SYSTEM DATA DIRECTORY
+     8      RESERVED FOR MAPS           SPMAPS  - SPARE MAPS PATHNAME
+     9      DBCOS+NAME                  DBCOS   - COS DATA BASE DIRECTORY
+    10      DBCOS+PRCOS+NAME           *PRCOS   - CURRENT COS PROJECT
+    11      EXCOS+NAME                  EXCOS   - COS SYSTEM PROGRAM DIRECTORY
+    12      DTCOS+NAME                  DTCOS   - COS SYSTEM DATA DIRECTORY
+    13      RESERVED FOR COS            SPCOS   - SPARE COS PATHNAME
+    14      DBCOS3+NAME                 DBCOS3  - COS3 DATA BASE DIRECTORY
+    15      DBCOS3+PRCOS3+NAME         *PRCOS3  - CURRENT COS3 PROJECT
+    16      EXCOS3+NAME                 EXCOS3  - COS3 SYSTEM PROGRAM DIRECTORY
+    17      DTCOS3+NAME                 DTCOS3  - COS3 SYSTEM DATA DIRECTORY
+    18      RESERVED FOR COS3           SPCOS3  - SPARE COS3 PATHNAME
+    19      DBADS+NAME                 *DBADS   - ADS DATA BASE DIRECTORY
+    20      DBADS+PRADS+NAME            PRADS   - CURRENT ADS PROJECT
+    21      EXADS+NAME                  EXADS   - ADS SYSTEM PROGRAM DIRECTORY
+    22      DTADS+NAME                  DTADS   - ADS SYSTEM DATA DIRECTORY
+    23      ADS MENU DIRECTORY+NAME     MENUS   - ADS MENUS DIRECTORY
+    24      RESERVED FOR ADS            SPADS   - SPARE ADS PATHNAME
+    25      ROOT DEVICE DIRECTORY       DEVS    - ROOT DEVICE DIRECTORY
+    26      USER CONSOLE DEVICE        *USRCON  - USER CONSOLE DEVICE
+    27      GRAPHIC DEVICE (TEKIO)     *TEKIO   - PATHNAME TO GRAPHIC CRT
+    28      ZETA+NAME                   ZETA    - PLOT DIRECTORY
+    29      APPSIO                     *APPSIO  - PATHNAME TO DIGITIZER
+    30      DBAMS+NAME                  DBAMS   - AMS DATABASE DIRECTORY
+    31      DBAMS+PRAMS+NAME           *PRAMS   - CURRENT AMS PROJECT
+    32      DBAMS+PRAMS+THAMS+NAME     *THAMS   - CURRENT AMS THEME
+    33      EXAMS+NAME                  EXAMS   - AMS SYSTEM EXECUTABLE
+    34      DTAMS+NAME                  DTAMS   - AMS SYSTEM DATA DIRECTORY
+    35      MASTER AMS USER DIRECTORY   USRNOD  - MASTER USER NODE DIRECTORY
+    36      (35)+AMS USER NAME          AMSUSR  - AMS USERNAME
+    37      DBPHOTO+NAME                DBPHOTO - PHOTO DATABASE DIRECTORY
+    38      DBPHOTO+PRPHOTO+NAME       *PRPHOTO - CURRENT PHOTO PROJECT
+    39      (37)+(38)+SEPHOTO+NAME     *SEPHOTO - PHOTO SENSOR
+    40      PLOTS+NAME                  SPAMS   - AMS USERS PLOT DIRECTORY
+    41      DBADW+NAME                  DBADW   - ADDWAMS DATABASE DIRECTORY
+    42      DBADW+PRADW+NAME           *PRADW   - CURRENT ADDWAMS PROJECT
+    43      IGESDT+NAME                 SPADW   - IGES DATA DIRECTORY
+    44      RESERVED FOR FUTURE         SP044   - SPARE PATHNAME
+    45      RESERVED FOR FUTURE         SP045   - SPARE PATHNAME
+
+       * - SYSTEM WILL CHANGE THESE DIRECTORY NAMES AT USERS REQUEST

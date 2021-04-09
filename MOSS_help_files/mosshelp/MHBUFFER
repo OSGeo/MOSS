@@ -1,0 +1,70 @@
+
+THE MHBUFFER FILE WAS UPDATED:
+   09-MAY-87 AT 21:31:43 BY JOHN
+
+BUFFER                                                                   BUFER
+
+
+
+     The BUFFER command is summarized as follows:  
+
+          BUFFER is a distance analysis command that generates a buffer (i.e.,
+          a zone of influence) of user-specified distance around any map data
+          referenced in the active map table.  BUFFER will draw zones of in-
+          fluence around points (e.g., a ferret sighting), lines (e.g.,a road),
+          or polygons (e.g., a city).  Result of the command is a polygon map
+          that is saved as part of the workfile.  Since the buffer generation
+          process may create overlapping polygons, the user of BUFFER may need
+          to use the RESOLVE command to resolve these overlaps.
+
+
+     The BUFFER command is specified as follows:
+     (* denotes parameters which can only be entered in a prompted mode)
+
+     BUFFER (active ID) (new map name) (radius) (buffer type)
+
+
+     The individual parameters of the BUFFER command are described below:
+
+          (active ID) is the ID number of a point, line, or polygon map 
+          referenced in the active map table.
+
+          (new map name) is the name for the map resulting from BUFFER.
+
+          (radius) is the desired width or radius of the buffer zone in miles.
+
+
+     The following is an example of use of the BUFFER command:
+
+           ENTER COMMAND
+          ? BUFFER
+           PLEASE ENTER ACTIVE MAP ID.S TO BUFFER
+          ? 1
+           WHAT DO YOU WISH TO CALL THE NEW MAP
+            __________
+          ? SWSBUFFER
+           PLEASE ENTER BUFFER ZONE IN MILES
+          ? .025
+
+	   ... Building BUFFER zones ....
+          PROCESSING FEATURE     1
+          BUILD MOSS MAP       DATA TYPE =   3
+
+          TOTAL TIME     =       1.86
+          TOTAL RECORDS  =     144.00
+          TOTAL JOB COST =$       .02
+
+           ENTER COMMAND
+
+     The limitations of the BUFFER command are as follows:
+
+          -- Buffer may produce erroneous results on "dirty" data; i.e.; lines
+             with duplicate points or selfcrossing loops.
+
+          -- Input map must be an active vector map with window set.
+
+          -- Input map must have less than 750 points per feature or less than
+             250 points per feature when resolving overlaps.
+
+          -- May not function well with a large radius (e.g., > 1 mile).
+

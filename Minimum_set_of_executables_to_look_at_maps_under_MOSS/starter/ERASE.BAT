@@ -1,0 +1,3 @@
+DEL CURRENT.IMG
+
+

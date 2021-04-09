@@ -1,0 +1,68 @@
+HELP                                                                       HELP
+
+
+
+     MOSS commands, grouped by function, are as follows:
+
+     Program Control:    BAUD, BUTTON, BYE, CLI, COMMANDS, COST, DEVICE, HELP,
+                         MAPS, NEWS, OPEN, PAGE,RENAME, STATUS, TERMINAL, UTILITY
+
+     Data Manipulation:  AUTO, IMPORT, ARCHIVE, *CONTOUR, DEARCHIVE, DELETE, DIGITIZE,
+                         DIVIDE, EDITATT,EDMAP, EXPORT, FREE, GENERATE, LIST, MERGE,
+                         MOVELABEL, *MULTIVAL, *POLYCELL, *POLYMVG, PROJECTION,
+                         SAVE, *SNGVAL, *SPSS, SMOOTH, TEXT, TRANSLATE, WEED
+
+
+     Data Display:       ANNOTATE, ASSIGN, CALCOMP, ERASE, FLOOD, PENPLOT,
+                         *CONTOUR, HEWLETT, LEGEND, LINE, NUMBER, PLOT,
+                         *PROFILE, RESET, SHADE, SHOW, SYMBOL, TESTGRID,
+                         *THREED, VERSATEC, WINDOW, ZETA, ZOOM
+
+     Data Description:   ACTIVE, AREA, AUDIT, DESCRIBE, DISTANCE, FREQUENCY,
+                         LENGTH, LOCATE, PERIMETER, QUERY, REPORT, STATISTICS
+
+     Data Analysis:
+     (Reclassify)        BSEARCH, COMPUTE, SAMPLE, SELECT, SIZE
+
+     (Overlay)           *COMPOSITE, GOVERLAY, LPOVER, *MODELG, OVERLAY
+
+     (Distance)          BUFFER, CONTIGUITY, EDGE, PROXIMITY
+
+     (Neighbor)          *ASPECT, *GRID, *SLOPE
+
+
+     * denotes raster capabilities (see Appendix F)
+
+
+     The HELP command is summarized as follows:
+
+          HELP is a program control command which provides either a listing
+          of commands or a description of function of a specific command.
+
+
+     The HELP command is specified as follows:
+
+          HELP
+
+          or,
+
+          HELP (command name)
+
+
+     The individual parameters of the HELP command are described below:
+
+          (command name) is the name of the command about which the user wants
+          more information.  Abbreviations are not allowed.  If no name is
+          specified a listing of all commands is given.  This parameter must
+          be entered in an un-prompted mode.
+
+
+     The following is an example of use of the HELP command:
+
+           ENTER COMMAND
+          ? HELP COST
+
+
+     The limitations of the HELP command are as follows:
+
+          -- Command names may not be abbreviated.

@@ -1,0 +1,77 @@
+PROFILE                                                         PROFILE
+
+
+
+     The PROFILE command is summarized as follows:
+
+          PROFILE is a data display command which allows the user to
+          generate a cross-sectional diagram of continous cell maps
+          (type 8) or line maps (type 2), such as contour maps with
+          numeric subjects.  The extent of the cross-section is
+          specified by crosshair input of two locations.  It is
+          suggested that the map be displayed, for reference, prior to
+          use of the command. If the active ID is a cell map, the
+          horizontal axis of the resultant cross-section (profile)
+          shows the distance along a line between the two points
+          digitized with the cross-hairs.  If it is a line map, the
+          distance is calculated from the first line encountered on
+          the active map by the cross-hair line to the last line
+          encountered.  The profile will be oriented with the first
+          location entered postioned at the left side.  The XYZ
+          distance is the distance along the surface in decimal
+          miles, to the tenths.
+
+     The PROFILE command is specified as follows:
+     (* denotes parameters which can only be entered in a prompted mode)
+
+         PROFILE (active ID) (vertical exaggeration)* (crosshair input)*
+
+
+     The individual parameters of the PROFILE command are described
+     below:
+
+          (active ID) is the ID number of a continuous cell map or line
+          map referenced in the active map table.
+
+          (vertical exaggeration) is a real number which specifies the
+          vertical exaggeration of the values for the cross-section
+          display.
+
+          (crosshair input) is where the user specifies the extent of
+          the cross-section to be diagrammed.
+
+
+     The following is an example of use of the PROFILE command:
+
+           ENTER COMMAND
+          ? PROFILE
+           ENTER ACTIVE MAP ID TO PROFILE
+          ? 1
+           ENTER VERTICAL EXAGGERATION ?
+          ? 10
+           POINT TO TWO LOCATIONS           [USE CURSOR]
+           PAUSE, HIT ANY KEY TO CONTINUE   [COMMAND THEN DRAWS PROFILE]
+
+
+     The limitations of the PROFILE command are as follows:
+
+          -- Works only with continuous cell (type 8) or line (type 2)
+             maps.
+
+          -- Only one map can be profiled at at time.
+
+          -- Map must be active and window must be set.
+
+          -- The user may only enter 2 points to define the profile
+             line.
+
+          -- If using a cell map, no more than 512 cells can be
+             included in the profile.
+
+          -- The profile will automatically be expanded to fill the
+             width of the screen.
+
+          -- Profiles can not be sent to a plotter.
+
+          -- There is no correlation between the vertical exaggeration
+             in the PROFILE command and the 3-D command.

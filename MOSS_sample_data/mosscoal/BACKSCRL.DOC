@@ -1,0 +1,286 @@
+
+        ---------------------------------------------------
+                      Back Scroll! Version 6.4
+        ---------------------------------------------------
+
+               A Bi-directional Scrolling Utility for
+                     the IBM Personal Computer
+
+                     By Karlton & Kendrick Kam
+
+    Copyright (c) 1983 by The Kampro Group. All rights reserved.
+
+
+
+     Back Scroll!, a product of The Kampro Group, is currently
+distributed as User Supported Software.  With a few restrictions,
+this allows Back Scroll!, although copyrighted, to be freely copied
+and distributed.
+
+     First, this product must be copied and distributed as a
+complete package.  This includes both the Back Scroll! program
+(BACKSCRL.COM) and this documentation file (BACKSCRL.DOC).
+
+     Second, Back Scroll! is copyrighted and may not be distributed
+if altered or modified in any way.
+
+     Third, no fee is to be charged for copying or distributing
+Back Scroll! without the written permission of The Kampro Group.
+
+     In short, Back Scroll! may be copied and distributed to
+anyone who wishes it as long as it is a complete unmodified
+package including the program and documentation and no fee is
+charged. In turn, The Kampro Group is requesting a  small
+contribution. About $20.00 is suggested but please contribute
+whatever you feel Back Scroll! is worth. Your contributions will
+help offset development costs by The Kampro Group and thus assure
+future updates and products. Also, registered users of Back Scroll
+will be placed on a mailing list for future notification. Even if
+you don't feel that Back Scroll! merits a contribution, please
+continue to copy and share this program with others.
+
+     The Kampro Group welcomes any ideas and suggestions for future
+versions and will appreciate any comments regarding Back Scroll! or
+any of its software.
+
+
+                                  The Kampro Group
+                                  Post Office Box 90654
+                                  Honolulu, Hawaii  96835
+
+
+
+Introduction:
+-------------
+
+     Back Scroll! is a bi-directional scrolling utility.
+Once activated, Back Scroll! will buffer the screen scrolling
+so that the user may recall, with a few simple keystrokes, data
+that has previously been scrolled off the screen .  The user
+may either scroll by line or by page through Back Scroll!'s
+buffer. In addition, Back Scroll!'s printer commands allow the
+user to select and print any data that is currently in the buffer.
+
+     When Back Scroll! is loaded, it becomes an extension to DOS
+and from then on will be transparent to the user and most programs.
+The activation of Back Scroll!, once loaded, can be done at any
+time without any danger to the current operation. When entering
+and exiting Back Scroll!, the current display screen will be
+saved and restored so that the user may continue without any
+interference.
+
+Note: Back Scroll! will only support the eighty column text display
+mode of either the color or monochrome display card. Unpredictable
+results may occur when Back Scroll! is toggled while in either the
+forty column mode or in any graphics mode.
+
+
+
+Installation:
+-------------
+
+     When using Back Scroll!, one must remember that since the
+screen scrolling must be buffered in memory, a certain amount
+must be set aside for it. Specifically, Back Scroll! when loaded
+and running, requires approximately 6700 bytes of memory. Another
+2000 bytes are needed per screen of buffer. It is the screen
+buffer memory that will take the most memory and if you are not
+careful, may cause some problems in systems with minimal memory.
+The maximum number of screens is set at 28 or about 56000 bytes.
+Back Scroll! will default to 4 screens, or 8000 bytes, plus 6700
+more for the program itself for a total overhead of about 14700
+bytes.
+
+     The installation of Back Scroll! is simple in that the program
+only needs to be copied onto a working disk.  Once installed the
+program is called as follows:
+
+
+                   BACKSCRL,Parm1,Parm2
+
+
+     Where "Parm1" may be substituted with a number between 1 and 28
+to specify the number of screen pages. Remember, Back Scroll! will
+take up between 8000 and 58000 bytes of system memory depending on
+the amount chosen. Again, the default is set at 4 screen pages or
+about 14700 bytes of memory.
+
+     "parm2" may be substituted with a number between 1 and 25 and
+will specify the numbers of lines Back Scroll! will page up and down
+through its buffer. The default is set at 25 lines or a full screen
+but you may wish to change it.
+
+
+
+Operations:
+-----------
+
+     The operation of Back Scroll! is easy and can be done in a
+few simple steps.
+
+First, Back Scroll! must be called with the proper parameters.
+This can be done by entering this command at the DOS prompt:
+
+                   BACKSCRL,parm1,parm2
+
+And depressing the return key.
+
+If no parameters are given, Back Scroll! will create a 4 screen
+buffer with a 25 line page up and page down rate. The size of
+Back Scroll! will be about 14700 bytes long but may be changed as
+noted in the installation section by simply specifying the parameters.
+
+Once Back Scroll! is loaded, you will be returned to the DOS prompt.
+Except for a reduction in system memory, you may then continue using
+your computer normally.
+
+Second, now that Back Scroll! is an extension of DOS, it may be
+called up while in any program. The commands for doing this are
+as follows:
+
+Control + Space Bar: These two keys are used to toggle into Back Scroll!.
+                     To avoid interfering with the current program,
+                     the keyboard will respond normally until these
+                     keys are pressed.  Once in Back Scroll!, The current
+                     operation is suspended and the display screen is
+                     saved.
+
+Control + Return:    Pressing these two keys simultaneously will
+                     "take a picture" of the current screen.
+                     This can be done at any time and will move the
+                     entire screen into the buffer and then return the
+                     user to the current task.
+
+The following keys must be used after the "Control + Space Bar"
+sequence:
+
+Home:              This key will move the cursor up one line in the
+                   buffer. If the cursor is at the top of the screen,
+                   the screen will be scrolled down one row and the
+                   top line displayed on the screen from the buffer.
+
+End:               This is the opposite of the above key. The cursor is
+                   moved down or the screen is scroll up then a line
+                   from the buffer displayed.
+
+Cursor Up:         This is used to scroll up the buffer. The screen
+                   will be scrolled while leaving the cursor in its
+                   current position on the screen.
+
+Cursor Down:       Same as the above command except that the buffer
+                   is scrolled down.
+
+Page Up:           This key will allow the buffer to be scrolled
+                   up at between 1 and 25 lines at a time. The
+                   actual number of lines is selected when Back
+                   Scroll! is loaded.
+
+Page Down:         Same as the above key except that the buffer is
+                   "paged" down instead.
+
+Minus (-):         This is the grey minus key on the right side of the
+                   keyboard.  After positioning the cursor, pressing
+                   this key will mark the beginning of the buffer to
+                   be printed.
+
+Plus (+):          This is the grey plus key on the right side of the
+                   keyboard.  Pressing this key marks the end of the
+                   buffer to be printed at the current cursor position.
+
+PrtSc:             This will cause the marked buffer to be printed
+                   to line printer 1. This command can be aborted
+                   at any time by hitting any key.
+
+Space Bar          Either of these keys will exit Back Scroll!.  The
+or Return:         currently saved screen is restored and the
+                   suspended operation is continued. Once out of
+                   Back Scroll!, it can be easily called up at
+                   anytime again by using the "Control + Space Bar"
+                   sequence.
+
+     While using Back Scroll!, a number will appear in the upper
+right corner of the screen. This is a counter and it starts from
+the last line that was saved into the buffer. This number will
+change as the user moves around the buffer and serves as a guide
+to the current location.
+
+
+
+Customization
+-------------
+
+     Back Scroll! customization notes are available to any who wishes
+by sending a self addressed stamped envelope to The Kampro Group.
+With these notes, the keys used to enter and exit Back Scroll! can be
+modified to any combination of Control, Alternate, or Shift key
+sequences. This may in some cases make Back Scroll! easier to use.
+
+     These notes also allow other defaults to be changed such as the
+printer port, type of screen paging (fast or slow), beginning cursor
+position, speed of scrolling, as well as  the  default  buffer  and
+paging size. A "Do First" command may also be invoked which will allow
+a keyboard input to be automatically done upon entering Back Scroll!.
+This command, for example, can be set to automatically do a page down
+whenever Back Scroll! is entered.
+
+
+
+Warning:
+--------
+
+     To avoid disk drive errors, activation of Back Scroll! during
+disk operations is not recommended.
+
+
+
+Suggestions:
+------------
+
+     Back Scroll! will be erased whenever a "Control Alt Delete"
+sequence is done. It is recommended that Back Scroll! be put in an
+autoexecute batch file so that it may be activated at any time
+the system is running.  Back Scroll! should be the first program
+called from the autoexec batch file.
+
+     Back Scroll! is especially useful with communications packages.
+It successfully overcomes the limitation of the 25 line screen and
+will allow the user to review large amounts of data easily although
+still at only 25 lines at a time. While in basic, Backk Scroll! will
+automatically save the entire
+screen into the buffer whenever a clear screen command (CLS) is given.
+This is especially useful with programs that do not scroll but clear
+the screen instead as the preceding screen displays can easily be
+recalled.
+
+     When using a spread sheet or word processor that does not scroll
+or clear the screen, Back Scroll! may be used to "take pictures"
+of important data that can be recalled almost instantly for quick
+reference.  This can be done at any time with the "Con
+lY<1U#UI9       j$hWV.]7ce.
+
+     Remember, Back Scroll! has the ability to mark and print any
+data that is already in its buffer. This is useful if you wish
+to print just parts of a screen or more that one screen of data.
+
+     Since Back Scroll! can be toggled into at any time, this in
+turn will pause the execution of any program at any point.  This
+can be useful in many cases such as during rapid screen output.
+
+     If  Back Scroll!  happens to  conflict  with a program, the
+customization notes mentioned above may resolve the problem if it
+is due to either the keyboard or video section. The Kampro Group
+is open to suggestions and would like to know of any incompatibilities
+with software so that it can be worked out in future versions.
+
+
+
+Disclaimer:
+-----------
+
+     Back Scroll! is being distributed without warranty on an
+"as is" basis. The Kampro Group and/or any of its authors shall
+not be held liable for any loss or damage caused directly or
+indirectly by this program or any program by The Kampro Group.
+
+
+

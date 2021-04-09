@@ -1,0 +1,81 @@
+QUINTIC-SPLINE OPTION TO GRID COMMAND
+
+The "quintic splines" gridding algorithm used in MOSS is based on
+a public domain algorithm written by Hiroshi Akima and published
+by the Association for Computing Machinery (see bibliography).  It
+covers the area to be gridded with a mesh of triangles, using the
+original data points as vertices.  Next, it examines each data point
+and determines the nearest two to ten other data points.  It uses
+these nearest neighbors to estimate the slope and gradient at each
+data point. The slope and gradient data is then used to calculate
+a fifth degree interpolating polynomial over each triangle.  Finally,
+each cell in the output grid is examined to determine in which tri-
+angle its center lies, and the cell value is calculated based on
+the polynomial over this triangle.
+
+Quintic splines is a very fast method of gridding a point map, but
+it is not very accurate when there are grid cells far from any data
+points.
+
+
+
+
+
+
+
+The SPLINE option is described as follows:
+
+    (number of closest data points)*
+
+     where (number of closest data points)* is a required parameter
+     which is input in response to the prompt:
+
+     ENTER NUMBER OF CLOSSEST DATA POINTS TO USE IN
+     COMPUTATION (MAX=10):
+
+The response to this prompt determines the number of nearest neighbors
+the program will use in determining slope and gradient data, as explain-
+ed above.  A large value will produce a smoother grid, but some detail
+will be lost.  A small value will produce a rougher grid, but it will
+do a better job of preserving local anomalies in the data.  Experience
+seems to indicate that a value of 7 or 8 gives good results for most
+applications.
+
+
+
+
+
+
+
+While the QUINTIC SPLINES program is running, messages like the follow-
+ing will appear on the screen:
+
+     400  TRIANGULATING
+     722  TRIANGLES FORMED
+     400  SEARCHING FOR 7 NEAREST NEIGHBORS
+          SORTING GRID CELLS BY TRIANGLE
+     400  CALCULATING GRID CELL VALUES
+
+The numbers at the left of these messages will overprint, so if
+you are entering this command from a non-refresh terminal such as
+a Tektronix 4014, they may become illegible.  To monitor progress,
+simply clear the screen while the program is running.
+
+Limitations of quintic-splines:
+
+1)There must be at least three points in the input data set.
+2)The maximum number of points in the input data set is currently
+  set to 300 (16 bit version) or 5000 (32 bit version).
+3)Points in the input data set cannot all be collinear.
+
+
+
+
+BIBLIOGRAPHY
+
+Akima, Hiroshi, 1978.  "Bivariate Interpolation and Smooth Surface
+     Fitting of Irregularly Distributed Data Points," No. 526 in
+     Collected Algorithms of the ACM.
+Akima, Hiroshi, 1978.  "A Method of Bivariate Interpolation and
+     Smooth Surface Fitting for Irregularly Distributed Data Points,"
+     ACM Trans. Math. Software 4,2, pp. 148-159.

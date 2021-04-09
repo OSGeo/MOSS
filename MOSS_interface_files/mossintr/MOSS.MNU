@@ -1,0 +1,44 @@
+86.08WMoss - Vector Map Analysis  Commands
+86.08AActive    - Display info. about ACTIVE id's.
+86.08AAnnotate  - Build Annotate files for use in Penplot.
+86.08AArea      - Gives area, frequency, and percentage of each subject.
+86.08AAudit     - Display (by feature) detailed info. about a map.
+86.08ABsearch   - Perform boolean retrievals from vector maps.
+86.08ABuffer    - Creates a buffer zone around map data.
+86.08ACompute   - Creates new attributes using mathematical operations.
+86.08ADelete    - Removes a map from its catalog and directory.
+86.08ADevice    - Select an alternate graphic output device.
+86.08ADistance  - Measures distance between two points on the crt.
+86.08AErase     - Clear the display.
+86.08AFree      - Free an ACTIVE map from the tables.
+86.08AFrequency - Gives frequency and percentage of each subject.
+86.08AGenerate  - Create new vector maps using crosshairs on crt.
+86.08AGrid      - Creates a cell map from vector elevation maps.
+86.08AImport    - Import Map Data into Moss
+86.08AIntersect - Provides an Intersection calculation on two polygon maps.
+86.08ALegend    - Dispay legend information about a line or polygon.
+86.08ALength    - Gives length, freq. and percentage about any line subject.
+86.08AList      - Browse the list of Maps in a .DT file
+86.08ALpover    - Overlays a polygon map with a point or line map.
+86.08AMerge     - Combines active vector maps.
+86.08ANumber    - Plots map id, or feature id or areas at feature centroid.
+86.08AOpen      - Open an alternative master directory
+87.07APenplot   - Develops a pen plot of a map (for H.P plotters)
+86.08APerimeter - Gives information about the perimeter of each subject.
+86.08APlot      - Display any ACTIVE map.
+86.08AProximity - Retrieves data based on the proximity of features.
+86.08AQuery     - Retrieves information about any feature on a vector map.
+86.08AReport    - Creates tabular output of multiple attribute info.
+86.08AReset     - Returns display to original window.
+86.08ASave      - Generates a new map based on an ACTIVE id.
+86.08ASelect    - Retrieve all or part of a map to create an ACTIVE id.
+86.08AShade     - Plots and shades with cross-hatching.
+86.08ASize      - Retrieves features based on size of area or length of line.
+86.08AStatus    - Gives a wealth of information about maps and map cataloges.
+88.12ASystem    - Allows user access to several MS-DOS commands
+87.10AUnion     - Provides a Union calculation on a map of polygons.
+86.08PUtility   - Menu for MOSS utility functions
+88.10AVariogram - Produces a (semi)variogram for a point map.
+86.08AWindow    - Initiates a rectangular viewing window.
+86.08AZoom      - Magnify a portion the current display window.
+

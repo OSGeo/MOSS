@@ -1,0 +1,36 @@
+INTERLINE                                                             INTERLINE
+
+     Interline is a line intersector command which will 'cut' the major map
+     based upon intersections with the minor map.  The resultant map will be
+     a series of line segments which will not cross any item in the minor
+     map.
+
+INTerline ID1 ID2 NEW_MAP_NAME (subject merge options)*
+
+     ID1 is the major map to 'cut' into segments
+
+     ID2 is the minor map to 'cut' ID1
+
+     NEW_MAP_NAME is the resultant map's name
+
+     (subject merge options)* are options required to merge subjects of the
+         two active IDs or to build a new subject from one or both subjects
+         from the two active IDs
+
+Example:
+
+INTerline 1 2 MAPOUT
+Do you want to specify SUBJECT MERGE parameter [CR=NO]
+   [NO = 14 chars from 1st and 16 chars from 2nd]
+   [YES= input # chars from each subject]
+   [REV= reverse order of subjects      ]        : NO
+
+  INTERSECTED FEATURES =   128
+
+Limitations:
+
+     - Active IDs must exist
+
+     - Only works with line data types
+
+     - 256 intersections for each item in major ID

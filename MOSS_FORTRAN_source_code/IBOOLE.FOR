@@ -1,0 +1,169 @@
+      SUBROUTINE iBOOLE(FXG,FXR,MAXXYI,
+     +   KGR,TGR,NEXT,IFORK,MAXLST,KERR)
+      COMMON /BOPRMS/ IUD,NG,NR,NXYI,NLOBE,KLUE,NLIST,IFLGG
+$Include:'io.inc'
+$Include:'xyxy.500'
+C
+C * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+C
+C              S U B R O U T I N E   B O O L E
+C
+C COMPUTES EITHER THE INTERSECTION OR THE UNION OF TWO POLYGONS.
+C SET IUD=1 FOR INTERSECTION, IUD=2 FOR UNION, IUD=3 FOR THE
+C SET-DIFFERENCE.
+C * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+C
+      DIMENSION XYNOW(2),XYLAST(2),Z(2,2)
+      INTEGER KGR(2,1),NEXT(2,1),IFORK(1),KASE(16,2)
+      REAL FXG(1),FXR(1),CLUE(5,3)
+      LOGICAL DONE
+      REAL TGR(2,1)
+      DATA (KASE(I,1),I=1,16)/1,2,0,0, 0,3,2,0, 1,0,0,0, 2,1,0,0/
+      DATA (KASE(I,2),I=1,16)/2,1,2,1, 0,0,0,2, 0,1,1,2, 1,2,0,0/
+      DATA ((CLUE(I,J),I=1,5),J=1,3)/1,2,3,4,6, 1,2,3,4,6, 2,1,5,1,6/
+      DATA ITST/0/
+      KERR=0
+      IU=IUD
+      IF(IUD.EQ.3) IU=1
+C      IF(IUD.EQ.3.AND.IFLGG.EQ.0) CALL SWAPXY(NR)
+      NLOBE=0
+      LXYI=0
+      LLXYI=0
+C CONSTRUCT THE INTERSECTION LIST
+      CALL iINLIST(FXG,NG,FXR,NR,KASE(1,IU),MAXLST,KGR,TGR,
+     .   NEXT,IFORK,NLIST,ISSUE)
+      IF(ISSUE.EQ.2) GO TO 910
+      IERR=400
+      IF(ISSUE.EQ.3) GO TO 930
+      IF(NLIST.EQ.0) GO TO 700
+C
+C READY TO ASSEMBLE THE INTERSECTION.
+C ASSEMBLE THE NEXT LOBE.
+C ( ( ( ( ( ( ( ( ( (
+  500 LXYI=LLXYI
+      XYNOW(1)=-1
+      XYNOW(2)=-1
+C FIND A PLACE IN LIST TO START.
+      DO 510 KL=1,NLIST
+  510 IF(IFORK(KL).GT.0) GO TO 520
+      GO TO 750
+  520 MLIST=KL
+      JGR=IFORK(KL)
+      IF(JGR.GE.3) JGR=1
+      DONE=.FALSE.
+C PUT NEXT LIST POINT INTO INTERSECTION LOBE.
+C ( ( ( ( ( ( ( ( ( (
+  550 CONTINUE
+      CALL igetpts(NG,KGR(1,KL),2,Z,1)
+      DO 560 I=1,2
+      XYLAST(I)=XYNOW(I)
+  560 XYNOW(I)=Z(I,1)+(Z(I,2)-Z(I,1))*TGR(1,KL)
+      IF(XYLAST(1).EQ.XYNOW(1).AND.XYLAST(2).EQ.XYNOW(2)) GO TO 565
+      LXYI=LXYI+1
+      IF(LXYI.GT.MAXXYI) GO TO 940
+       call sspoints('X1',xy1,xynow(1),lxyi,2)
+       call sspoints('X2',xy2,xynow(2),lxyi,2)
+C                 xy(1,lxyi)=xynow(1)
+C                 xy(2,lxyi)=xynow(2)
+  565 IF(DONE) GO TO 600
+      IGR=JGR
+      JGR=IFORK(KL)
+      IFORK(KL)=0
+      IF(JGR.EQ.3) IFORK(KL)=IGR
+      IF(JGR.EQ.3) JGR=3-IGR
+      IF(JGR.EQ.1.OR.JGR.EQ.2) GO TO 567
+      IERR=565
+      GO TO 930
+  567 JL=NEXT(JGR,KL)
+      IF(JGR.EQ.1) LAST=NG
+      IF(JGR.EQ.2) LAST=NR
+      KA=KGR(JGR,KL)
+      KAX=KGR(JGR,JL)
+      IF(KA.EQ.KAX.AND.TGR(JGR,KL).LE.TGR(JGR,JL)) GO TO 590
+C INSERT NEXT NON-LIST POINT INTO INTERSECTION LOBE.
+  570 KA=KA+1
+      IF(KA.EQ.LAST) KA=1
+      IF(JGR.EQ.1) CALL igetpts(NG,KA,1,Z,1)
+      IF(JGR.EQ.2) CALL igetpts(NR,KA,1,Z,2)
+      IF(XYNOW(1).EQ.Z(1,1).AND.XYNOW(2).EQ.Z(2,1)) GO TO 585
+      LXYI=LXYI+1
+      DO 580 I=1,2
+      XYLAST(I)=XYNOW(I)
+      XYNOW(I)=Z(I,1)
+c 580  if(lxyi.le.maxxyi) xy(i,lxyi)=xynow(i)
+        if(lxyi.le.maxxyi) then
+         if(i.eq.1)then
+              call sspoints('X1',xy1,xynow(1),lxyi,2)
+            else
+              call sspoints('X2',xy2,xynow(2),lxyi,2)
+         endif
+       endif
+  580  continue
+  585 IF(KA.NE.KAX) GO TO 570
+C ADVANCE TO NEXT POINT IN LIST.
+  590 KL=JL
+      DONE=KL.EQ.MLIST
+      GO TO 550
+C ) ) ) ) ) ) ) ) ) )
+C FINISHED WITH THIS LOBE.
+  600 IF(LXYI.GT.MAXXYI) GO TO 610
+      call sspoints('X1',xy1,xtt,lxyi,1)
+c      XTT=-XY1(LXYI)
+      xtt=-xtt
+      call sspoints('X1',xy1,xtt,lxyi,2)
+C       xy1(lxyi)=xtt
+  610 NLOBE=NLOBE+1
+      LLXYI=LXYI
+      GO TO 500
+C ) ) ) ) ) ) ) ) ) )
+C FINISHED WITH ALL LOBES OF THE INTERSECTION.
+C
+C THE INTERSECTION LIST IS EMPTY.
+  700 continue
+C      IF(IUD.EQ.3.AND.IFLGG.EQ.0) CALL SWAPXY(NR)
+      CALL iCORRAL(NG,NR,KIND)
+      KLUE=CLUE(KIND,IUD)
+      IERR=700
+      IF(KLUE.EQ.6) GO TO 930
+      GO TO 800
+C
+C INTERSECTION IS CONSTRUCTED.
+  750 KLUE=5
+      IF(NLOBE.EQ.0) KLUE=1
+C      IF(IUD.EQ.3.AND.IFLGG.EQ.0) CALL SWAPXY(NR)
+  800 NXYI=LXYI
+      IF(NXYI.GT.MAXXYI) GO TO 940
+ 850  CONTINUE
+      RETURN
+C
+C ERRORS.
+  910 KERR=1
+      GO TO 850
+  920 KERR=2
+      GO TO 850
+  930 KERR=3
+C      WRITE(NPRNT,3030) IERR
+ 3030 FORMAT(' NEAR BOOLE ',I5)
+      GO TO 850
+ 940   KERR=4
+        GO TO 850
+C G(2, )       GREEN BOUNDARY
+C R(2, )       RED BOUNDARY
+C KGR(2, )     SEGMENT NO. OF INTERSECTING SEGMENTS
+C TGR(2, )     PARAMETER OF INTERSECTION
+C NEXT(2, )    POINTS TO NEXT ITEM IN THE LIST
+C IFORK( )     0= THIS LIST ITEM HAS BEEN USED, 1= FOLLOW G,
+C              2 = FOLLOW R,  3 = FOLLOW BOTH
+C XYI(2, )     RESULTING BOUNDARY
+C XYLAST(2)    THE PREVIOUS POINT PUT INTO XYI
+C XYNOW(2)     THE POINT CURRENTLY BEING PUT INTO XYI
+C KL           CURRENT ITEM IN LIST
+C MLIST        VALUE OF KL AT START OF INTERSECTION LOBE
+C NLIST        LENGTH OF LIST
+C MAXLST       MAXIMUM LENGTH OF LIST
+C LXYI         POINTS TO BEGINNING OF CURRENT XYI LOBE
+C MAXXYI       MAX. PERMISSABLE VALUE OF JXYI
+C IGR          1= FOLLOWING GREEN, 2= FOLLOWING RED
+C KASE(16)     DETERMINES THE VALUE OF IFORK DESIRED FOR EACH CASE
+      END
+

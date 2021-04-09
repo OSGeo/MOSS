@@ -1,0 +1,161 @@
+
+
+
+
+
+
+       VARIOGRAM                                               VARIOGRAM
+
+
+
+       The VARIOGRAM command is summarized as follows:
+
+            VARIOGRAM is  a data  description command  that  produces  a
+            (semi)variogram for  any point  map referenced in the active
+            map table.   A variogram is a tabular and graphic display of
+            the amount  of correlation between the z-values of points as
+            the distance  between them  increases.   Normally, the  user
+            produces a variogram as an essential first step in kriging a
+            set of points.
+
+
+       The VARIOGRAM command is specified as follows:
+       (* denotes parameters that can only be entered after a prompt)
+
+            VARIOGRAM (active ID) (variogram title)* (logarithm option)*
+            (moment center display option)* (automatic scaling option)*
+            (relative variogram option)* (class interval to group
+            distances)* (number of variogram directions)* (variogram
+            angles)* (variogram windows)* (restart option)* (save
+            option)*
+
+
+       The parameters of the VARIOGRAM command are described below:
+
+            (active ID)  is the  ID number  of the map referenced in the
+            active map table.
+
+            (variogram title)  is an optional 79-character title that is
+            displayed at  the top  of the  variogram.  The user may omit
+            the title by depressing <CR>.
+
+            (logarithm option) is an option that produces a variogram of
+            the logarithms  of the  z-values rather  than  the  z-values
+            themselves.  The default response is `NO'.
+
+            (moment center display option) produces a variogram computed
+            by a  slightly different  formula.   The default response is
+            `NO'.
+
+            (automatic  scaling   option)   permits   the   machine   to
+            automatically determine  the vertical scale of the variogram
+            based on  the maximum variance found.  Normally, for a first
+            variogram, `YES'  is the  answer.  If `NO', the user is then
+            prompted for  the maximum  value to  appear on  the vertical
+            axis.  This is used as the basis for vertical scaling.
+
+            (relative variogram option) again produces a variogram based
+            on slightly different calculations.  The default response is
+            `NO'.
+
+            (class interval to group distances) is the size of the class
+            interval used  as a  basis for variogram calculations.  This
+            option also determines the scaling of the horizontal axis of
+            the variogram.   For  example, if a class interval of `1000'
+            is entered,  the machine  will first  calculate the  average
+            variance for  all points  with distances between 0 and 1000,
+            then for  all points  between 1000 and 2000, and so on up to
+            20,000.   There are  always exactly  20  intervals  and  the
+            maximum value on the horizontal scale is always 20 times the
+            class interval.
+
+                 Class interval  units are  the same as the units on the
+                 original map.   These  units are  `meters' unless other
+                 units were  specifically selected  at the  time the map
+                 was created.
+
+                 To enter  the class  interval,  the  user  should  know
+                 something about  the geographic extent of the data set.
+                 A  value  between  1000  and  5000  meters  is  usually
+                 appropriate for a 7 1/2 minute quad map.
+
+                 The default response to this prompt is `1000'.
+
+            (number of  variogram directions)  must be  answered with  a
+            number between 1 and 5.  (If it is not, the prompt continues
+            to  appear.)     This   process  determines  the  number  of
+            variograms that will be calculated from the data.
+
+            (variogram angles)  and (variogram  windows)  determine  for
+            each variogram  (up to  five) the  alignment of points to be
+            considered in  calculating the  variogram.  Variogram angles
+            start with  0 at  due north  and  increase  in  a  clockwise
+            direction.   Thus, north is 0, east is 90, and south is 180.
+            Either negative or positive numbers may be used as variogram
+            angles.
+
+                 A variogram window of 0 will result in almost all pairs
+                 of points  being rejected.   A variogram window of 180,
+                 combined with  any angle, will result in a variogram of
+                 all points in the data set.  Windows of more than 0 and
+                 less than  180 will  produce directional  variograms of
+                 greater or lesser precision.
+
+            (restart option) asks the user if the new variogram is being
+            produced from  the same  SELECTed map as the last variogram.
+            A `YES' answer should be given only if:
+
+                 -- A variogram  has previously  been calculated for the
+                    same data set with the same active ID;
+
+                 -- Since the  previous variogram,  no  variograms  have
+                    been produced from other data sets;
+
+                 -- The data set has not been modified; and
+
+                 -- The viewing  window and  the active  table have  not
+                    changed.
+
+                 The default response for this option is `NO'.
+
+            (save option)  produces a  permanent copy  of the  variogram
+            after it  has been  calculated and  displayed on the screen.
+            To receive  a permanent  copy of  the variogram, enter a 10-
+            character or  less file name.  The system will automatically
+            copy the variogram to this file.
+
+                 Suppose that  a variogram has been saved under the file
+                 name VARI.OUT.   To  see this  variogram on the screen,
+                 enter the following commands:
+
+                            ENTER COMMAND
+                           ? SYSTEM
+
+                 When the  PRIMOS prompt  appears, enter:
+
+                             SLIST VARI.OUT
+
+                 The variogram will then appear on the screen.
+
+                 To delete, type:
+
+                             DELETE VARI.OUT
+
+                 To return to MOSS, type:
+
+                             BYE
+
+
+       The limitations of the VARIOGRAM command are as follows:
+
+            -- Map must be active and window must be set.
+
+            -- No more than five variograms can be used at a time.
+
+            -- Only point maps (type 1) can be used.
+
+            -- No more than 1500 points can be entered in a data set.
+
+            -- z-values of  points should  not  be  greater  than  about
+               10E+10 (one billion).
+

@@ -1,0 +1,56 @@
+DELETE                                                                   DELETE
+
+
+
+     The DELETE command is summarized as follows:
+
+          DELETE is a data manipulation command that allows the user to delete
+          maps from the work or master database. The name of the map is removed
+          from the map file list and all associated files are removed from the
+          directory.  The user is permitted to delete maps out of the master
+          database only by knowing the correct password and having write access
+          to the database.  This command should be used with extreme caution
+          since deletion permanently removes maps.
+
+
+     The DELETE command is specified as follows:
+     (* denotes parameters which can only be entered in a prompted mode)
+
+          DELETE (map name) (password)*
+
+
+     The individual parameters of the DELETE command are described below:
+
+          (map name) is the name of the map that is to be deleted.
+
+          (password) is the password which must be used if the map to be
+          deleted is a master database map.
+
+
+     The following is an example of use of the DELETE command:
+
+           ENTER COMMAND
+          ? DELETE
+           ENTER NAME OF MAP TO DELETE
+          ? MDWOLFRG
+           DATA TYPE =     3 NUMBER OF ITEMS =     8
+           DO YOU WISH TO DELETE THIS FILE (Y OR N)
+          ? Y
+
+
+     The limitations of the DELETE command are as follows:
+
+          -- Sometimes an error message will be received stating that a file
+             could not be deleted. This may mean that one of the files which
+             normally would be associated with this map name could not be
+             deleted for a variety of reasons. For example, it did not exist or
+             it was protected from deletion.
+
+          -- Master maps can not be deleted from disk since pathname is not
+             resolved.
+
+          -- A file will be deleted from the directory even if it is not in
+             the .DT file.
+
+          -- If only the map name is to be deleted from the map name list, the
+             utility, DATABTEST, should be used.

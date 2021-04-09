@@ -1,0 +1,74 @@
+SHADE                                                                     SHADE
+
+
+
+     The SHADE command is summarized as follows:
+
+          SHADE is a data display command that allows the user to plot active
+          polygon or cell maps on the CRT screen and shade the maps with dif-
+          ferential cross-hatching.  If more than one active map ID number is
+          entered following the SHADE command (see command format, below) each
+          map will be plotted with different degrees of cross-hatching.  This
+          allows the user to differentiate between map data sets.
+
+          With polygon data, it is possible to use the ASSIGN command to physi-
+          cally set hatch patterns in the database by subject.  If this proced-
+          ure has been performed the SHADE command will ignore the default
+          shade patterns and use the database assignments.
+
+
+     The SHADE command is specified as follows:
+     (* denotes parameters which can only be entered in a prompted mode)
+
+          SHADE (active ID's) (display range)* (cancel)*
+
+
+     The individual parameters of the SHADE command are described below:
+
+          (active ID's) is the ID number(s) of one or more polygon or cell maps
+          referenced in the active map table which are to be shaded.
+
+          (display range) is an option for cell data. If the active ID is a 
+          discrete map, a prompt displaying the number of levels will appear.
+          This is the same as the number of subjects. If the map is continuous,
+          the minimum and maximum values are displayed. Then the user is asked
+          to enter the display range. Two values must be entered, a lower
+          boundary and an upper boundary. All cells which contain a value which
+          is greater than or equal to the lower value and less than or equal to
+          the upper value will be shaded.
+
+          (cancel) is an option that allows the user to stop a plot of active
+          maps without stopping MOSS.  Entering CAN or ABO while shading causes
+          the main prompt to again appear.  This option is unprompted.
+
+
+     The following are examples of use of the SHADE command:
+
+           ENTER COMMAND
+          ? SHADE
+           ENTER ACTIVE MAP I.D.(S) TO SHADE
+          ? 1
+           ENTER COMMAND
+          ? SHADE 2 2 2        (active ID 2 is a discrete map)
+           THERE ARE   6 LEVELS. ENTER RANGE TO DISPLAY
+          ? 1 1
+           THERE ARE   6 LEVELS. ENTER RANGE TO DISPLAY
+          ? 2 4
+           THERE ARE   6 LEVELS. ENTER RANGE TO DISPLAY
+          ? 5 6
+           ENTER COMMAND
+          ? SHADE 3            (active ID 3 is a continuous map)
+           MINIMUM    6184.0000 MAXIMUM    7200.000 ENTER RANGE TO DISPLAY
+          ? 6400 6800
+
+
+     The limitations of the SHADE command are as follows:
+
+          -- Display window must be set.
+
+          -- For visual effectiveness, no more than 10 shade patterns should
+             be displayed.
+
+          -- If working with color display, a color display terminal is re-
+             quired.
+

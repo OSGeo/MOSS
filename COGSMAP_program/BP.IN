@@ -1,0 +1,13 @@
+QUIET
+PRINT
+.	  Welcome to the Brown's Pond study area. The area encompasses
+.	  approximately 3,600 acres of typical New England countryside
+.	  in the small town of Petersham  (pronounced "Peters - Ham"),
+.	  Massachusetts.  It is located about 60 miles west of Boston.
+.	  The map of this area is square and oriented such that north
+.	  is toward its upper left corner.  It is partitioned into 60
+.	  rows by 60 columns of points spaced every 200 feet.
+
+ECHO
+READ
+

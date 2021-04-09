@@ -1,0 +1,31 @@
+C * Subroutine ClrMnu clears the menu areas when a new "program" is called and
+C   sets up the system for that programs menus.
+
+	Subroutine ClrMnu
+
+$Include:'GLOBAL.inc'
+cssk  some of global.inc seems scrambled, had to fake next line
+      character * 8 imenu(60),ctype(60), whoiam , level (10)
+      real * 4 rvrsn (60)
+C#    New program name.
+      WhoIAm=' '
+      do 1 k=1,8
+         if(Imenu(prgrun)(k:k).eq.' ')go to 2
+         whoIam(k:k)=imenu(prgrun)(k:k)
+    1 enddo
+C#    Save return.
+    2 continue
+      LvlNum = LvlNum + 1
+      If(lvlnum.gt.1)Display=.false.
+      Level(LvlNum) = WhoIAm
+C#    Reset.
+      PrgRun = 0
+C#    Reset command name, command type, and version number in menu.
+      Do 100  I = NulCmd+1, IONum
+	IMenu(I) = ' '
+	CType(I) = ' '
+	RVrsn(I) = 0.0
+100   Continue
+      IONum = NulCMD
+      Return
+      End

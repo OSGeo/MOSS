@@ -1,0 +1,73 @@
+11 - SUBEDIT   (MOSS SUBJECT EDITING PROGRAM)
+
+     This option allows the user to edit the subjects in a MOSS map.  The
+following is an example of use of the SUBEDIT option:
+
+: 11
+ENTER NAME OF MAP TO EDIT
+TEST.MAP
+
+
+1 = FINISH
+2 = CHANGE BY SUBJECT STRING
+3 = CHANGE BY SUBJECT NUMBER
+4 = LIST SUBJECTS
+
+SELECT ONE OF THE ABOVE  4
+
+
+   1  #####UNKNOWN                       #####
+   2  #####FFZZCZ.21; T35N.R113W         #####
+   3  #####PFZZAZ.35; T28N.R113W         #####
+   4  #####PFZZCZ.07; T26N.R113W         #####
+   5  #####PFZZCZ.33; T27N.R113W         #####
+   6  #####PPZZZZ.07; T26N.R113W         #####
+   7  #####PPZZZZ.12; T26N.R114W         #####
+
+1 = FINISH
+2 = CHANGE BY SUBJECT STRING
+3 = CHANGE BY SUBJECT NUMBER
+4 = LIST SUBJECTS
+
+SELECT ONE OF THE ABOVE
+3
+ENTER RECORD NUMBER OF SUBJECTS RECORD
+1
+ENTER NEW SUBJECT
+++++++++++++++++++++++++++++++
+AABBCC.11; T33N.R114W
+ENTER 1 TO UPDATE SUBJECT STRING,   2 TO LEAVE UNCHANGED - 1
+
+1 = FINISH
+2 = CHANGE BY SUBJECT STRING
+3 = CHANGE BY SUBJECT NUMBER
+4 = LIST SUBJECTS
+
+SELECT ONE OF THE ABOVE  4
+
+
+   1  #####AABBCC.11; T33N.R114W         #####
+   2  #####FFZZCZ.21; T35N.R113W         #####
+   3  #####PFZZAZ.35; T28N.R113W         #####
+   4  #####PFZZCZ.07; T26N.R113W         #####
+   5  #####PFZZCZ.33; T27N.R113W         #####
+   6  #####PPZZZZ.07; T26N.R113W         #####
+   7  #####PPZZZZ.12; T26N.R114W         #####
+   8  #####PPZZZZ.32; T27N.R113W         #####
+   9  #####SSZZZZ.16; T27N.R113W         #####
+  10  #####SSZZZZ.36; T27N.R114W         #####
+
+1 = FINISH
+2 = CHANGE BY SUBJECT STRING
+3 = CHANGE BY SUBJECT NUMBER
+4 = LIST SUBJECTS
+
+SELECT ONE OF THE ABOVE  1
+
+     In this example the user lists out the subjects in the map TEST.MAP by
+specifying 1 for subject search and then listing out the attributes.  Subjects
+may be changed by specifying 2 for record change and then supplying a valid
+subject record number.  A new subject, up to 30 characters long, may then be
+entered.  Note that the 31st character must be a blank (entered with the space
+bar).
+

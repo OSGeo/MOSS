@@ -1,0 +1,53 @@
+LIST                                                                       LIST
+
+
+
+     The LIST command is summarized as follows:
+
+          LIST is a data manipulation command that allows the user to browse
+          the list of map names in the database and if working with color,
+          list the contents of the pseudo device table and/or the contents
+          of the color lookup definition table.
+
+
+     The LIST command is specified as follows:
+
+          LIST (option) (template)
+
+
+     The individual parameters of the LIST command are described below:
+
+          (option) is the source of the data the user wishes information about.
+          The user must respond with MAPS, MASTER, WORK, DEVICES ,COLORS, or
+          a map name.  The MAP option will produce an alphabetized listing
+          of all maps in both the master and workfile.  The MASTER option will
+          list only the map names in the master database while the WORK option
+          will list only the map names in the work database.  The DEVICES
+          option will list all available color raster devices along with
+          their characteristics.  The COLORS option will list all color
+          lookup definition names on the color LUT database or will list
+          all the colors and their intensities for a given color LUT
+          definition.  If the user responds with a map name the DESCRIBE
+          command is executed to retain compatiblity with previous revisions.
+
+          (template) is an opportunity for the user to inquire more specif-
+          ically about the list of map names.  If the user responds MAPS,
+          MASTER, or WORK to the (option) prompt, this parameter must be
+          entered on the same line, i.e., can only be entered in an un-prompted
+          mode.  (template) allows the user to list only those maps whose
+          names contain a specific string of characters.  Allowed (templates)
+          are +STRING, STRING+, +STRING+, or STRING+STRING where STRING is
+          a ten character or less search string and the + must be entered.
+
+
+     The following is an example of use of the LIST command:
+
+           ENTER COMMAND
+          ? LIST
+           ENTER: MAPS, MASTER, WORK, DEVICES, COLORS, OR <MAPNAME>
+          ? MASTER M+
+
+
+     The limitations of the LIST command are as follows:
+
+          -- None found to date.
