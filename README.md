@@ -3,12 +3,12 @@
  Map Overlay and Statistical System (MOSS) is the earliest known Open Source
  Geographic Information System, developed in the early 1980's; PC-MOSS is the 
  Windows version of MOSS that was developed & released by Sol Katz, through 
- the Bureau of Land Management in the U.S.
+ the Bureau of Land Management in the U.S. This repository contains the PC-MOSS 
+ files, including the source code in the FORTRAN language.
 
 # Archive Date
 
-This repository contains the PC-MOSS files, including the source code in 
-the FORTRAN language, from ~1987.
+~1987
 
 # Archive Credits
 
