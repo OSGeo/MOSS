@@ -9,6 +9,18 @@
 
 This repository contains the PC-MOSS files, from ~1987.
 
+# Archive Credits
+
+In mid-2020 a surviving copy of the MOSS codebase was discovered at the 
+University of Latvia, and was temporarily preserved at the German Institute 
+of Economic Research (DIW Berlin).
+
+# In Honour of Sol Katz
+
+Sol unfortunately passed away in 1999 from Non-Hodgkin's Lymphoma, but his 
+legacy lives on in the FOSS4G world. Those interested in making a donation, 
+as per Sol's family's request, can do so at https://donate.cancer.org. 
+
 # License
 
 This is free and unencumbered software released into the public domain.
