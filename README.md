@@ -7,7 +7,8 @@
 
 # Archive Date
 
-This repository contains the PC-MOSS files, from ~1987.
+This repository contains the PC-MOSS files, including the source code in 
+the FORTRAN language, from ~1987.
 
 # Archive Credits
 
