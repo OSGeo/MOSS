@@ -29,8 +29,8 @@ legacy lives on in the FOSS4G world. Those interested in making a donation,
 as per Sol's family's request, can do so at https://donate.cancer.org. 
 
 The annual Sol Katz Award (https://wiki.osgeo.org/wiki/Sol_Katz_Award), 
-which began in 2005, acknowledges the work of community members, and pays 
-tribute to one of its founders, for years to come.
+which began in 2005, acknowledges the work of FOSS4G community members, 
+and pays tribute to one of its founders, for years to come.
 
 # License
 
