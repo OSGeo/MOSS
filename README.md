@@ -28,6 +28,10 @@ Sol unfortunately passed away in 1999 from Non-Hodgkin's Lymphoma, but his
 legacy lives on in the FOSS4G world. Those interested in making a donation, 
 as per Sol's family's request, can do so at https://donate.cancer.org. 
 
+The annual Sol Katz Award (https://wiki.osgeo.org/wiki/Sol_Katz_Award), 
+which began in 2005, acknowledges the work of community members, and pays 
+tribute to one of its founders, for years to come.
+
 # License
 
 This is free and unencumbered software released into the public domain.
