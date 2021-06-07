@@ -1,0 +1,41 @@
+# YAML 1.2
+---
+abstract: 
+authors: 
+  -
+    affiliation: "MARC Relator: Author"
+    family-names: Reed
+    given-names: Carl
+    name-particle: N
+    name-suffix: III
+  -
+    affiliation: "MARC Relator: Programmer"
+    family-names: Katz
+    given-names: Sol
+  -
+    affiliation: "MARC Relator: Programmer"
+    family-names: Frosh
+    given-names: Randy
+  -
+    affiliation: "MARC Relator: Restorationist"
+    family-names: " Nartišs"
+    given-names: "Māris"
+    orcid: "https://orcid.org/0000-0002-3875-740X"
+  -
+    affiliation: "MARC Relator: Collection Registrar"
+    family-names: "Löwe"
+    given-names: Peter
+  -
+    affiliation: "MARC Relator; Consultant"
+    family-names: McKenna
+    given-names: Jeff
+    orcid: "https://orcid.org/0000-0003-3900-1863"
+cff-version: "1.1.0"
+date-released: 2021-04-27
+doi: "10.0000/FIXME"
+license: "CC0-1.0"
+message: "If you use this software, please cite it using these metadata."
+repository-code: "https://github.com/ploewe/MOSS/releases/tag/1.0.0"
+title: "PC-MOSS Historical Archive"
+version: "1.0.0"
+...

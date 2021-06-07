@@ -1,0 +1,71 @@
+{
+    "@context": [
+        "https://doi.org/10.5063/schema/codemeta-2.0",
+        "http://schema.org"
+    ],
+    "@type": "SoftwareSourceCode",
+    "author": [
+        {
+            "@type": "Person",
+            "affiliation": {
+                "@type": "Organization",
+                "legalName": "MARC Relator: Author"
+            },
+            "familyName": "N Reed III",
+            "givenName": "Carl"
+        },
+        {
+            "@type": "Person",
+            "affiliation": {
+                "@type": "Organization",
+                "legalName": "MARC Relator: Programmer"
+            },
+            "familyName": "Katz",
+            "givenName": "Sol"
+        },
+        {
+            "@type": "Person",
+            "affiliation": {
+                "@type": "Organization",
+                "legalName": "MARC Relator: Programmer"
+            },
+            "familyName": "Frosh",
+            "givenName": "Randy"
+        },
+        {
+            "@id": "https://orcid.org/0000-0002-3875-740X",
+            "@type": "Person",
+            "affiliation": {
+                "@type": "Organization",
+                "legalName": "MARC Relator: Restorationist"
+            },
+            "familyName": " Nartišs",
+            "givenName": "Māris"
+        },
+        {
+            "@type": "Person",
+            "affiliation": {
+                "@type": "Organization",
+                "legalName": "MARC Relator: Collection Registrar"
+            },
+            "familyName": "Löwe",
+            "givenName": "Peter"
+        },
+        {
+            "@id": "https://orcid.org/0000-0003-3900-1863",
+            "@type": "Person",
+            "affiliation": {
+                "@type": "Organization",
+                "legalName": "MARC Relator; Consultant"
+            },
+            "familyName": "McKenna",
+            "givenName": "Jeff"
+        }
+    ],
+    "codeRepository": "https://github.com/ploewe/MOSS/releases/tag/1.0.0",
+    "datePublished": "2021-04-27",
+    "identifier": "https://doi.org/10.0000/FIXME",
+    "license": "http://creativecommons.org/publicdomain/zero/1.0/legalcode",
+    "name": "PC-MOSS Historical Archive",
+    "version": "1.0.0"
+}
