@@ -33,13 +33,40 @@
             "givenName": "Randy"
         },
         {
+            "@type": "Person",
+            "affiliation": {
+                "@type": "Organization",
+                "legalName": "MARC Relator: Programmer"
+            },
+            "familyName": "Davidson",
+            "givenName": "John"
+        },
+        {
+            "@type": "Person",
+            "affiliation": {
+                "@type": "Organization",
+                "legalName": "MARC Relator: Programmer"
+            },
+            "familyName": "Hunter",
+            "givenName": "Anne"
+        },
+        {
+            "@type": "Person",
+            "affiliation": {
+                "@type": "Organization",
+                "legalName": "MARC Relator: Programmer"
+            },
+            "familyName": "Lee",
+            "givenName": "John"
+        },
+        {
             "@id": "https://orcid.org/0000-0002-3875-740X",
             "@type": "Person",
             "affiliation": {
                 "@type": "Organization",
                 "legalName": "MARC Relator: Restorationist"
             },
-            "familyName": " Nartišs",
+            "familyName": "Nartišs",
             "givenName": "Māris"
         },
         {
