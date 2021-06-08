@@ -1,0 +1,95 @@
+ZOOM                                                                       ZOOM
+
+
+
+     The ZOOM command is summarized as follows:
+
+          ZOOM is a data display command that allows the user to magnify a
+          portion of the display window specified by the WINDOW command.  The
+          user should display a map on the screen for orientation.  The area
+          to be magnified is indicated by pointing to two diagonal corners of
+          a rectangle that bound the new area of interest.  Pointing is accom-
+          plished with the CRT crosshair cursor.  Effect of ZOOM can be re-
+          versed with the RESET command.  If the GEOG option is used, the user
+          may type in a geographic coordinate pair and set the display window
+          with the coordinate pair as the center.  In addition, if the POINT
+          option is used, the user may set the magnification factor and locate
+          a point at the center of the area to be enlarged.
+
+
+     The ZOOM command is specified as follows:
+     (* denotes parameters which can only be entered in a prompted mode)
+
+          ZOOM (crosshair input)*
+
+          or,
+
+          ZOOM GEOG (latitude)* (longitude)* (window size)*
+
+          or,
+
+          ZOOM POINT (magnification factor)* (crosshair input)*
+
+
+     The individual parameters of the ZOOM command are described below:
+
+          (crosshair input) is where the user points with the CRT cursor to
+          the opposite diagonal corners of the new viewing rectangle.  This
+          parameter is not used if the GEOG option is specified.
+
+          GEOG is an option where the user is prompted to type in a geographic
+          coordinate pair which is the center of a viewing window also set by
+          the user.  This parameter may only be added in an un-prompted mode.
+
+     The following parameters are prompted for if the GEOG option is specified:
+
+          (latitude) and (longitude) are the coordinates of the a geographic
+          pair used as the center of the window. Each will be prompted for
+          seperately and should be entered in degrees, minutes and seconds.
+
+          (window size) is the height and width of the window entered in
+          seconds of latitude and longitude.
+
+          POINT is an option where the user is prompted for a magnification
+          factor and to point to the center of the area to be magnified.  This
+          parameter may only be added in an un-prompted mode.
+
+     The following parameter is prompted for if the POINT option is specified:
+
+          (magnification factor) is used to indicate the change in scale. For
+          example, if 2 is entered and the map is replotted, the features on the
+          resulting map will be shown twice as large.
+
+     The following are examples of use of the ZOOM commands:
+
+         ENTER COMMAND
+        ? ZOOM
+         POINT TO CORNERS OF NEW DISPLAY WINDOW
+
+       or,
+
+         ENTER COMMAND
+        ? ZOOM GEOG
+         ENTER LATITUDE TO ZOOM ON
+        ? 39 56 8
+         ENTER LONGITUDE TO ZOOM ON
+         -108 24 43
+         ENTER SECONDS OF LONGITUDE AND LATITUDE FOR WINDOW
+        ? 180 180
+
+        or,
+
+         ENTER COMMAND
+        ? ZOOM POINT
+         please enter MAGNIFICATION factor
+        ? 2
+         please point to ZOOM center
+
+
+
+     The limitations of the ZOOM command are as follows:
+
+          -- Cannot zoom to infinity, i.e., a point.
+
+          -- Cannot point outside of the viewing window, i.e., cannot use ZOOM
+             to enlarge the viewing window.

@@ -1,0 +1,72 @@
+QUERY                                                                     QUERY
+
+
+
+     The QUERY command is summarized as follows:
+
+          QUERY is a data description command which, for vector maps,
+          identifies the map name, subject, and item of any feature being
+          displayed on the graphics display terminal.  Items or features of
+          interest are identified by the user via crosshair input.  If the
+          item is a polygon or a line, QUERY also displays area and length,
+          respectively.  If multiple active ID's with overlapping subjects
+          are displayed simultaneously, the command will identify feature and
+          subject from each individual map.  If the displayed map has a multi-
+          ple attributes file, the command will identify each multiple attri-
+          bute associated with the feature of interest.  QUERY can also process
+          dichotomous, discrete, and continuous cell maps and displays northing
+          and easting, row and column, cell value, and frequency and label for
+          discrete cell maps.
+
+
+     The QUERY command is specified as follows:
+     (* denotes parameters which can only be entered in a prompted mode)
+
+          QUERY (crosshair input)*
+
+          or
+
+          QUERY ATTRIBUTE (crosshair input)*
+
+
+     The individual parameters of the QUERY command are described below:
+
+          (crosshair input) is where the user points with the cursor to the
+          feature for which information is desired.  Once the crosshairs are
+          positioned, the user "points" by hitting the SPACE key or the
+          RETURN key.  Any other key will terminate the command.
+
+          ATTRIBUTE is an option for the user to display information about the
+          multiple attributes of a feature if the map has a multiple attributes
+          file.  This parameter must be entered in an unprompted mode.
+
+
+     The following is an example of use of the QUERY command:
+
+           ENTER COMMAND
+          ? QUERY
+           POINT TO FEATURE, SPACE or RETURN will REPEAT.
+
+            ITEM HAS FOLLOWING CHARACTERISTICS
+
+           SUBJECT   = MULE DEER WINT CONC/WINT RANGE
+           MAP NAME  = MDRWOLFRG ITEM NUMBER =     3
+           AREA      =      3008.53 ACRES
+
+
+     The limitations of the QUERY command are as follows:
+
+          -- QUERY can only be used to identify features from the last map ID
+             that was plotted or shaded.  Some commands issued between PLOT
+             or SHADE and the QUERY command may cause the system to respond:
+             NO ITEM FOUND.  TRY AGAIN.  In this case, the user should replot
+             the map of interest and then re-issue the QUERY command.
+
+          -- Use of any key except SPACE or RETURN will cause the command
+             to terminate.
+
+          -- If the space bar or the return key is entered more than once
+             ('bounced'), the command may hang up and/or give erroneous
+             results. To exit, enter the 'T' key twice. If 'ENTER COMMAND'
+             prompt does not appear, enter the 'T' key twice more. Repeat
+             this procedure until the prompt does appear. 

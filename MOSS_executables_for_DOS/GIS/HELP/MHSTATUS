@@ -1,0 +1,41 @@
+STATUS                                                                   STATUS
+
+
+
+     The STATUS command is summarized as follows:
+
+          STATUS is a program control command that computes and prints out
+          information on: a) numbers of maps in master and work files, b) data
+          type, storage location (disk vs. tape), and numbers of items and
+          coordinate pairs for a vector map, or c) number of active maps,
+          display device, master mapfile name, display window for the current
+          session, and characteristics of the of the color device if one is
+          present.  This information provides an index to volume and type
+          of data associated with a particular mapfile, map, or session.
+     
+
+     The STATUS command is specified as follows:
+
+          STATUS (type)
+
+
+     The individual parameters of the STATUS command are described below:
+
+          (type) is an option for the user to choose the object of the command.
+          The user may request status information on all mapfiles (DATABASE),
+          on the current MOSS session (JOB), or on a specific map (mapname).
+
+
+     The following is an example of use of the STATUS command:
+
+           ENTER COMMAND
+          ? STATUS
+           ENTER: DATABASE, JOB, OR A <MAPNAME>
+          ? DATABASE
+              43 MAPS IN MASTER PROJECT WOLF
+               7 MAPS IN WORK PROJECT   POLYGON
+
+
+     The limitations of the STATUS command are as follows:
+
+          --  None found to date.

@@ -1,0 +1,71 @@
+SIZE                                                                       SIZE
+
+
+
+     The SIZE command is summarized as follows:
+
+          SIZE is a data reclassification command that selects polygons or
+          lines in an active map based on area of polygons or length of lines.
+          For example, SIZE might be used to select pinyon-juniper forest
+          stands between 50 and 100 acres in size from a vegetative cover map.
+          The SIZE command uses an active map as input and produces an active
+          map as output.
+
+
+     The SIZE command is specified as follows:
+     (* denotes parameters which can only be entered in a prompted mode)
+
+          SIZE (active ID) (minimum)* (maximum)*
+
+
+     The individual parameters of the SIZE command are described below:
+
+          (active ID) is the ID number of a map referenced in the active table.
+
+          (minimum) is the minimum size of the polygon to be activated, in
+          acres, or, the minimum length of the line to be activated, in miles.
+          If the polygon or line is equal to the minimum, it will be
+          activated.  However, since area and length are calculated as real
+          numbers, there may be some difficulty making the match.  It may
+          be necessary to adjust the value slightly to be sure to get the
+          desired polygons or lines.
+
+          (maximum) is the maximum size of the polygon to be activated, in
+          acres, or, the maximum length of the line to be activated, in miles.
+          Any polygons equal in size to the maximum will be activated. See
+          the caution under minimum.
+
+
+     The following is an example of use of the SIZE command:
+
+           ENTER COMMAND
+          ? SIZE
+           ENTER ACTIVE MAP I.D.
+          ? 1
+           ENTER MINIMUM POLYGON SIZE (IN ACRES)
+          ? 50
+           ENTER MAXIMUM POLYGON SIZE (IN ACRES)
+          ? 100
+
+             137 ITEMS BELOW RANGE AND    38 ITEMS ABOVE RANGE
+              37 HITS FOR ACTIVE ID  2
+
+
+     The limitations of the SIZE command are as follows:
+
+          -- Map must be active and window must be set.
+
+          -- Since the features activated must be greater than or equal to the
+             minimum value specified and less than or equal to the maximum
+             specified, it may sometimes appear that some features which should
+             have been included were not. When dealing with real numbers, it is
+             difficult to make an exact match. The numbers displayed by the AREA
+             and LENGTH commands have been rounded. Therefore, the actual size 
+             of the feature may differ slightly. With this in mind, slight 
+             changes in the minimum/maximum values may help achieve the desired 
+             results.
+
+          -- May not activate a polygon or line which is equal in size
+             to the minimum or maximum.
+
+          -- Cannot use cell data.

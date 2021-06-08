@@ -1,0 +1,39 @@
+3 - ATTRIBUTE  (MOSS MULTIPLE ATTRIBUTE SUPPORT)
+
+     This option provides a means of creating, searching, modifying, and
+updating the multiple attribute file (.AT file) of a MOSS map.  The following
+is an example of use of ATTRIBUTE:
+
+
+ PLEASE ENTER MAP NAME: TEST.MAP
+
+ THE NUMBER OF ATTRIBUTES IS     3
+ THE NUMBER OF ITEMS IS          5
+
+ PLEASE ENTER DESIRED OPTION
+  1  =  EXIT   [DEFAULT]
+  2  =  ADD A NEW ATTRIBUTE
+  3  =  UPDATE AN EXISTING ATTRIBUTE
+  4  =  CHANGE/DELETE KEY OR DESCRIPTOR
+  5  =  LIST ATTRIBUTE FIELDS
+  6  =  SEARCH AN ATTRIBUTE FIELD
+  7  =  RESEQUENCE AND ADD NEW ATT.
+  8  =  RESEQUENCE INPUT FILE
+  9  =  DELETE THE ATTRIBUTE FILE
+:5
+
+     In this example, the user desires information on the multiple attribute
+file of a map called TEST.MAP.  This map contains five items with three
+attributes per item.  The user may:
+
+ 1-terminate the ATTRIBUTE program (this is the default).
+ 2-add new multiple attributes interactively, or using files,
+ 4-modify all values for an existing attribute,
+ 4-change or delete keys and headers,
+ 5-list the attribute dictionary and search by key ID number or key name,
+ 6-search the attribute by key ID number or key name,
+ 7-resequence an input data file and add attributes using an existing definition file.
+ 8-resequence an input data file only if map subjects were integer numbers.
+ 9-delete the attribute (.AT) file,
+
+Examples of use of options 2 and 5 are shown under the ATTDESCRIBE option (#4).

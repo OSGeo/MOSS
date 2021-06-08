@@ -1,0 +1,69 @@
+LEGEND                                                                   LEGEND
+
+
+
+     The LEGEND command is summarized as follows: 
+
+          LEGEND is a data display command that allows the user to either
+          display attribute information at the centroid of a feature or display
+          the map name and the display scale.  Attribute information may be
+          either the primary attribute or from the multiple attributes file.
+          If a multiple attribute file exists, the user will be prompted with
+          by a menu of retrieval options.
+
+     The LEGEND command is specified as follows:
+
+          LEGEND (active ID's) (display type) (number of characters)
+
+
+     The individual parameters of the LEGEND command are described below:
+
+          (active ID's) are the ID numbers of maps referenced in the active
+          table.
+
+          (display type) is an option to specify the type of display desired.
+          The user may enter DESCRIBE, LABEL, CONTOUR or ELEVATION.  DESCRIBE
+          produces a map legend with the map scale and map name.  The user will
+          also be asked for crosshair input from the CRT cursor to position the
+          legend. LABEL displays the subject (or multiple attribute informa-
+          tion) for each item on the CRT beginning at the centroid of the line
+          or polygon and moving horizontally.  ELEVATION works only with 3-D
+          vector data sets (map types 1,12,13) and will display elevation of
+          each point in a feature.  CONTOUR places a subject along a line and
+          only works with line maps (map type 2). A more sophisticated method
+          of placing numeric contour values in a contour map is available with
+          the AUTOLABEL command.
+ 
+          (number of characters) is the number of characters the user wishes
+          to display from the label.  This parameter can only be entered in an
+          un-prompted mode and must be less than thirty and greater than zero.
+          This works with both character and numeric data.
+
+
+     The following are examples of uses of the LEGEND command:
+
+           ENTER COMMAND
+          ? LEGEND
+           ENTER ACTIVE MAP ID's TO LEGEND
+          ? 1
+           LABEL, ELEVATION, DESCRIBE, OR CONTOUR?
+          ? DESCRIBE
+
+           ENTER COMMAND
+          ? LEGEND 1 LA 10
+
+            1 = Exit
+            2 = Retrieve by ID
+            3 = Retrieve by KEY
+            4 = Retrieve SUBJECT
+
+            2
+            Enter Attribute ID: 1
+
+     NOTE: The above menu will occur if the map has a multiple attribute file.
+ 
+     The limitations of the LEGEND command are as follows:
+
+          -- Map must be active and window must be set.
+
+          -- Does not work with cell data.

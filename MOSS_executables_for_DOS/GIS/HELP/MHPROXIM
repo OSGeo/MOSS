@@ -1,0 +1,84 @@
+PROXIMITY                                                             PROXIMITY
+
+
+
+     The PROXIMITY command is summarized as follows:
+
+          PROXIMITY is a distance analysis command that activates data from
+          a map based on its proximity to some point or other map feature.
+          There is also an option which allows the user to select data which
+          is NOT within a specified distance.
+          A typical application of the command might be to find all grassland
+          which is within 0.25 miles of mule deer winter concentration range
+          or to find all perennial streams which are within 5 miles of point
+          X (where point X is user-specified).  The PROXIMITY command uses an
+          active map(s) as input and produces a new map in the workfile as
+          output.
+
+
+     The PROXIMITY command is specified as follows:
+
+        PROXIMITY (active ID's) (new map name)*(distance)*(in or not within
+                   proximity )
+        or
+
+        PROXIMITY (active ID) (new map name)* (distance)* (crosshair input)*
+                  (in or not within proximity)
+
+
+     The individual parameters of the PROXIMITY command are described below:
+
+          (active ID's) are the ID numbers of two maps referenced in the  
+          active map table.  The first ID entered will be the origin of the
+          search.  The second ID entered will be the object of the search.  The
+          resultant map will be some set of features from the second map ID.
+          If only one ID is entered, the resultant map will be some set of 
+          features from this map which fall within a specified distance of a
+          user-defined point.
+
+          (new map name) is the name for the map which results from PROXIMITY.
+
+          (distance) is the user-specified maximum search distance with units.
+          Units may be miles (default), (K)ilometers, (F)eet, (M)eters or 
+          (I)nches.  Units desired must be entered immediately after distance,
+          for example, 0.25K.
+
+          (in or not within proximity) is the user-specified  opition which
+          selects all items within the specified distance or selects all of
+          the items outside of the specified distance.
+
+          (crosshair input) is where the user specifies the point origin of
+          the search with the CRT cursor.
+
+
+     The following is an example of use of the PROXIMITY command:
+
+           ENTER COMMAND
+          ? PROXIMITY
+           Enter active map I.D.(s) to PROXIMITY ? 1 2
+           What do you wish to call the new map
+            __________
+          ? DEERFOOD
+           Enter maximum search distance (with units) ? 0.25
+
+           Do you wish object out of proximity? [NO] (cr)
+
+           NUMBER OF HITS =    16
+
+
+     The limitations of the PROXIMITY command are as follows:
+
+          -- Distance (tolerance) must be greater than 0.
+
+          -- Input maps must be active and window must be set.
+
+          -- Does not work with cell data.
+
+          -- May not work well with large distances.
+
+          -- No more than 1000 subjects in the new map.
+
+          -- Subjects in new map will not be in alphabetical order.
+
+          -- If one point of a feature is within the specified distance, the
+             entire feature is considered in proximity.

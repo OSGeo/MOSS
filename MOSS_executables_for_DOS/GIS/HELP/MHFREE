@@ -1,0 +1,36 @@
+FREE                                                                       FREE
+
+
+
+     The FREE command is summarized as follows:
+
+          FREE is a data manipulation command that deactivates any ID referenced
+          in the active map table.
+
+
+     The FREE command is specified as follows:
+
+          FREE (active ID's)
+
+
+     The individual parameters of the FREE command are described below:
+
+          (active ID'S) are the ID numbers of the maps to be deactivated, i.e.,
+          deleted from the active map table.  If the entire active map table is
+          to be deactivated, the user may enter ALL instead of the active ID
+          numbers.  Active ID's can be entered in any order and the remaining
+          active maps will be renumbered accordingly.
+
+
+     The following is an example of use of the FREE command:
+
+           ENTER COMMAND
+          ? FREE
+           ENTER ALL OR ACTIVE MAP ID'S
+          ? 4 2
+
+
+     The limitations of the FREE command are as follows:
+
+          -- Cannot free inclusive strings of ID's, for example "2 6" will
+             only free ID 2 and ID 6, not ID 2 through ID 6.

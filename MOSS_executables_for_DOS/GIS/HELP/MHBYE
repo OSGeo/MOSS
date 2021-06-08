@@ -1,0 +1,38 @@
+BYE                                                                         BYE
+
+
+
+     The BYE command is summarized as follows:
+
+          BYE is a program control command which will terminate the session.
+          After the command is issued the user is returned to the computer
+          operating system.  The user can then initiate other processes.
+
+
+     The BYE command is specified as follows:
+
+          BYE
+
+
+     There are no individual parameters associated with the BYE command.
+
+
+     The following is an example of use of the BYE command:
+
+           ENTER COMMAND
+          ? BYE
+
+           USER  JOHN          LOGGED OFF FROM MOSS
+
+            THANKYOU FOR USING MOSS
+
+          STOP
+
+          )
+
+
+     The limitations of the BYE command are as follows:
+
+          -- The active list, current master file name, baud rate, and window
+             will be lost unless RESTART is given as the user name at the be-
+             ginning of the next session (see also Appendix A).

@@ -1,0 +1,30 @@
+RESET                                                                     RESET
+
+
+
+     The RESET command is summarized as follows:
+
+          RESET is a data display command that allows the user to return the
+          data display to the original window specified by using the WINDOW
+          command.  The RESET command can be executed after performing one or
+          more ZOOM commands and returns to the original window regardless of
+          how many times the window has been changed by ZOOM.
+
+
+     The RESET command is specified as follows:
+
+          RESET
+
+
+     There are no individual parameters associated with the RESET command.
+
+
+     The following is an example of use of the RESET command:
+
+           ENTER COMMAND
+          ? RESET
+
+
+     The limitations of the RESET command are as follows:
+
+          -- None found to date.

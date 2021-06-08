@@ -1,0 +1,67 @@
+DEVICE                                                                   DEVICE
+
+
+
+     The DEVICE command is summarized as follows:
+
+          DEVICE is a program control command which changes where graphics
+          output is sent.  This can be a disk file or another console.  The de-
+          fault device for graphics output is the log-on CRT.  In many cases,
+          this presents no problem.  However, there are three cases in which
+          graphics output should not go to the log-on CRT.  The first is when
+          the user wishes to save a softcopy plot (e.g., a shaded map) for 
+          later replay at much higher speeds.  The second case is when the user
+          wishes to run MOSS in two terminal mode.  Two terminal mode allows 
+          the user to have all text printed at the log-on terminal and all 
+          graphics routed to another terminal.  Consequently, text output will
+          not clutter graphics output.  The third case is when MOSS is to be
+          run in batch mode.  The user must use the DEVICE command and specify
+          output to a disk file.
+
+          The DEVICE command allows the user to specify an alternate graphics
+          output device.  If a disk file is specified, all graphics will be
+          written to this disk file.  The disk file can be played back at a
+          later date by using the CLI TYPE function (i.e., type the file at a
+          graphics terminal).  In order to operate in two terminal mode, the 
+          user must enter a console name, such as @CON24.  Whatever console
+          graphics are being routed to must be disabled!!!
+
+
+     The DEVICE command is specified as follows:
+  
+          DEVICE (new device name)
+
+
+     The individual parameters of the DEVICE command are described below:
+
+          (new device name) is the name of the disk file or console to which
+          the graphics are being routed.  The user may also enter <CR> to re-
+          sume graphic output to the log-on CRT.
+
+
+     The following is an example of use of the DEVICE command:
+
+           ENTER COMMAND
+          ? DEVICE
+           OLD DEVICE FILE WAS @CONSOLE
+
+           ENTER NAME OF NEW DEVICE FILE FOR GRAPHICS OUTPUT
+            ----------
+          ? NEWFILE
+
+
+     The limitations of the DEVICE command are as follows:
+
+          -- If graphics output is to a graphics console, the console must be
+             disabled.
+
+          -- If output is to a disk file, do not try to use any of the
+             commands that require cursor input, such as ZOOM, TEXT, GENERATE,
+             LOCATE, or DISTANCE.
+
+          -- Use of the same device name as previously specified will delete
+             the previous file contents.
+
+          -- Serious problems will result if the device is specified as a name
+             of an existing map, a master or workfile, or any reserved MOSS
+             names such as MOSS temporary files.

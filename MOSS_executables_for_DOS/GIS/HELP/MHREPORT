@@ -1,0 +1,86 @@
+REPORT                                                                   REPORT
+
+
+
+     The REPORT command is summarized as follows: 
+
+          REPORT is a data description command that generates tabular reports
+          of the multiple attributes database.  The tabular report is written
+          to the screen or to a disk file.
+
+     The REPORT command is specified as follows:
+     (* denotes parameters which can only be entered in a prompted mode)
+
+          REPORT (active ID) (HARDCOPY) (no label)* (number of columns)*
+          (area/length)* (subject)* (column designators)*
+
+
+     The individual parameters of the REPORT command are described below:
+
+          (active ID) is the ID number of a map referenced in the active map
+          table for which information is desired.
+
+          (HARDCOPY) is an option to obtain a hardcopy listing of the REPORT
+          table on a line printer.  If HARDCOPY is specified, output is written
+          to a disk file called LINE.PRINTER.  This file can be printed by
+          exiting MOSS and issuing the operating system print command.  If
+          anything other than the characters HARDCOPY are specified in this
+          option, the characters are used to specify a file name and the output
+          is written to the file.  If the file exists, the existing data in the
+          file is overwritten by the report. The report can be directed to the
+          screen by responding to the prompt with a return.
+
+          (no label) is an option which produces a table without column headings.
+
+          (number of columns) is the number of columns of attributes desired.
+          If necessary, the report will be written in multiple sections. Each
+          section will contain 6 columns if the output is directed to the
+          screen. The hardcopy file will have 10 columns to a section. Each
+          section is labeled but only the first section is titled.
+
+
+          (area/length) is an opportunity to include polygon area information
+          for a polygon map or line length information for a line maps. This
+          information will appear in the last column of the last section of the
+          table.
+
+
+          (subjects) is an opportunity for subjects to be included as a
+          column. If the answer is Yes, the subject appears as the first column
+          in each section.
+
+          (column designators) are the attributes for the map of interest
+          which are to be in the columns of the report table.
+
+
+     The following is an example of use of the REPORT command:
+
+          ENTER COMMAND
+          ? REPORT
+           ENTER ACTIVE MAP I.D. TO REPORT ? 1
+           ENTER "HARD" OR <FILENAME> FOR HARDCOPY OUTPUT
+           <RETURN> FOR SCREEN OUTPUT ?
+           DO YOU WANT UNLABELED OUTPUT [No] ?
+           ENTER NUMBER OF COLUMNS IN TABLE ? 3
+           DO YOU WISH POLYGON AREAS OUTPUT ? Y
+           DO YOU WISH SUBJECTS OUTPUT ? Y
+           FOR COLUMN 1
+           RETRIEVE ATRIBUTE FIELD BY:  0 - QUIT  1 - ID  2 - KEY ? 1
+           ENTER THE ATTRIBUTE ID ? 8
+           FOR COLUMN 2
+           RETRIEVE ATRIBUTE FIELD BY:  0 - QUIT  1 - ID  2 - KEY ? 2
+           ENTER THE ATTRIBUTE KEY ? HOMERANGE
+           FOR COLUMN 3
+           RETRIEVE ATRIBUTE FIELD BY:  0 - QUIT  1 - ID  2 - KEY ? 1
+           ENTER THE ATTRIBUTE ID ? 3
+
+
+     The limitations of the REPORT command are as follows:
+
+          -- Map must have a multiple attributes file.
+
+          -- If the LINE.PRINTER file created by use of the command is to be
+             saved, it should be renamed since existing LINE.PRINTER files are
+             always overwritten by subsequent use.
+
+          -- Truncates character data to the first 10 characters.

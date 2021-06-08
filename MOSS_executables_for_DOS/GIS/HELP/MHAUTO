@@ -1,0 +1,88 @@
+
+
+AUTOLABEL                                                             AUTOLABEL
+
+     Autolabel is a labeling process for contour line maps.  Output may be in
+the form of graphics or two new maps.  The OUT_NAME may be "SCREen" or any
+seven character or less valid MOSS map name.  If "SCREen" is specified, then
+output is directed to the graphic device.  If a valid MOSS map name is
+specified, "OUTNAME" will be a TEXT map and "OUTNAME.MS" will be a masked
+contour line map.
+
+AUTO ID OUT_NAME  Subject_Interval Minimum_Subject Resolve_Level
+                  Character_Height
+
+     ID           is any currently active map
+
+     OUT_NAME     is the output directive
+
+     Subject_Interval allows the user to specify an interval to be applied to
+                  the subjects of the input map.  Subject_Interval of 1
+                  specifies all subjects to be labeled in the resultant map,
+                  Sujbect_Interval of 3 every third subject to be labeled
+                  with the default Subject_Interval of 5
+
+AUTOLABEL                          Page 1 of 4                        AUTOLABEL
+
+
+
+
+AUTOLABEL                                                             AUTOLABEL
+
+     Minimum_Subject allows the user to specify the minimum subject value for
+                  consideration of labeling and for applying the Subject_-
+                  Interval factor
+
+     Resolve_Level allows the user to specify the level of conflict resolving.
+                  A Resolve_Level of 1 causes checking each label against the
+                  current feature.  A Resolve_Level of 2 causes checking each
+                  label against all other features as well as a Level 1 check.
+                  A Resolve_Level of 3 causes checking each label against every
+                  other label as well as both Level 1 and 2 checks.  The default
+                  is no checking, 0
+
+     Character_Height is the height and width of the labeled characters
+
+
+
+
+AUTOLABEL                          Page 2 of 4                        AUTOLABEL
+
+AUTOLABEL                                                             AUTOLABEL
+     Example
+
+ENTER COMMAND: AUTO
+ENTER ACTIVE ID TO AUTOLABEL: 1
+IF YOU WOULD LIKE SCREEN OUTPUT, TYPE
+SCREEN AT THE NEXT PROMPT FOR MAPNAME
+WHAT DO YOU WISH TO CALL THE NEW MAP
+  __________
+: GOODEXA
+LABELING INTERVAL DESIRED [5]: 2
+LABELING MINIMUM VALUE DESIRED [0]: 100
+CONFLICT RESOLVE LEVEL (0-3) [0]: 3
+CHARACTER SIZE (.01-.5) [.13]: .07
+
+TEXT FILE GOODEXA.MS EXISTS, OVERWRITE IT (Y/N) [Y]: Y
+MASK FILE GOODEXA    EXISTS, OVERWRITE IT (Y/N) [Y]: Y
+
+BUILD MOSS MAP      DATA TYPE =   2
+
+ENTER COMMAND:
+
+AUTOLABEL                         Page 3 of 4                         AUTOLABEL
+
+AUTOLABEL                                                             AUTOLABEL
+
+     Limitations
+
+     - Seven (7) character map names due to ".MS" extension
+
+     - Window must be set
+
+     - Works with existing contour maps with numeric subjects, I5 right
+       justified
+
+     - Active data set must exist
+
+AUTOLABEL                         Page 4 of 4                         AUTOLABEL

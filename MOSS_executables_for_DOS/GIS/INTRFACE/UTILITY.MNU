@@ -1,0 +1,7 @@
+ 1.00WUtility     - Gives access to file manipulation commands
+86.08AAttribute   - Multiple attribute support.
+86.08AAttdescribe - Build multiple attribute batch input file.
+86.08ADatabtest   - Map names support.
+86.08ASubedit     - Map subject editor.
+86.08ASub2at      - Subject to multiple attribute input.
+88.01AXysubject   - Convert an ASCII (text) data file into an IMPORT file.

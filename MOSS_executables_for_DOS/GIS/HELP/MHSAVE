@@ -1,0 +1,46 @@
+SAVE                                                                       SAVE
+
+
+
+     The SAVE command is summarized as follows:
+
+          SAVE is a data manipulation command which is used to save any point,
+          line, or polygon map referenced in the active map table as part of the
+          polygon workfile.  Once a map has been saved it can be accessed in
+          subsequent sessions which eliminates the time and expense of having
+          to recreate maps that will be used repetitively over a period of
+          time.  If the original map has multiple attributes, those attributes
+          pertaining to the active items will be saved as well.
+
+     The SAVE command is specified as follows:
+
+          SAVE (active ID) (new map name)
+
+
+     The individual parameters of the SAVE command are described below:
+
+          (active ID) is the ID number of a map referenced in the active map
+          table which is to be saved.
+
+          (new map name) is the new name of the map which is being saved.
+
+
+     The following is an example of use of the SAVE command:
+
+           ENTER COMMAND
+          ? SAVE
+           ENTER ACTIVE DATA SET I.D. TO SAVE
+          ? 1
+           WHAT DO YOU WISH TO CALL THE NEW MAP
+            ________
+          ? NEWWOLFRG
+           NUMBER OF DATA ITEMS TO BE SAVED     37
+
+
+     The limitations of the SAVE command are as follows:
+
+          -- Only one active map can be saved at a time.
+
+          -- Cannot save cell data.
+
+          -- Maximum number of attributes saved is 4000.

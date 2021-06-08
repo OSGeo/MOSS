@@ -1,0 +1,101 @@
+GENERATE                                                               GENERATE
+
+
+
+     The GENERATE command is summarized as follows:
+
+          GENERATE is a data manipulation command that allows the user to create
+          new MOSS maps interactively at a graphics terminal.  Point, line,
+          polygon, circle, and rectangular features may be created using the
+          graphics cursor.  In addition, point, line, and polygon features may
+          be created by entering actual (x,y) coordinate data via the keyboard.
+          The user is given the option of using another map's header as a
+          template for generating a header for the new map. This feature also
+          carries the projection with it.
+
+          GENERATE is best used in two terminal mode due to the amount of user
+          interaction requiring textual input and graphics output.
+
+     The GENERATE command is specified as follows:
+     (* denotes parameters which can only be entered in a prompted mode)
+
+          GENERATE (new map name)* (template option)* (new map description)*
+          (map data type)* (input mode)* (feature subject)*
+
+
+     The individual parameters of the GENERATE command are described below:
+
+          (new map name) is the name for the map to be created using GENERATE.
+
+          (template option) is a means for the user to copy header and pro-
+          jection information from an existing file to the new file. If Yes
+          is given in response to the prompt, the user is queried for a file 
+          name.
+
+          (new map description) is a description of the map to be created.
+          This information will be stored in the map header.
+
+          (map data type) is the type of feature to be created.  The user may
+          enter POINT, LINE, POLYGON.  Only the first character is required.
+          If the map data type selected is polygon, the user is prompted to
+          select one of the following feature types, POLYGON, CIRCLE, or
+          RECTANGLE, or given the option, QUIT to exit. If the data type is
+          point or line, the user may QUIT to exit. A <return> will cause the
+          next prompt for point or line data to be displayed.
+
+          (input mode) is an option for the user to specify how the new data
+          will be entered.  If the user enters [C]ursor, input will be via the
+          CRT graphics cursor.  If the user enters [KEY]board, input will be
+          via typed-in (x,y) coordinate pairs.  In cursor mode, the command
+          operates within the current window setting.  Note that polygon
+          coordinates must be entered in clockwise order and need not be
+          closed.
+
+          (feature subject) is the subject to be assigned to the new feature.
+
+
+     The following is an example of use of the GENERATE command:
+
+           ENTER COMMAND
+          ? GENERATE
+           WHAT DO YOU WISH TO CALL THE NEW MAP
+            __________
+          ? MDMIGRAT
+           USE ANOTHER MAP'S HEADER AS A TEMPLATE [Y]?
+           ENTER MAPNAME FOR HEADER TEMPLATE:  ? MDRWOLFRG
+          MULE DEER RANGE      WOLF RIDGE         COLORADO  1:24000
+          ------------------------------------------------------------
+           ENTER NEW DESCRIPTION OR RETURN TO RETAIN TEMPLATES DESCRIPTION
+          REVISED MULE DEER MIGRATION ROUTES
+           ENTER DATA TYPE THIS MAP IS TO BE:
+                1 - POINT
+                2 - LINE
+                3 - POLYGON
+                  ? 2
+           KEYBOARD OR CURSOR INPUT (K/C) ? C
+           QUIT (Q) TO EXIT:  ?            (enter <RETURN> to continue)
+           ENTER SUBJECT FOR THIS FEATURE
+          ? MIGRATION ROUTE 1
+           ENTER POINTS FOR FEATURE. TERMINATE WITH T KEY
+           QUIT (Q) TO EXIT:  ? Q
+
+
+     The limitations of the GENERATE command are as follows:
+
+          -- No more than 100 new features per GENERATE process.
+
+          -- Cannot create islands within polygons.
+
+          -- Window must be set for cursor input mode.
+
+          -- No more than 100 subjects in the new map.
+
+          -- Polygons must be entered with the coordinates in clockwise
+             order.
+
+          -- Subjects in the new map will not be in alphabetical order.
+
+          -- Unless the template option is selected, no projection type is
+             assigned to the new map.
+
+          -- Can only enter POINT, LINE, or POLYGON with keyboard input.
