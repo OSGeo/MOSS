@@ -23,6 +23,6 @@ other connection [options](https://libera.chat).
 # License
 
 MOSS (and PC-MOSS) source code is provided under the [Unlicense](https://github.com/ploewe/MOSS/blob/main/LICENSE). 
-The Unlicense was approved as an OSI Approved license by the OSI Board on 
+The Unlicense was approved as an [OSI](https://opensource.org/) license by the OSI Board on 
 2020-06-12.  The documentation is provided under the [Creative Commons Attribution-Share Alike 3.0 License](https://creativecommons.org/licenses/by-sa/3.0/). 
 Any contribution will automatically fall to the same license respectively.
