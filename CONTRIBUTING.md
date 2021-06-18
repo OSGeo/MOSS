@@ -17,8 +17,8 @@ Until we have a better way to communicate otherwise, please create a new
 the MOSS-archive team to discuss it.
 
 You can also connect to the #moss channel through IRC on the *irc.libera.chat*
-network.  Connect directly through your [browser](https://web.libera.chat) or see 
-other connection [options](https://libera.chat).
+network.  Connect directly through your [browser](https://web.libera.chat/?channels=#moss) 
+or see other connection [options](https://libera.chat).
 
 # License
 
