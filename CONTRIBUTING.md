@@ -20,7 +20,6 @@ You can also connect to the #moss channel through IRC on the *irc.libera.chat*
 network.  Connect directly through your [browser](https://web.libera.chat) or see 
 other connection [options](https://libera.chat).
 
-
 # License
 
 MOSS (and PC-MOSS) source code is provided under the [Unlicense](https://github.com/ploewe/MOSS/blob/main/LICENSE). 
