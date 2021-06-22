@@ -12,13 +12,18 @@ into a more easily shareable format.  Please help!
 
 # Communication and Sharing Ideas
 
-Until we have a better way to communicate otherwise, please create a new 
-[issue](https://github.com/ploewe/MOSS/issues) for it. This will allow 
-the MOSS-archive team to discuss it.
+If you are interested in helping archive MOSS (or have questions or ideas 
+related to the archival process) you're encouraged to ask (and/or follow along
+discussions) on the MOSS-archives mailing list, subscribe at: https://lists.osgeo.org/mailman/listinfo/moss-archives
 
 You can also connect to the #moss channel through IRC on the *irc.libera.chat*
 network.  Connect directly through your [browser](https://web.libera.chat/?channels=#moss) 
 or see other connection [options](https://libera.chat).
+
+# Filing a ticket or making changes to the GitHub repository
+
+We warmly welcome ideas and changes to the archived repository, please 
+file your ticket or pull request at https://github.com/ploewe/MOSS/issues
 
 # License
 
