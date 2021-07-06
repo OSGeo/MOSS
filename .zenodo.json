@@ -1,0 +1,42 @@
+{
+    "creators": [
+        {
+            "name": "Reed, Carl N III"
+        },
+        {
+            "name": "Katz, Sol"
+        },
+        {
+            "name": "Frosh, Randy"
+        },
+        {
+            "name": "Davidson, John"
+        },
+        {
+            "name": "Hunter, Anne"
+        },
+        {
+            "name": "Lee, John"
+        }
+    ],
+    "contributors": [
+        {
+            "name": "Löwe, Peter",
+            "affiliation": "OSGeo",
+            "orcid": "0000-0003-2257-0517",
+            "type": "ContactPerson"
+        },
+        {
+            "name": "Nartišs, Māris",
+            "affiliation": "OSGeo",
+            "orcid": "0000-0002-3875-740X",
+            "type": "DataCollector"
+        },
+        {
+            "name": "McKenna, Jeff",
+            "affiliation": "OSGeo",
+            "orcid": "0000-0003-3900-1863",
+            "type": "DataManager"
+        }
+    ]
+}
