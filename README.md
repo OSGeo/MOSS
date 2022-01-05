@@ -1,4 +1,4 @@
-[![DOI](https://zenodo.org/badge/356253588.svg)](https://zenodo.org/badge/latestdoi/356253588)
+[![DOI](https://zenodo.org/badge/383864835.svg)](https://zenodo.org/badge/latestdoi/383864835)
 
 # PC-MOSS Historical Archive
 
