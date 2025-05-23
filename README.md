@@ -1,4 +1,5 @@
 [![DOI](https://zenodo.org/badge/383864835.svg)](https://zenodo.org/badge/latestdoi/383864835)
+[![Release](https://img.shields.io/github/v/release/OSGeo/MOSS)](https://github.com/OSGeo/MOSS/releases)
 
 # PC-MOSS Historical Archive
 
