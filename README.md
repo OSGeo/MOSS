@@ -11,7 +11,8 @@ and then ported to a Data General minicomputer in 1979 and 1980. The first
 US Bureau of Land Management (BLM) installation of MOSS occurred in 1980 at the 
 BLM Oregon State Office. PC-MOSS is the Windows version of MOSS that was 
 developed & released by Solomon 'Sol' Katz, through the BLM. This repository contains 
-the PC-MOSS files, including the FORTRAN language source code.
+the PC-MOSS files, including the FORTRAN language source code.  User manuals 
+are also included in this repository at [/PC-MOSS/manual](PC-MOSS/manual).
 
 # Archive Date
 
